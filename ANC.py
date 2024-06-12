@@ -286,7 +286,7 @@ if submit:
           conn = st.connection('gsheets', type=GSheetsConnection)
           exist = conn.read(worksheet= 'PMTCT', usecols=list(range(21)),ttl=5)
           existing= exist.dropna(how='all')
-          #st.write(existing)
+          st.write(existing)
           #st.write(data)
           updated = pd.concat([existing, df], ignore_index =True)
           conn.update(worksheet = 'PMTCT', data = updated)
