@@ -178,7 +178,7 @@ elif cohort=='YES':
         # artb = arta[arta['DISTRICT']==district]
         # artc = artb[artb['FACILITY']==facility]
         # art = list(artc['ART'].unique())
-        mother = st.number_input("**MOTHER'S ART No.**", min_value=1)
+        mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
     parent = st.radio("**Is this her parent facility**", options=['YES', 'NO'], index=None, horizontal=True)
     if not parent:
