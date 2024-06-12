@@ -174,13 +174,13 @@ elif visit=='NO':
     elif visitfacility =='YES':
          col4,col5 = st.columns([2,1])
          fromfacility= col4.selectbox(label='**Name of her parent facility**',options=ALL, index=None)
-         art = col5.text_input(label= '**Her ART No. at the parent facility:**')
+         art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
     else:
           col4,col5 = st.columns([2,1])
           others = col4.text_input(label= '**Name of her parent facility:**')
 else:
      col4,col5 = st.columns([2,1])
-     ART = col4.text_input(label= '**Her ART No:**')
+     ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
 
 with st.form(key='PMTCT'):
