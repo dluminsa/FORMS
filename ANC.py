@@ -258,8 +258,10 @@ if submit:
              
      else:
           pass
+date = datetime.now().date()
+formatted = date.strftime("%d-%m-%Y")
 
-df = pd.DataFrame([{ 
+df = pd.DataFrame([{'TIME': formatted, 
                     'CLUSTER': cluster,
                     'DISTRICT':district,
                     'FACILITY' : facility,
