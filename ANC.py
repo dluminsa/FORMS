@@ -4,7 +4,7 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 
 st.set_page_config(
-     page_title= PMTCT FORMS'
+     page_title= 'PMTCT FORMS'
 )
 
 # conn = st.connection('gsheets', type=GSheetsConnection)
@@ -293,7 +293,7 @@ if submit:
           updated = pd.concat([existing, df], ignore_index =True)
           conn.update(worksheet = 'PMTCT', data = updated)
           #st.write(updated)
-             st.write(formatted)
+             #st.write(formatted)
           st.success('Your data above has been submitted')
      except:
             st.write("Couldn't submit, poor network") 
