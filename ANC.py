@@ -260,7 +260,7 @@ if submit:
           pass
 date = datetime.now().date()
 formatted = date.strftime("%d-%m-%Y")
-st.write(formatted)
+#st.write(formatted)
 df = pd.DataFrame([{ 'DATE': formatted,
                     'CLUSTER': cluster,
                     'DISTRICT':district,
@@ -283,7 +283,7 @@ df = pd.DataFrame([{ 'DATE': formatted,
                     'CODE': PMTCT,
                     'TELEPHONE':phone}]) 
 
-st.write(df)
+#st.write(df)
 if submit:
      try:
           conn = st.connection('gsheets', type=GSheetsConnection)
