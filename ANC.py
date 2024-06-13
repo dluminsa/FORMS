@@ -260,7 +260,7 @@ if submit:
           pass
 date = datetime.now().date()
 formatted = date.strftime("%d-%m-%Y")
-
+st.write(formatted)
 df = pd.DataFrame([{'DATE': formatted, 
                     'CLUSTER': cluster,
                     'DISTRICT':district,
