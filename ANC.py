@@ -283,6 +283,7 @@ df = pd.DataFrame([{
                     'CODE': PMTCT,
                     'TELEPHONE':phone}]) 
 
+st.write(df)
 if submit:
      try:
           conn = st.connection('gsheets', type=GSheetsConnection)
