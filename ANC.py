@@ -260,7 +260,7 @@ if submit:
           pass
 date = datetime.now().date()
 formatted = date.strftime("%d-%m-%Y")
-
+st.write(formatted)
 df = pd.DataFrame([{'DATE': formatted, 
                     'CLUSTER': cluster,
                     'DISTRICT':district,
@@ -293,7 +293,7 @@ if submit:
           updated = pd.concat([existing, df], ignore_index =True)
           conn.update(worksheet = 'PMTCT', data = updated)
           #st.write(updated)
-             #st.write(formatted)
+          
           st.success('Your data above has been submitted')
      except:
             st.write("Couldn't submit, poor network") 
