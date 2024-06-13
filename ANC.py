@@ -4,7 +4,7 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 
 st.set_page_config(
-     page_title= 'PMTCT FORMS'
+     page_title= PMTCT FORMS'
 )
 
 # conn = st.connection('gsheets', type=GSheetsConnection)
