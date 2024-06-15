@@ -221,7 +221,9 @@ if cohort:
             coly.warning("In put the date when the PCR was done")
             st.stop()   
         else:
-            data = pd.DataFrame([{ 
+            date = datetime.now().date()
+            formatted = date.strftime("%d-%m-%Y")
+            data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
                  'CLUSTER': cluster,                 
                 'DISTRICT': district,
                 'FACILITY': facility,
