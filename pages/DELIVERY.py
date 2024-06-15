@@ -224,8 +224,10 @@ if cohort:
             coly.warning("In put the date of the delivery out come")
             st.stop()   
         else:
-            data = pd.DataFrame([{ 'CLUSTER': cluster,
-                                  
+            date = datetime.now().date()
+            formatted = date.strftime("%d-%m-%Y")
+            data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+                'CLUSTER': cluster,                
                 'DISTRICT': district,
                 'FACILITY': facility,
                 'IN COHORT?' : cohort,
@@ -235,13 +237,14 @@ if cohort:
                 'IDI FACILITY': parentc,
                 'OTHER FACILITY': parentd,
                 'OUTCOME': outcome,
+                'OTHERS': others,
                 'DATE OF DELIVERY': date
 
             }])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
             #data = data.transpose()
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(11)),ttl=5)
+                exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
                 existing= exist.dropna(how='all')
                     #st.write(existing)
                 updated = pd.concat([existing, data], ignore_index =True)
