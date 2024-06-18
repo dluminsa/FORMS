@@ -239,7 +239,7 @@ if submit:
           colx.write('**NOT SUBMITTED**')
           coly.warning("You didn't provide the mother's GESTATION AGE")
           st.stop()
-     if not EDD and not dates:
+     if not dates:
           colx.write('**NOT SUBMITTED**')
           coly.warning("In put either her EDD or the date she came for this ANC visit")
           st.stop() 
