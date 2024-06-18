@@ -169,7 +169,7 @@ visit = st.radio(label='**Is this mother from this facility?**', options=['YES',
 if not visit:
      st.stop()
 elif visit=='NO':
-    visitfacility = st.radio(label='**Is her parent facility from this region?**', options=['YES','NO'], index=None, horizontal=True)
+    visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
     if not visitfacility:
           st.stop()
     elif visitfacility =='YES':
