@@ -238,7 +238,7 @@ if cohort:
                 'IDI FACILITY': parentc,
                 'OTHER FACILITY': parentd,
                 'OUTCOME': outcome,
-                'OTHERS': others,
+                #'OTHERS': others,
                 'DATE OF DELIVERY': date
 
             }])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
