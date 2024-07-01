@@ -238,16 +238,25 @@ if cohort:
                 'AGE': AGE,
                 'DATE OF PCR': date
             }])     
-        #st.write(data)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-        try:
-            conn = st.connection('gsheets', type=GSheetsConnection)
-            exist = conn.read(worksheet= 'PCR', usecols=list(range(12)),ttl=5)
-            existing= exist.dropna(how='all')
-            #st.write(existing)
-            updated = pd.concat([existing, data], ignore_index =True)
-            conn.update(worksheet = 'PCR', data = updated)
-            st.success('Your data above has been submitted')
-            #time.sleep(2)
-            st.rerun()
-        except:
-             st.write("Couldn't submit, poor network")
+        #st.write(data)    
+        conn = st.connection('gsheets', type=GSheetsConnection)
+        exist = conn.read(worksheet= 'PCR', usecols=list(range(12)),ttl=5)
+        existing= exist.dropna(how='all')
+        #st.write(existing)
+        updated = pd.concat([existing, data], ignore_index =True)
+        conn.update(worksheet = 'PCR', data = updated)
+        st.success('Your data above has been submitted')
+        #time.sleep(2)
+        st.rerun()
+        # try:
+        #     conn = st.connection('gsheets', type=GSheetsConnection)
+        #     exist = conn.read(worksheet= 'PCR', usecols=list(range(12)),ttl=5)
+        #     existing= exist.dropna(how='all')
+        #     #st.write(existing)
+        #     updated = pd.concat([existing, data], ignore_index =True)
+        #     conn.update(worksheet = 'PCR', data = updated)
+        #     st.success('Your data above has been submitted')
+        #     #time.sleep(2)
+        #     st.rerun()
+        # except:
+        #      st.write("Couldn't submit, poor network")
