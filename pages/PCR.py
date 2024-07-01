@@ -247,7 +247,7 @@ if cohort:
             updated = pd.concat([existing, data], ignore_index =True)
             conn.update(worksheet = 'PCR', data = updated)
             st.success('Your data above has been submitted')
-            time.sleep(2)
+            #time.sleep(2)
             st.rerun()
         except:
              st.write("Couldn't submit, poor network")
