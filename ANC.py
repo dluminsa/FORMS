@@ -377,7 +377,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
-          colb.write('**EDD: {EDD}**')
+          colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           colb.write(f'**CODE: {PMTCT}**')
 if not st.session_state.preview_clicked:
