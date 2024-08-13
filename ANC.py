@@ -392,6 +392,7 @@ else:
                     updated = pd.concat([existing, df], ignore_index =True)
                     conn.update(worksheet = 'PMTCT', data = updated)         
                     st.success('Your data above has been submitted')
+                    time.sleep(3)
                     st.write('RELOADING PAGE')
                     progress_bar = st.progress(0)
                     st.markdown("""
