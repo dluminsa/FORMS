@@ -373,9 +373,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**ART No: {ART}**')
           cola.write(f'**NAME: {Name}**')
           cola.write(f'**HER DISTRICT: {Age}**')
-          colb.write(f'**SUBCOUNTY: {sub}**'
+          colb.write(f'**SUBCOUNTY: {sub}**')
           colb.write(f'**PARISH: {par}**')
-          colb.write(f'**VILLAGE: {vil}**'
+          colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write('**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
