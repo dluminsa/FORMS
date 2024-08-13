@@ -183,123 +183,206 @@ else:
      col4,col5 = st.columns([2,1])
      ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
+if 'preview_clicked' not in st.session_state:
+    st.session_state.preview_clicked = False
+if 'submit_clicked' not in st.session_state:
+    st.session_state.submit_clicked = False
 
-with st.form(key='PMTCT',clear_on_submit=True ):
-      coly, colz = st.columns([4,1])
-      Name = coly.text_input(label="**Mother's name**")
-      Ag = colz.number_input(label='**Age in years**', max_value=50)
-      Age = int(Ag)
-      cole,colf = st.columns(2)
-      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50)
-      phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
-      EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
-      dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
-      PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
-      colf.write("MOTHER'S ADDRESS")
-      dist = colf.text_input("**DISTRICT**")
-      sub = colf.text_input("**SUBCOUNTY**")
-      par = colf.text_input("**PARISH**")
-      vil = colf.text_input("**VILLAGE**")
-      
-      
-      submit = st.form_submit_button(label='**SUBMIT**')
-      
-if submit:
-     colx,coly = st.columns([1,2])
-     if visit=='YES':
-          if not ART:
+     coly, colz = st.columns([4,1])
+     Name = coly.text_input(label="**Mother's name**")
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     
+     cole,colf = st.columns(2)
+     GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
+     phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
+     EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
+     dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
+     PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
+     colf.write("MOTHER'S ADDRESS")
+     dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+     sub = colf.text_input("**SUBCOUNTY**")
+     par = colf.text_input("**PARISH**")
+     vil = colf.text_input("**VILLAGE**")
+     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+          
+     if preview:
+          colx,coly = st.columns([1,2])
+          if visit=='YES':
+               if not ART:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("ART number not provided, input and try again")
+                    st.stop()
+               # else:
+               #      st.session_state.preview_clicked = False  
+          # else:
+          #      st.session_state.preview_clicked = False 
+          if not facility:              
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("You didn't select the reporting facility, select and try again")
+                    st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+
+          if visit =='NO':
+               if visitfacility=='YES' and not fromfacility:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("You didn't provide her parent facility")
+                    st.stop()
+               elif visitfacility =='NO' and not others:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("You didn't provide her parent facility") 
+                    st.stop() 
+          #      else:
+          #           st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False      
+          if not Name:
                colx.write('**NOT SUBMITTED**')
-               coly.warning("ART number not provided, input and try again")
+               coly.warning("You didn't provide the mother's name")
+               st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+          if visitdistrict == 'NO':
+               if not otherdistrict:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("You didn't provide her other district") 
+                    st.stop()  
+               elif not otherfacility:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("You didn't provide her parent facility") 
+                    st.stop()  
+          #      else:
+          #           st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False           
+          if not Ag:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("You didn't provide the mother's AGE")
                st.stop()
           else:
-               pass     
-     if not facility:
+               Age = int(Ag) 
+               # st.session_state.preview_clicked = False
+          if not GA:
                colx.write('**NOT SUBMITTED**')
-               coly.warning("You didn't select the reporting facility, select and try again")
-               st.stop() 
-
-     if visit =='NO':
-          if visitfacility=='YES' and not fromfacility:
-               colx.write('**NOT SUBMITTED**')
-               coly.warning("You didn't provide her parent facility")
+               coly.warning("You didn't provide the mother's GESTATION AGE")
                st.stop()
-          elif visitfacility =='NO' and not others:
+          #else:
+               # st.session_state.preview_clicked = False
+          if not dates:
                colx.write('**NOT SUBMITTED**')
-               coly.warning("You didn't provide her parent facility") 
-               st.stop()       
-     if not Name:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("You didn't provide the mother's name")
-          st.stop() 
-     if not Ag:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("You didn't provide the mother's AGE")
-          st.stop() 
-     if not GA:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("You didn't provide the mother's GESTATION AGE")
-          st.stop()
-     if not dates:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("In put either her EDD or the date she came for this ANC visit")
-          st.stop() 
-     if not PMTCT:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("YOU DIDN'T CHOOSE A PMTCT CODE")
-          st.stop() 
-     if not vil:
-          colx.write('**NOT SUBMITTED**')
-          coly.warning("Mother's village is required")
-          st.stop() 
-     if phone: 
-          if len(phone)!=10:
-               colx.write('**NOT SUBMITTED**')
-               coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+               coly.warning("In put either her ANC VISIT DATE")
                st.stop() 
-             
+          # else:
+          #      st.session_state.preview_clicked = False
+          if not EDD:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("In put either her EDD")
+               st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+          if not PMTCT:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("YOU DIDN'T CHOOSE A PMTCT CODE")
+               st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+          if not vil:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("Mother's village is required")
+               st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+          if visitdistrict =='YES':
+               if not ididistrict: 
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("SELECT AN IDI SUPPORTED DISTRICT")
+                    st.stop() 
+               # else:
+               #      st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False
+          if phone: 
+               if len(phone)!=10:
+                    colx.write('**NOT SUBMITTED**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop() 
+               # else:
+               #      st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False
+          if not dist:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("In put either her home District")
+               st.stop() 
+          else:
+               st.session_state.preview_clicked = False
+          if not vil:
+               colx.write('**NOT SUBMITTED**')
+               coly.warning("You didn't provide her village")
+               st.stop()
+          else:
+               st.session_state.preview_clicked = True
+
+if st.session_state.preview_clicked and not st.session_state.submit_clicked:
+# if not st.session_state.submit_clicked:    
+     date = datetime.now().date()
+     formatted = date.strftime("%d-%m-%Y")
+     #st.write(formatted)
+     df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+                         'CLUSTER': cluster,
+                         'FACILITY DISTRICT':district,
+                         'HEALTH FACILITY' : facility,
+                         'IS THIS HER PARENT FACILITY?' : visit,
+                         'ART No.' : ART,
+                         'MWP IDI DISTRICT?': visitdistrict,
+                         'IDI SUPPORTED DISTRICT':ididistrict,
+                         'FROM IDI FACILITY?': visitfacility,
+                         'IDI PARENT FACILITY?'  : fromfacility,
+                         'OTHER PARENT FACILITY': others,
+                         'ART NO AT PARENT FACILITY': art,
+                         'OTHER DISTRICT': otherdistrict,
+                         'OUTSIDE FACILITY': otherfacility,
+                         'NAME': Name,
+                         'AGE': Age,
+                         'HER DISTRICT':dist,
+                         'SUBCOUNTY':sub,
+                         'PARISH':par,
+                         'VILLAGE':vil,
+                         'TELEPHONE':phone,
+                         'GESTATION AGE': GA,
+                         'EDD': EDD,
+                         'ANC DATE':dates,
+                         'CODE': PMTCT,
+                         }]) 
+
+     st.write(df)
+if not st.session_state.preview_clicked:
+     st.stop()
+else:
+     submit = st.button('Submit')
+
+     if not submit:
+          st.session_state.submit_clicked = False
+          st.stop()
      else:
-          pass
-date = datetime.now().date()
-formatted = date.strftime("%d-%m-%Y")
-#st.write(formatted)
-df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-                    'CLUSTER': cluster,
-                    'DISTRICT':district,
-                    'FACILITY' : facility,
-                    'VISITOR' : visit,
-                    'ART No.' : ART,
-                    'REGIONAL': visitfacility,
-                    'PARENT'  : fromfacility,
-                    'ART NO.P': art,
-                    'O.PARENT': others,
-                    'NAME': Name,
-                    'AGE': Age,
-                    'HER DISTRICT':dist,
-                    'SUBCOUNTY':sub,
-                    'PARISH':par,
-                    'VILLAGE':vil,
-                    'GA': GA,
-                    'EDD': EDD,
-                    'AncDATE':dates,
-                    'CODE': PMTCT,
-                    'TELEPHONE':phone}]) 
+          st.session_state.submit_clicked = True
 
-#st.write(df)
-if submit:
-     try:
-          conn = st.connection('gsheets', type=GSheetsConnection)
-          exist = conn.read(worksheet= 'PMTCT', usecols=list(range(21)),ttl=5)
-          existing= exist.dropna(how='all')
-          #st.write(existing)
-          #st.write(data)
-          updated = pd.concat([existing, df], ignore_index =True)
-          conn.update(worksheet = 'PMTCT', data = updated)
-          #st.write(updated)
-          
-          st.success('Your data above has been submitted')
-     except:
-            st.write("Couldn't submit, poor network") 
+          if st.session_state.submit_clicked:
+               try:
+                    conn = st.connection('gsheets', type=GSheetsConnection)
+                    exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
+                    existing= exist.dropna(how='all')
+                    updated = pd.concat([existing, df], ignore_index =True)
+                    conn.update(worksheet = 'PMTCT', data = updated)         
+                    st.success('Your data above has been submitted')
+                    st.write('RELOADING PAGE')
+                    progress_bar = st.progress(0)
+                    st.markdown("""
+                    <meta http-equiv="refresh" content="0">
+                         """, unsafe_allow_html=True)
 
+               except:
+                    st.write("Couldn't submit, poor network") 
 
 
 
