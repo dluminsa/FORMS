@@ -206,7 +206,7 @@ if 'submit_clicked' not in st.session_state:
 with st.form(key='PMTCT'):
      coly, colz = st.columns([4,1])
      Name = coly.text_input(label="**Mother's name**")
-     Age = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
      
      cole,colf = st.columns(2)
      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
@@ -372,7 +372,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
           cola.write(f'**ART No: {ART}**')
           cola.write(f'**NAME: {Name}**')
-          cola.write(f'**AGE: {Age}**')
+          cola.write(f'**AGE: {Ag}**')
           cola.write(f'**HER DISTRICT: {dist}**')
           colb.write(f'**SUBCOUNTY: {sub}**')
           colb.write(f'**PARISH: {par}**')
@@ -381,6 +381,25 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           colb.write(f'**CODE: {PMTCT}**')
+     # elif visit =='NO':
+     #      if visitdistrict == 'YES'
+     #           cola,colb = st.columns(2)
+     #           cola.write(f'**CLUSTER: {cluster}**')
+     #           cola.write(f'**FACILITY DISTRICT: {district}**')
+     #           cola.write(f'**HEALTH FACILITY: {facility}**')
+     #           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+     #           cola.write(f'**ART No: {ART}**')
+     #           cola.write(f'**NAME: {Name}**')
+     #           cola.write(f'**AGE: {Ag}**')
+     #           cola.write(f'**HER DISTRICT: {dist}**')
+     #           colb.write(f'**SUBCOUNTY: {sub}**')
+     #           colb.write(f'**PARISH: {par}**')
+     #           colb.write(f'**VILLAGE: {vil}**')
+     #           colb.write(f'**GESTATION AGE: {GA}**')
+     #           colb.write(f'**EDD: {EDD}**')
+     #           colb.write(f'**ANC DATE: {dates}**')
+     #           colb.write(f'**CODE: {PMTCT}**')
+     
 if not st.session_state.preview_clicked:
      st.stop()
 else:
