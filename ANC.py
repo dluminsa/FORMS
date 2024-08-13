@@ -206,7 +206,7 @@ if 'submit_clicked' not in st.session_state:
 with st.form(key='PMTCT'):
      coly, colz = st.columns([4,1])
      Name = coly.text_input(label="**Mother's name**")
-     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     Age = colz.number_input(label='**Age in years**', max_value=50, value=None)
      
      cole,colf = st.columns(2)
      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
