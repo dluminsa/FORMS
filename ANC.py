@@ -1,23 +1,14 @@
 import pandas as pd 
 from datetime import datetime
-from streamlit_gsheets import GSheetsConnection
+#from streamlit_gsheets import GSheetsConnection
 import streamlit as st
+import time
 
 st.set_page_config(
      page_title= 'PMTCT FORMS'
 )
 
-# conn = st.connection('gsheets', type=GSheetsConnection)
-# exist = conn.read(worksheet= 'PMTCT', usecols=list(range(21)),ttl=5)
-# existing= exist.dropna(how='all')
 
-# try:
-#   st.dataframe(existing)
-# except:
-#      st.write("Poor network, can't connect to database")
-
-
-# Define the districts and their facilities
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
     "KYOTERA": ["KYOTERA", "RAKAI"],
@@ -126,7 +117,14 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "SEGUKU HC II","TASO ENTEBBE SPECIAL CLINIC","TRIAM MEDICAL CENTRE HC II","TTIKALU HC III","WAGAGAI HC IV",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
-                                                     
+ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+
+file = r'DISTRICT.csv'
+dis = pd.read_csv(file)
+dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
+alldistricts = dis1['DISTRICT'].unique()
+alldistrictsidi = dis['DISTRICT'].unique()
 
 # Title of the Streamlit app
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
@@ -134,6 +132,7 @@ st.markdown("<h4><b>PMTCT DASHBOARD ANC DATA ENTRY FORM</b></h4>", unsafe_allow_
 st.markdown('***means required**')
 
 ART =  ""
+aa = ''
 facility = ""
 visitfacility = ""
 others = ""
@@ -144,6 +143,11 @@ EDD = ""
 dates = ""
 PMTCT =''
 district = ''
+visitdistrict = ''
+ididistrict= ''
+otherfacility = ''
+otherdistrict = ''
+Age= ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
 
@@ -158,7 +162,7 @@ with cola:
             st.stop()
     else:        
         facilities = FACILITIES[district]
-        facility = st.selectbox(f"**Name of this Reporting facility in {district}:**", facilities, index=None)
+        facility = st.selectbox(f"**Name of this Reporting facility in {district}:***", facilities, index=None)
     
 #Display the selection
 with colb:
@@ -169,16 +173,26 @@ visit = st.radio(label='**Is this mother from this facility?**', options=['YES',
 if not visit:
      st.stop()
 elif visit=='NO':
-    visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
-    if not visitfacility:
-          st.stop()
-    elif visitfacility =='YES':
-         col4,col5 = st.columns([2,1])
-         fromfacility= col4.selectbox(label='**Name of her parent facility**',options=ALL, index=None)
-         art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
-    else:
-          col4,col5 = st.columns([2,1])
-          others = col4.text_input(label= '**Name of her parent facility:**')
+    visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
+    if not visitdistrict:
+         st.stop()
+    elif visitdistrict =='YES':
+         colr, colt = st.columns([1,1])
+         ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
+         visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
+         if not visitfacility:
+             st.stop()
+         elif visitfacility =='YES':
+             col4,col5 = st.columns([2,1])
+             fromfacility= col4.selectbox(label='**Name of her parent facility***',options=ALL, index=None)
+             art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
+         else:
+             col4,col5 = st.columns([2,1])
+             others = col4.text_input(label= '**Name of her parent facility:**')
+    elif visitdistrict=='NO':
+         colr, colt = st.columns([1,1])
+         otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
+         otherfacility = colt.text_input('**Write here the facility name from this district**') 
 else:
      col4,col5 = st.columns([2,1])
      ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
@@ -187,35 +201,44 @@ if 'preview_clicked' not in st.session_state:
     st.session_state.preview_clicked = False
 if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
+
+#if not st.session_state.preview_clicked:
+with st.form(key='PMTCT'):
+     coly, colz = st.columns([4,1])
+     Name = coly.text_input(label="**Mother's name**")
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
      
-# with st.form(key='PMTCT'):
-coly, colz = st.columns([4,1])
-Name = coly.text_input(label="**Mother's name**")
-Ag = colz.number_input(label='**Age in years**', max_value=50, value=None) 
-cole,colf = st.columns(2)
-GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
-phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
-EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
-dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
-PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
-colf.write("MOTHER'S ADDRESS")
-dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-sub = colf.text_input("**SUBCOUNTY**")
-par = colf.text_input("**PARISH**")
-vil = colf.text_input("**VILLAGE**")
-preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
+     cole,colf = st.columns(2)
+     GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
+     phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
+     EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
+     dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
+     PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
+     colf.write("MOTHER'S ADDRESS")
+     dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+     sub = colf.text_input("**SUBCOUNTY**")
+     par = colf.text_input("**PARISH**")
+     vil = colf.text_input("**VILLAGE**")
+     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
           
-if preview:
+     if preview:
           colx,coly = st.columns([1,2])
           if visit=='YES':
                if not ART:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("ART number not provided, input and try again")
                     st.stop()
+               # else:
+               #      st.session_state.preview_clicked = False  
+          # else:
+          #      st.session_state.preview_clicked = False 
           if not facility:              
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't select the reporting facility, select and try again")
                     st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
+
           if visit =='NO':
                if visitfacility=='YES' and not fromfacility:
                     colx.write('**NOT SUBMITTED**')
@@ -224,11 +247,17 @@ if preview:
                elif visitfacility =='NO' and not others:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
-                    st.stop()       
+                    st.stop() 
+          #      else:
+          #           st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False      
           if not Name:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's name")
                st.stop() 
+          # else:
+          #      st.session_state.preview_clicked = False
           if visitdistrict == 'NO':
                if not otherdistrict:
                     colx.write('**NOT SUBMITTED**')
@@ -237,7 +266,11 @@ if preview:
                elif not otherfacility:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
-                    st.stop()          
+                    st.stop()  
+          #      else:
+          #           st.session_state.preview_clicked = False
+          # else:
+          #      st.session_state.preview_clicked = False           
           if not Ag:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's AGE")
@@ -306,6 +339,7 @@ if preview:
           else:
                st.session_state.preview_clicked = True
 
+
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
 # if not st.session_state.submit_clicked:    
      date = datetime.now().date()
@@ -366,12 +400,6 @@ else:
 
                except:
                     st.write("Couldn't submit, poor network") 
-
-
-
-
-
-
 
 
 
