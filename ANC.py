@@ -313,19 +313,11 @@ with st.form(key='PMTCT'):
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("SELECT AN IDI SUPPORTED DISTRICT")
                     st.stop() 
-               # else:
-               #      st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False
           if phone: 
                if len(phone)!=10:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
                     st.stop() 
-               # else:
-               #      st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False
           if not dist:
                colx.write('**NOT SUBMITTED**')
                coly.warning("In put either her home District")
@@ -372,7 +364,22 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                          'CODE': PMTCT,
                          }]) 
 
-     st.write(df)
+     if visit =='YES'
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**ART No: {ART}**')
+          cola.write(f'**NAME: {Name}**)
+          cola.write(f'**HER DISTRICT: {Age}**')
+          colb.write(f'**SUBCOUNTY: {sub}**'
+          colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**'
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write('**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
 if not st.session_state.preview_clicked:
      st.stop()
 else:
