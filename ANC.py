@@ -187,11 +187,11 @@ if 'preview_clicked' not in st.session_state:
     st.session_state.preview_clicked = False
 if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
+     
 with st.form(key='PMTCT'):
      coly, colz = st.columns([4,1])
      Name = coly.text_input(label="**Mother's name**")
-     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
-     
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None) 
      cole,colf = st.columns(2)
      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
      phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
@@ -206,24 +206,17 @@ with st.form(key='PMTCT'):
      
      preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
           
-     if preview:
+if preview:
           colx,coly = st.columns([1,2])
           if visit=='YES':
                if not ART:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("ART number not provided, input and try again")
                     st.stop()
-               # else:
-               #      st.session_state.preview_clicked = False  
-          # else:
-          #      st.session_state.preview_clicked = False 
           if not facility:              
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't select the reporting facility, select and try again")
                     st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
-
           if visit =='NO':
                if visitfacility=='YES' and not fromfacility:
                     colx.write('**NOT SUBMITTED**')
@@ -232,17 +225,11 @@ with st.form(key='PMTCT'):
                elif visitfacility =='NO' and not others:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
-                    st.stop() 
-          #      else:
-          #           st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False      
+                    st.stop()       
           if not Name:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's name")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
           if visitdistrict == 'NO':
                if not otherdistrict:
                     colx.write('**NOT SUBMITTED**')
@@ -251,11 +238,7 @@ with st.form(key='PMTCT'):
                elif not otherfacility:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
-                    st.stop()  
-          #      else:
-          #           st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False           
+                    st.stop()          
           if not Ag:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's AGE")
