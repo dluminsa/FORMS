@@ -203,6 +203,7 @@ with st.form(key='PMTCT'):
      sub = colf.text_input("**SUBCOUNTY**")
      par = colf.text_input("**PARISH**")
      vil = colf.text_input("**VILLAGE**")
+     
      preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
           
      if preview:
