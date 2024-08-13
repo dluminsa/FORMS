@@ -394,6 +394,7 @@ else:
                     st.success('Your data above has been submitted')
                     time.sleep(3)
                     st.write('RELOADING PAGE')
+                    time.sleep(2)
                     progress_bar = st.progress(0)
                     st.markdown("""
                     <meta http-equiv="refresh" content="0">
