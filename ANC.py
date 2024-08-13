@@ -188,23 +188,22 @@ if 'preview_clicked' not in st.session_state:
 if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
      
-with st.form(key='PMTCT'):
-     coly, colz = st.columns([4,1])
-     Name = coly.text_input(label="**Mother's name**")
-     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None) 
-     cole,colf = st.columns(2)
-     GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
-     phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
-     EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
-     dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
-     PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
-     colf.write("MOTHER'S ADDRESS")
-     dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-     sub = colf.text_input("**SUBCOUNTY**")
-     par = colf.text_input("**PARISH**")
-     vil = colf.text_input("**VILLAGE**")
-     
-     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+# with st.form(key='PMTCT'):
+coly, colz = st.columns([4,1])
+Name = coly.text_input(label="**Mother's name**")
+Ag = colz.number_input(label='**Age in years**', max_value=50, value=None) 
+cole,colf = st.columns(2)
+GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
+phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
+EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
+dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
+PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
+colf.write("MOTHER'S ADDRESS")
+dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+sub = colf.text_input("**SUBCOUNTY**")
+par = colf.text_input("**PARISH**")
+vil = colf.text_input("**VILLAGE**")
+preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
           
 if preview:
           colx,coly = st.columns([1,2])
