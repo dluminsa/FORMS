@@ -364,7 +364,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                          'CODE': PMTCT,
                          }]) 
 
-     if visit =='YES'
+     if visit =='YES':
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
