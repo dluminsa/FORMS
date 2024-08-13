@@ -371,7 +371,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**HEALTH FACILITY: {facility}**')
           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
           cola.write(f'**ART No: {ART}**')
-          cola.write(f'**NAME: {Name}**)
+          cola.write(f'**NAME: {Name}**')
           cola.write(f'**HER DISTRICT: {Age}**')
           colb.write(f'**SUBCOUNTY: {sub}**'
           colb.write(f'**PARISH: {par}**')
