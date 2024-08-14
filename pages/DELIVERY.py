@@ -2,6 +2,7 @@ import pandas as pd
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 import streamlit as st
+import time
 
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
@@ -158,7 +159,7 @@ if not cohort:
 elif cohort=='YES':
         try:
             conn = st.connection('gsheets', type=GSheetsConnection)
-            exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
+            exist = conn.read(worksheet= 'PMTCT', usecols=list(range(27)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
             numbers = arts['ART No.'].unique()
