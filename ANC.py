@@ -148,6 +148,7 @@ ididistrict= ''
 otherfacility = ''
 otherdistrict = ''
 Age= ''
+ID  = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
 
@@ -173,6 +174,17 @@ visit = st.radio(label='**Is this mother from this facility?**', options=['YES',
 if not visit:
      st.stop()
 elif visit=='NO':
+    def generate_unique_number():
+    f = dt.datetime.now()  # Get the current datetime
+    g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
+    h = g.split('.')[1]  # Extract the microseconds part of the formatted string
+    j = h[1:5]  # Get the second through fifth digits of the microseconds part
+    return int(j)  # Convert the sliced string to an intege
+
+# Initialize the unique number in session state if it doesn't exist
+    if 'unique_number' not in st.session_state:
+         st.session_state['unique_number'] = generate_unique_number()
+    ID = st.session_state['unique_number']
     visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
     if not visitdistrict:
          st.stop()
@@ -202,15 +214,16 @@ if 'preview_clicked' not in st.session_state:
 if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
 
-#if not st.session_state.preview_clicked:
 with st.form(key='PMTCT'):
      coly, colz = st.columns([4,1])
      Name = coly.text_input(label="**Mother's name**")
      Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
      
-     cole,colf = st.columns(2)
+     cole,colf, colg = st.columns([1,2,2])
      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
-     phone = colf.text_input("**Mother's Telephone Number**", placeholder='eg 07XXXXXXXX')
+     phone = colf.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+     phone2 = colg.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+     cole,colf = st.columns(2)
      EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
      dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
      PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
@@ -228,16 +241,11 @@ with st.form(key='PMTCT'):
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("ART number not provided, input and try again")
                     st.stop()
-               # else:
-               #      st.session_state.preview_clicked = False  
-          # else:
-          #      st.session_state.preview_clicked = False 
+
           if not facility:              
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't select the reporting facility, select and try again")
                     st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
 
           if visit =='NO':
                if visitfacility=='YES' and not fromfacility:
@@ -247,17 +255,11 @@ with st.form(key='PMTCT'):
                elif visitfacility =='NO' and not others:
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
-                    st.stop() 
-          #      else:
-          #           st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False      
+                    st.stop()     
           if not Name:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's name")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
           if visitdistrict == 'NO':
                if not otherdistrict:
                     colx.write('**NOT SUBMITTED**')
@@ -267,47 +269,39 @@ with st.form(key='PMTCT'):
                     colx.write('**NOT SUBMITTED**')
                     coly.warning("You didn't provide her parent facility") 
                     st.stop()  
-          #      else:
-          #           st.session_state.preview_clicked = False
-          # else:
-          #      st.session_state.preview_clicked = False           
+       
           if not Ag:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's AGE")
                st.stop()
           else:
                Age = int(Ag) 
-               # st.session_state.preview_clicked = False
+
           if not GA:
                colx.write('**NOT SUBMITTED**')
                coly.warning("You didn't provide the mother's GESTATION AGE")
                st.stop()
-          #else:
-               # st.session_state.preview_clicked = False
+
           if not dates:
                colx.write('**NOT SUBMITTED**')
                coly.warning("In put either her ANC VISIT DATE")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
+
           if not EDD:
                colx.write('**NOT SUBMITTED**')
                coly.warning("In put either her EDD")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
+
           if not PMTCT:
                colx.write('**NOT SUBMITTED**')
                coly.warning("YOU DIDN'T CHOOSE A PMTCT CODE")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
+
           if not vil:
                colx.write('**NOT SUBMITTED**')
                coly.warning("Mother's village is required")
                st.stop() 
-          # else:
-          #      st.session_state.preview_clicked = False
+
           if visitdistrict =='YES':
                if not ididistrict: 
                     colx.write('**NOT SUBMITTED**')
@@ -362,6 +356,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                          'EDD': EDD,
                          'ANC DATE':dates,
                          'CODE': PMTCT,
+                         'UNIQUE ID': ID,
                          }]) 
 
      if visit =='YES':
@@ -381,24 +376,80 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           colb.write(f'**CODE: {PMTCT}**')
-     # elif visit =='NO':
-     #      if visitdistrict == 'YES'
-     #           cola,colb = st.columns(2)
-     #           cola.write(f'**CLUSTER: {cluster}**')
-     #           cola.write(f'**FACILITY DISTRICT: {district}**')
-     #           cola.write(f'**HEALTH FACILITY: {facility}**')
-     #           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-     #           cola.write(f'**ART No: {ART}**')
-     #           cola.write(f'**NAME: {Name}**')
-     #           cola.write(f'**AGE: {Ag}**')
-     #           cola.write(f'**HER DISTRICT: {dist}**')
-     #           colb.write(f'**SUBCOUNTY: {sub}**')
-     #           colb.write(f'**PARISH: {par}**')
-     #           colb.write(f'**VILLAGE: {vil}**')
-     #           colb.write(f'**GESTATION AGE: {GA}**')
-     #           colb.write(f'**EDD: {EDD}**')
-     #           colb.write(f'**ANC DATE: {dates}**')
-     #           colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONEE: {phone}**')     
+            
+      if visitfacility=='YES':
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
+          cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
+          cola.write(f'**IDI PARENT FACILITY?: {fromfacility}**')
+          cola.write(f'**OTHER PARENT FACILITY: {others}**')
+          cola.write(f'**ART NO AT PARENT FACILITY: {art}**')
+          colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          colb.write(f'**SUBCOUNTY: {sub}**')
+          colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONEE: {phone}**')
+
+      if visitfacility =='NO':
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
+          cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
+          cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          colb.write(f'**SUBCOUNTY: {sub}**')
+          colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONEE: {phone}**')
+                     
+      if visitdistrict =='NO':
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**OTHER DISTRICT: {otherdistrict}**')
+          cola.write(f'**OUTSIDE FACILITY?: {otherfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          colb.write(f'**SUBCOUNTY: {sub}**')
+          colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONEE: {phone}**')
+                 
+ 
      
 if not st.session_state.preview_clicked:
      st.stop()
@@ -414,7 +465,7 @@ else:
           if st.session_state.submit_clicked:
                try:
                     conn = st.connection('gsheets', type=GSheetsConnection)
-                    exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
+                    exist = conn.read(worksheet= 'PMTCT', usecols=list(range(27)),ttl=5)
                     existing= exist.dropna(how='all')
                     updated = pd.concat([existing, df], ignore_index =True)
                     conn.update(worksheet = 'PMTCT', data = updated)         
