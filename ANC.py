@@ -168,13 +168,6 @@ if 'unique_number' not in st.session_state:
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
-     if cluster == 'KALANGALA':
-          district == 'KALANGALA'
-          st.write('**DISTRICT IS KALANGALA**')
-     elif cluster == 'WAKISO':
-          district == 'WAKISO'
-          st.write('**DISTRICT IS WAKISO**')
-     else:
          districts = CLUSTER[cluster]
          district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
 
