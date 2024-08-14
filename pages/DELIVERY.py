@@ -172,8 +172,10 @@ elif cohort=='YES':
             st.write("POOR NETWORK, COULDN'T CONNECT TO COHORT")
             st.write('GET GOOD NETWORK AND TRY AGAIN')
             time.sleep(5)
-            <meta http-equiv="refresh" content="0">
-                         """, unsafe_allow_html=True)
+            st.markdown("""
+                 <meta http-equiv="refresh" content="0">
+                     """, unsafe_allow_html=True)
+      
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
 visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
