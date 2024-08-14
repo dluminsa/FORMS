@@ -168,8 +168,15 @@ if 'unique_number' not in st.session_state:
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
-    districts = CLUSTER[cluster]
-    district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
+     if cluster == 'KALANGALA':
+          district == 'KALANGALA'
+          st.write('**DISTRICT IS KALANGALA**')
+     elif cluster == 'WAKISO':
+          district == 'WAKISO'
+          st.write('**DISTRICT IS WAKISO**')
+     else:
+         districts = CLUSTER[cluster]
+         district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
 
 cola, colb = st.columns([1,1])
 with cola:
@@ -333,6 +340,10 @@ with st.form(key='PMTCT'):
                st.session_state.preview_clicked = True
 if not phone:
      phone = 'NOT FILLED'
+if visit == 'YES':
+     st.session_state['unique_number'] = ''
+else:
+     pass
 
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
@@ -365,7 +376,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                          'EDD': EDD,
                          'ANC DATE':dates,
                          'CODE': PMTCT,
-                         'UNIQUE ID': ID,
+                         'UNIQUE ID': st.session_state['unique_number'],
                          }]) 
 
      if visit =='YES':
@@ -487,9 +498,10 @@ else:
                     st.write('RELOADING PAGE')
                     time.sleep(2)
                     progress_bar = st.progress(0)
-                    st.markdown("""
-                    <meta http-equiv="refresh" content="0">
-                         """, unsafe_allow_html=True)
+                    st.rerun()
+                    # st.markdown("""
+                    # <meta http-equiv="refresh" content="0">
+                    #      """, unsafe_allow_html=True)
 
                except:
                     st.write("Couldn't submit, poor network") 
