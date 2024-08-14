@@ -388,7 +388,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONE: {phone}**')     
             
      if visitfacility=='YES':
-          st.write (f"UNIQUE ID: **  {st.session_state['unique_number']}**
+          st.write (f"UNIQUE ID: **  {st.session_state['unique_number']}**")
           st.write('')
           st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
