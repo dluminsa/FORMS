@@ -497,7 +497,7 @@ else:
                     st.write('RELOADING PAGE')
                     time.sleep(2)
                     progress_bar = st.progress(0)
-                    #st.rerun()
+                    st.balloons()
                     st.markdown("""
                     <meta http-equiv="refresh" content="0">
                          """, unsafe_allow_html=True)
