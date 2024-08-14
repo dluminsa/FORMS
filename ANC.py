@@ -328,7 +328,7 @@ with st.form(key='PMTCT'):
                st.session_state.preview_clicked = True
 if not phone:
      phone = 'NONE'
-elif not 
+
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
 # if not st.session_state.submit_clicked:    
