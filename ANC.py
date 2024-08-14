@@ -390,7 +390,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
      if visitfacility=='YES':
           cola, colb, colc, cold = st.columns(4)
           cola.write (f"**UNIQUE ID:**") 
-          colc.write(f"**{st.session_state['unique_number']}**")
+          colb.write(f"**{st.session_state['unique_number']}**")
           st.write('')
           st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
