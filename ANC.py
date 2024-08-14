@@ -173,9 +173,9 @@ if cluster:
 else:
      st.stop()
 if district:
-     st.stop()
-else:
      pass
+else:
+     st.stop()
 
 cola, colb = st.columns([1,1])
 with cola:
