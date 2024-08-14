@@ -149,6 +149,8 @@ otherfacility = ''
 otherdistrict = ''
 Age= ''
 ID  = ''
+par = 'None'
+dist = 'None'
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
 
@@ -376,7 +378,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           colb.write(f'**CODE: {PMTCT}**')
-          colb.write(f'**TELEPHONEE: {phone}**')     
+          colb.write(f'**TELEPHONE: {phone}**')     
             
      if visitfacility=='YES':
           st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
@@ -389,12 +391,12 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
           cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
           cola.write(f'**IDI PARENT FACILITY?: {fromfacility}**')
-          cola.write(f'**OTHER PARENT FACILITY: {others}**')
+          #cola.write(f'**OTHER PARENT FACILITY: {others}**')
           cola.write(f'**ART NO AT PARENT FACILITY: {art}**')
-          colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
+          #colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
-          colb.write(f'**HER DISTRICT: {dist}**')
+          colb.write(f'**HER DISTRICT: {dist**}')
           colb.write(f'**SUBCOUNTY: {sub}**')
           colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
@@ -402,7 +404,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           colb.write(f'**CODE: {PMTCT}**')
-          colb.write(f'**TELEPHONEE: {phone}**')
+          colb.write(f'**TELEPHONE: {phone}**')
 
      if visitfacility =='NO':
           st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
