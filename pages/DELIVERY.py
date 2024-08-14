@@ -131,6 +131,7 @@ outcome =''
 parent = ''
 district=''
 mother = ''
+ids = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
 
@@ -155,7 +156,7 @@ with colb:
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 
 conn = st.connection('gsheets', type=GSheetsConnection)
-exist = conn.read(worksheet= 'PMTCT', usecols=list(range(27)),ttl=5)
+exist = conn.read(worksheet= 'PMTCT', usecols=list(range(29)),ttl=5)
 arts = exist.dropna(how='all')
 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
 numbers = arts['ART No.'].unique()
