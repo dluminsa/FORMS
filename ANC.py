@@ -167,10 +167,12 @@ if 'unique_number' not in st.session_state:
          ID = st.session_state['unique_number']
 
 # Show the facilities for the selected district and allow selection
-if cluster is not None:
+if cluster:
     districts = CLUSTER[cluster]
     district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
-if not district:
+else:
+     st.stop()
+if district:
      st.stop()
 else:
      pass
