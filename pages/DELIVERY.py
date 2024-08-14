@@ -3,25 +3,6 @@ from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 
-
-# conn = st.connection('gsheets', type=GSheetsConnection)
-# exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(21)),ttl=5)
-# exist= exist.dropna(how='all')
-
-# refer = conn.read(worksheet= 'PMTCT', usecols=list(range(21)),ttl=5)
-# refer = refer.dropna(how='all')
-
-# try:
-#   st.dataframe(exist)
-#   st.dataframe(refer)
-# except:
-#      st.write('Poor network')
-
-#file = r'C:\Users\Desire Lumisa\Desktop\LOGIN PART\ALL.xlsx'
-#df = pd.read_excel(file)
-
-
-# Define the districts and their facilities
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
     "KYOTERA": ["KYOTERA", "RAKAI"],
@@ -175,81 +156,168 @@ cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", o
 if not cohort:
      st.stop()
 elif cohort=='YES':
-        # arta = df[df['CLUSTER'] == cluster]
-        # artb = arta[arta['DISTRICT']==district]
-        # artc = artb[artb['FACILITY']==facility]
-        # art = list(artc['ART'].unique())
-        mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
+        try:
+            conn = st.connection('gsheets', type=GSheetsConnection)
+            exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
+            arts = exist.dropna(how='all')
+            arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            numbers = arts['ART No.'].unique()
+            ids = arts['UNIQUE ID'].unique()
+            search = st.radio('**SEARCH HER BY**)
+            cola,colb,colc = st.columns([3,1,3])
+            art = cola.selectbox('**ART NO.**, numbers, index=None)
+            colb.write('**OR**)
+            id = colc.selectbox('**UNIQUE ID**, ids, index=False)
+        except:
+            st.write("POOR NETWORK, COULDN'T CONNECT TO COHORT")
+            st.write('GET GOOD NETWORK AND TRY AGAIN')
+            time.sleep(5)
+            <meta http-equiv="refresh" content="0">
+                         """, unsafe_allow_html=True)
+#mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
-    parent = st.radio("**Is this her parent facility**", options=['YES', 'NO'], index=None, horizontal=True)
-    if not parent:
+visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
+if not visit:
+    st.stop()
+elif visit=='NO':
+    visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
+    if not visitdistrict:
          st.stop()
-    if parent == 'NO':
-         parentb = st.radio('**Is she from an IDI supported facilty?**', options=['YES','NO'], index=None, horizontal=True)
-         cola,colb= st.columns([2,1])
-         if not parentb:
-              st.stop() 
-         elif parentb=='YES':
-              facilities = ALL
-              parentc = cola.selectbox('**Name of her parent Facility**', options=facilities)
-              art = colb.text_input('**Write her at No if known**')
-         elif parentb == 'NO':
-              parentd = cola.text_input('**Write the name of her parent facility**')
+    elif visitdistrict =='YES':
+         colr, colt = st.columns([1,1])
+         ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
+         visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
+         if not visitfacility:
+             st.stop()
+         elif visitfacility =='YES':
+             col4,col5 = st.columns([2,1])
+             fromfacility= col4.selectbox(label='**Name of her parent facility***',options=ALL, index=None)
+             art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
+         else:
+             col4,col5 = st.columns([2,1])
+             others = col4.text_input(label= '**Name of her parent facility:**')
+    elif visitdistrict=='NO':
+         colr, colt = st.columns([1,1])
+         otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
+         otherfacility = colt.text_input('**Write here the facility name from this district**') 
+else:
+    col4,col5 = st.columns([2,1])
+    ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
-# if not parent:
-#     st.stop()
-if cohort:
-    outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
-    if outcome =='OTHERS':
-        others = st.text_input('If others, specify')
-    date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
-    submit =st.button(label='SUBMIT DATA', key='PREVIEW')
-    if submit:
-        colx,coly = st.columns([1,2])
-        if cohort =='YES':
-            if not mother: 
-                colx.write('**MISSING DATA**')
-                coly.warning("ART number not provided, input and try again")
-                st.stop() 
-        if not outcome:
-            colx.write('**MISSING DATA**')
-            coly.warning("CHOOSE AN OUT COME")
-            st.stop() 
-        if outcome == 'OTHERS':
-             if not others:
-                colx.write('**MISSING DATA**')
-                coly.warning("Specify the other delivery")
-                st.stop()     
-        if not date:
-            colx.write('**MISSING DATA**')
-            coly.warning("In put the date of the delivery out come")
-            st.stop()   
-        else:
-            date = datetime.now().date()
-            formatted = date.strftime("%d-%m-%Y")
-            data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-                'CLUSTER': cluster,                
-                'DISTRICT': district,
-                'FACILITY': facility,
-                'IN COHORT?' : cohort,
-                'ART NO.' : mother,
-                'VISITOR': parent,
-                'FROM IDI FACILITY?': parentb,
-                'IDI FACILITY': parentc,
-                'OTHER FACILITY': parentd,
-                'OUTCOME': outcome,
-                #'OTHERS': others,
-                'DATE OF DELIVERY': date
+if 'preview_clicked' not in st.session_state:
+    st.session_state.preview_clicked = False
+if 'submit_clicked' not in st.session_state:
+    st.session_state.submit_clicked = False
 
-            }])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-            #data = data.transpose()
-            try:
-                conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
-                existing= exist.dropna(how='all')
-                    #st.write(existing)
-                updated = pd.concat([existing, data], ignore_index =True)
-                conn.update(worksheet = 'DELIVERY', data = updated)
-                st.success('Your data above has been submitted')
-            except:
-                st.write("Couldn't submit, poor network")      
+with st.form(key='PMTCT'):
+     coly, colz = st.columns([4,1])
+     Name = coly.text_input(label="**Mother's name**")
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     
+     cole,colf, colg = st.columns([2,1,1])
+     GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
+     phone = colf.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+     phone2 = colg.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+     cole,colf = st.columns(2)
+     EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
+     dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
+     PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
+     colf.write("MOTHER'S ADDRESS")
+     dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+     sub = colf.text_input("**SUBCOUNTY**")
+     par = colf.text_input("**PARISH**")
+     vil = colf.text_input("**VILLAGE**")
+     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# st.stop()
+#     parent = st.radio("**Is this her parent facility**", options=['YES', 'NO'], index=None, horizontal=True)
+#     if not parent:
+#          st.stop()
+#     if parent == 'NO':
+#          parentb = st.radio('**Is she from an IDI supported facilty?**', options=['YES','NO'], index=None, horizontal=True)
+#          cola,colb= st.columns([2,1])
+#          if not parentb:
+#               st.stop() 
+#          elif parentb=='YES':
+#               facilities = ALL
+#               parentc = cola.selectbox('**Name of her parent Facility**', options=facilities)
+#               art = colb.text_input('**Write her at No if known**')
+#          elif parentb == 'NO':
+#               parentd = cola.text_input('**Write the name of her parent facility**')
+
+# # if not parent:
+# #     st.stop()
+# if cohort:
+#     outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
+#     if outcome =='OTHERS':
+#         others = st.text_input('If others, specify')
+#     date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
+#     submit =st.button(label='SUBMIT DATA', key='PREVIEW')
+#     if submit:
+#         colx,coly = st.columns([1,2])
+#         if cohort =='YES':
+#             if not mother: 
+#                 colx.write('**MISSING DATA**')
+#                 coly.warning("ART number not provided, input and try again")
+#                 st.stop() 
+#         if not outcome:
+#             colx.write('**MISSING DATA**')
+#             coly.warning("CHOOSE AN OUT COME")
+#             st.stop() 
+#         if outcome == 'OTHERS':
+#              if not others:
+#                 colx.write('**MISSING DATA**')
+#                 coly.warning("Specify the other delivery")
+#                 st.stop()     
+#         if not date:
+#             colx.write('**MISSING DATA**')
+#             coly.warning("In put the date of the delivery out come")
+#             st.stop()   
+#         else:
+#             date = datetime.now().date()
+#             formatted = date.strftime("%d-%m-%Y")
+#             data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+#                 'CLUSTER': cluster,                
+#                 'DISTRICT': district,
+#                 'FACILITY': facility,
+#                 'IN COHORT?' : cohort,
+#                 'ART NO.' : mother,
+#                 'VISITOR': parent,
+#                 'FROM IDI FACILITY?': parentb,
+#                 'IDI FACILITY': parentc,
+#                 'OTHER FACILITY': parentd,
+#                 'OUTCOME': outcome,
+#                 #'OTHERS': others,
+#                 'DATE OF DELIVERY': date
+
+#             }])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+#             #data = data.transpose()
+#             try:
+#                 conn = st.connection('gsheets', type=GSheetsConnection)
+#                 exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
+#                 existing= exist.dropna(how='all')
+#                     #st.write(existing)
+#                 updated = pd.concat([existing, data], ignore_index =True)
+#                 conn.update(worksheet = 'DELIVERY', data = updated)
+#                 st.success('Your data above has been submitted')
+#             except:
+#                 st.write("Couldn't submit, poor network")
+
