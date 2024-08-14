@@ -153,6 +153,17 @@ par = ''
 dist = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
+def generate_unique_number():
+    f = dt.datetime.now()  # Get the current datetime
+    g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
+    h = g.split('.')[1]  # Extract the microseconds part of the formatted string
+    j = h[1:5]  # Get the second through fifth digits of the microseconds part
+    return int(j)  # Convert the sliced string to an intege
+
+# Initialize the unique number in session state if it doesn't exist
+if 'unique_number' not in st.session_state:
+         st.session_state['unique_number'] = generate_unique_number()
+         ID = st.session_state['unique_number']
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
@@ -176,17 +187,6 @@ visit = st.radio(label='**Is this mother from this facility?**', options=['YES',
 if not visit:
     st.stop()
 elif visit=='NO':
-    def generate_unique_number():
-         f = dt.datetime.now()  # Get the current datetime
-         g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
-         h = g.split('.')[1]  # Extract the microseconds part of the formatted string
-         j = h[1:5]  # Get the second through fifth digits of the microseconds part
-         return int(j)  # Convert the sliced string to an intege
-
-# Initialize the unique number in session state if it doesn't exist
-         if 'unique_number' not in st.session_state:
-              st.session_state['unique_number'] = generate_unique_number()
-              ID = st.session_state['unique_number']
     visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
     if not visitdistrict:
          st.stop()
