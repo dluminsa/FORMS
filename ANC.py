@@ -172,7 +172,7 @@ with colb:
 
 visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
 if not visit:
-     st.stop()
+    st.stop()
 elif visit=='NO':
     def generate_unique_number():
     f = dt.datetime.now()  # Get the current datetime
@@ -206,8 +206,8 @@ elif visit=='NO':
          otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
          otherfacility = colt.text_input('**Write here the facility name from this district**') 
 else:
-     col4,col5 = st.columns([2,1])
-     ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
+    col4,col5 = st.columns([2,1])
+    ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
 if 'preview_clicked' not in st.session_state:
     st.session_state.preview_clicked = False
