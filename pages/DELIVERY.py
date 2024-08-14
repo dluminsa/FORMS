@@ -154,6 +154,19 @@ with colb:
 
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 
+conn = st.connection('gsheets', type=GSheetsConnection)
+exist = conn.read(worksheet= 'PMTCT', usecols=list(range(27)),ttl=5)
+arts = exist.dropna(how='all')
+arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+numbers = arts['ART No.'].unique()
+ids = arts['UNIQUE ID'].unique()
+search = st.radio('**SEARCH HER BY**')
+cola,colb,colc = st.columns([3,1,3])
+art = cola.selectbox('**ART NO.**', numbers, index=None)
+colb.write('**OR**')
+id = colc.selectbox('**UNIQUE ID**', ids, index=False)
+
+
 if not cohort:
      st.stop()
 elif cohort=='YES':
