@@ -342,7 +342,7 @@ if not phone:
 if visit == 'YES':
      st.session_state['unique_number'] = ''
 else:
-     pass
+     st.session_state['unique_number'] = generate_unique_number()
 
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
@@ -497,11 +497,12 @@ else:
                     updated = pd.concat([existing, df], ignore_index =True)
                     conn.update(worksheet = 'PMTCT', data = updated)         
                     st.success('Your data above has been submitted')
-                    time.sleep(3)
-                    st.write('RELOADING PAGE')
                     time.sleep(2)
-                    progress_bar = st.progress(0)
-                    st.balloons()
+                    st.write('RELOADING PAGE')
+                    st.success('SUBMITTED SUCCESSFULLY')
+                    time.sleep(1)
+                    st.cache_data.clear()
+                    st.cache_resource.clear()
                     st.markdown("""
                     <meta http-equiv="refresh" content="0">
                          """, unsafe_allow_html=True)
