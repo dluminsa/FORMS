@@ -327,7 +327,7 @@ with st.form(key='PMTCT'):
           else:
                st.session_state.preview_clicked = True
 if not phone:
-     phone = 'NONE'
+     phone = 'NOT FILLED'
 
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
@@ -389,7 +389,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**FACILITY DISTRICT: {district}**')
           cola.write(f'**HEALTH FACILITY: {facility}**')
           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
           cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
           cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
           cola.write(f'**IDI PARENT FACILITY?: {fromfacility}**')
@@ -415,7 +415,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**FACILITY DISTRICT: {district}**')
           cola.write(f'**HEALTH FACILITY: {facility}**')
           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
           cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
           cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
           cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
@@ -438,7 +438,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**FACILITY DISTRICT: {district}**')
           cola.write(f'**HEALTH FACILITY: {facility}**')
           cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-          cola.write(f'**MWP IDI DISTRICT?: {visitdistrict}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
           cola.write(f'**OTHER DISTRICT: {otherdistrict}**')
           cola.write(f'**OUTSIDE FACILITY?: {otherfacility}**')
           colb.write(f'**NAME: {Name}**')
