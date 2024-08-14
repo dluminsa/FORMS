@@ -168,8 +168,12 @@ if 'unique_number' not in st.session_state:
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
-         districts = CLUSTER[cluster]
-         district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
+    districts = CLUSTER[cluster]
+    district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
+if not district:
+     st.stop()
+else:
+     pass
 
 cola, colb = st.columns([1,1])
 with cola:
