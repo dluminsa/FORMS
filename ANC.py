@@ -452,10 +452,14 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
           cola.write(f'**CODE: {PMTCT}**')
-          colb.write(f'**TELEPHONEE: {phone}**')
+          colb.write(f'**TELEPHONE: {phone}**')
                      
      if visitdistrict =='NO':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
+          cola, colb, colc, cold = st.columns(4)
+          cola.write (f"**UNIQUE ID:**") 
+          colb.write(f"**{st.session_state['unique_number']}**")
+          st.write('')
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -473,8 +477,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
-          colb.write(f'**CODE: {PMTCT}**')
-          colb.write(f'**TELEPHONEE: {phone}**')
+          cola.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONE: {phone}**')
                  
  
      
@@ -509,14 +513,4 @@ else:
 
                except:
                     st.write("Couldn't submit, poor network") 
-
-
-
-
-
-
-
-
-
-
 
