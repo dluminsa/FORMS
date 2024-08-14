@@ -219,7 +219,7 @@ with st.form(key='PMTCT'):
      Name = coly.text_input(label="**Mother's name**")
      Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
      
-     cole,colf, colg = st.columns([1,2,2])
+     cole,colf, colg = st.columns([2,1,1])
      GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
      phone = colf.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
      phone2 = colg.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
