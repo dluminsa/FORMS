@@ -379,7 +379,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONEE: {phone}**')     
             
      if visitfacility=='YES':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -405,7 +405,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONEE: {phone}**')
 
      if visitfacility =='NO':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -428,7 +428,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONEE: {phone}**')
                      
      if visitdistrict =='NO':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**)
+          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
