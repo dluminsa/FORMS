@@ -149,8 +149,8 @@ otherfacility = ''
 otherdistrict = ''
 Age= ''
 ID  = ''
-par = 'None'
-dist = 'None'
+par = ''
+dist = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
 
@@ -326,7 +326,9 @@ with st.form(key='PMTCT'):
                st.stop()
           else:
                st.session_state.preview_clicked = True
-
+if not phone:
+     phone = 'NONE'
+elif not 
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
 # if not st.session_state.submit_clicked:    
@@ -371,8 +373,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**NAME: {Name}**')
           cola.write(f'**AGE: {Ag}**')
           cola.write(f'**HER DISTRICT: {dist}**')
-          colb.write(f'**SUBCOUNTY: {sub}**')
-          colb.write(f'**PARISH: {par}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
@@ -397,8 +399,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
           colb.write(f'**HER DISTRICT: {dist}**')
-          colb.write(f'**SUBCOUNTY: {sub}**')
-          colb.write(f'**PARISH: {par}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
@@ -420,8 +422,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
           colb.write(f'**HER DISTRICT: {dist}**')
-          colb.write(f'**SUBCOUNTY: {sub}**')
-          colb.write(f'**PARISH: {par}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
@@ -442,8 +444,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
           colb.write(f'**HER DISTRICT: {dist}**')
-          colb.write(f'**SUBCOUNTY: {sub}**')
-          colb.write(f'**PARISH: {par}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
