@@ -182,9 +182,9 @@ elif visit=='NO':
          return int(j)  # Convert the sliced string to an intege
 
 # Initialize the unique number in session state if it doesn't exist
-    if 'unique_number' not in st.session_state:
-         st.session_state['unique_number'] = generate_unique_number()
-         ID = st.session_state['unique_number']
+         if 'unique_number' not in st.session_state:
+              st.session_state['unique_number'] = generate_unique_number()
+              ID = st.session_state['unique_number']
     visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
     if not visitdistrict:
          st.stop()
