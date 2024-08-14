@@ -241,88 +241,92 @@ with st.form(key='PMTCT'):
           colx,coly = st.columns([1,2])
           if visit=='YES':
                if not ART:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("ART number not provided, input and try again")
                     st.stop()
 
           if not facility:              
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("You didn't select the reporting facility, select and try again")
                     st.stop() 
 
           if visit =='NO':
                if visitfacility=='YES' and not fromfacility:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("You didn't provide her parent facility")
                     st.stop()
                elif visitfacility =='NO' and not others:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("You didn't provide her parent facility") 
                     st.stop()     
           if not Name:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("You didn't provide the mother's name")
                st.stop() 
           if visitdistrict == 'NO':
                if not otherdistrict:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("You didn't provide her other district") 
                     st.stop()  
                elif not otherfacility:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("You didn't provide her parent facility") 
                     st.stop()  
        
           if not Ag:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("You didn't provide the mother's AGE")
                st.stop()
           else:
                Age = int(Ag) 
 
           if not GA:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("You didn't provide the mother's GESTATION AGE")
                st.stop()
 
           if not dates:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("In put either her ANC VISIT DATE")
                st.stop() 
 
           if not EDD:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("In put either her EDD")
                st.stop() 
+          elif dates > EDD:
+               colx.write('**ERROR!!!**')
+               coly.warning("ANC VISIT DATE CAN'T BE GREATER THAN EDD")
+               st.stop()                
 
           if not PMTCT:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("YOU DIDN'T CHOOSE A PMTCT CODE")
                st.stop() 
 
           if not vil:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("Mother's village is required")
                st.stop() 
 
           if visitdistrict =='YES':
                if not ididistrict: 
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("SELECT AN IDI SUPPORTED DISTRICT")
                     st.stop() 
           if phone: 
                if len(phone)!=10:
-                    colx.write('**NOT SUBMITTED**')
+                    colx.write('**ERROR!!!**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
                     st.stop() 
           if not dist:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("In put either her home District")
                st.stop() 
           else:
                st.session_state.preview_clicked = False
           if not vil:
-               colx.write('**NOT SUBMITTED**')
+               colx.write('**ERROR!!!**')
                coly.warning("You didn't provide her village")
                st.stop()
           else:
@@ -384,7 +388,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONE: {phone}**')     
             
      if visitfacility=='YES':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
+          st.write (f'**UNIQUE ID: {st.session_state['unique_number']}, write it in the EDD COHORT REGISTER**')
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
