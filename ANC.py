@@ -428,7 +428,11 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**TELEPHONE: {phone}**')
 
      if visitfacility =='NO':
-          st.write (f'**UNIQUE ID: {ID}, write it in the EDD COHORT REGISTER**')
+          cola, colb, colc, cold = st.columns(4)
+          cola.write (f"**UNIQUE ID:**") 
+          colb.write(f"**{st.session_state['unique_number']}**")
+          st.write('')
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -437,7 +441,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
           cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
           cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
-          cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
+          #cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
           colb.write(f'**HER DISTRICT: {dist}**')
@@ -447,7 +451,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           colb.write(f'**GESTATION AGE: {GA}**')
           colb.write(f'**EDD: {EDD}**')
           colb.write(f'**ANC DATE: {dates}**')
-          colb.write(f'**CODE: {PMTCT}**')
+          cola.write(f'**CODE: {PMTCT}**')
           colb.write(f'**TELEPHONEE: {phone}**')
                      
      if visitdistrict =='NO':
