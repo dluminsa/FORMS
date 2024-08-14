@@ -164,7 +164,7 @@ def generate_unique_number():
 # Initialize the unique number in session state if it doesn't exist
 if 'unique_number' not in st.session_state:
          st.session_state['unique_number'] = generate_unique_number()
-         #ID = st.session_state['unique_number']
+         ID = st.session_state['unique_number']
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
