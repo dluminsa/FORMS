@@ -396,7 +396,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           #colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
           colb.write(f'**NAME: {Name}**')
           colb.write(f'**AGE: {Ag}**')
-          colb.write(f'**HER DISTRICT: {dist**}')
+          colb.write(f'**HER DISTRICT: {dist}**')
           colb.write(f'**SUBCOUNTY: {sub}**')
           colb.write(f'**PARISH: {par}**')
           colb.write(f'**VILLAGE: {vil}**')
