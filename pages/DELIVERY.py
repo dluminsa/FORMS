@@ -173,7 +173,7 @@ if cohort=='YES':
             numbers = number['ART No.'].unique()
             
             id = arts[['UNIQUE ID']].copy()
-            id = id.dropna(subset = ['ART No.'])
+            id = id.dropna(subset = ['UNIQUE ID'])
             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
             ids = id['UNIQUE ID'].unique()
                         
