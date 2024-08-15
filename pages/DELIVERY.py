@@ -276,7 +276,8 @@ elif cohort=='NO':
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
     else:
         st.stop()
-    
+else:
+    st.stop()
 if 'preview_clicked' not in st.session_state:
     st.session_state.preview_clicked = False
 if 'submit_clicked' not in st.session_state:
