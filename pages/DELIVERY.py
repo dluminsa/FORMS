@@ -148,6 +148,10 @@ if cluster is not None:
     district = st.radio(f"**Choose a district in {cluster} cluster:**", districts, horizontal=True, index=None)
 
 cola, colb = st.columns([1,1])
+if district:
+    pass
+else:
+    st.stop()
 with cola:
     if not district:
             st.stop()
