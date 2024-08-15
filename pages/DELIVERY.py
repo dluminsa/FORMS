@@ -155,14 +155,18 @@ with colb:
 
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 
-if not cohort:
-     st.stop()
-elif cohort=='YES':
+if cohort:
+    pass
+else:
+    st.stop()
+    
+if cohort=='YES':
         try:
             conn = st.connection('gsheets', type=GSheetsConnection)
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            arts = arts.dropna(by = ['ART No.', 'UNIQUE ID'])
             numbers = arts['ART No.'].unique()
             ids = arts['UNIQUE ID'].unique()
             search = st.write('**SEARCH HER BY**')
