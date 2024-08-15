@@ -324,7 +324,12 @@ with st.form(key='PMTCT'):
                if len(phone)!=10:
                     colx.write('**ERROR!!!**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
-                    st.stop() 
+                    st.stop()
+          if phone2:
+               if len(phone2)!=10:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop()
           if not dist:
                colx.write('**ERROR!!!**')
                coly.warning("In put either her home District")
