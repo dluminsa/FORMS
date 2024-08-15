@@ -542,7 +542,7 @@ if visitfacility =='NO':
             cola.write(f'**FROM THIS FACILITY?: {visit}**')
             cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
             cola.write(f'**IDI DISTRICT: {ididistrict}**')
-            cola.write(f'**FROM IDI FACILITY? :{visitfacility}**')
+            #cola.write(f'**FROM IDI FACILITY? :{visitfacility}**')
             #cola.write(f'**PARENT FACILITY: {fromfacility}**')
             #colb.write(f'**OTHER DISTRICT: {outdistrict}**')
             #colb.write(f'**OUTSIDE FACILITY: {outfacility}**')
