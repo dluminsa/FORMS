@@ -205,7 +205,7 @@ elif visit=='NO':
               pass
          else:
               st.stop()
-         visitfacility = st.radio(label='**In {ididistrict}, is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
+         visitfacility = st.radio(f'**In {ididistrict}, is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
          if not visitfacility:
              st.stop()
          elif visitfacility =='YES':
