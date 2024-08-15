@@ -244,8 +244,7 @@ if cohort=='YES':
 elif cohort=='NO':
     st.write("**FIRST REGISTER THIS MOTHER IN THE DATABASE BEFORE FILLING IN HER DELIVERY DETAILS**")
     st.write('')
-    visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=True)
-        st.stop()
+    visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=Tru
     if visit=='NO':
         st.write(f'**THIS MOTHER WILL BE ASSIGNED A UNIQUE ID, WE SHALL USE THIS TO TRACK HER FOR PCR**')
         visitdistrict = st.radio(label='**Does She get ART from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
