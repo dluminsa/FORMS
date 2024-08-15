@@ -161,7 +161,7 @@ else:
     st.stop()
     
 if cohort=='YES':
-         #try:
+         try:
             conn = st.connection('gsheets', type=GSheetsConnection)
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
