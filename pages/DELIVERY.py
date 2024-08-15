@@ -271,8 +271,6 @@ if cohort=='YES':
                       """, unsafe_allow_html=True)
 if not id:
     id = ''
-if not art:
-    art =''
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
