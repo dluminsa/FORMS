@@ -3,6 +3,7 @@ from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
+import datetime as dt
 
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
@@ -125,6 +126,20 @@ alldistrictsidi = dis['DISTRICT'].unique()
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
 st.markdown("<h4><b>DELIVERY OUTCOME ENTRY FORM</b></h4>", unsafe_allow_html=True)
 st.markdown('***means required**')
+
+##################UNIQUE NUMBER
+def generate_unique_number():
+    f = dt.datetime.now()  # Get the current datetime
+    g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
+    h = g.split('.')[1]  # Extract the microseconds part of the formatted string
+    j = h[1:5]  # Get the second through fifth digits of the microseconds part
+    return int(j)  # Convert the sliced string to an intege
+
+# Initialize the unique number in session state if it doesn't exist
+if 'unique_number' not in st.session_state:
+         st.session_state['unique_number'] = generate_unique_number()
+         ID = st.session_state['unique_number']
+
 
 art =  ""
 facility = ""
@@ -341,44 +356,72 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("FACILITY NAME NOT PROVIDED, input and try again")
             st.stop()
-# st.stop()
-#     colx,coly = st.columns([1,2])
-#     if cohort =='YES':
-#         if not mother: 
-#             colx.write('**MISSING DATA**')
-#             coly.warning("ART number not provided, input and try again")
-#             st.stop() 
-#     if not outcome:
-#         colx.write('**MISSING DATA**')
-#         coly.warning("CHOOSE AN OUT COME")
-#         st.stop() 
-#     if outcome == 'OTHERS':
-#          if not others:
-#             colx.write('**MISSING DATA**')
-#             coly.warning("Specify the other delivery")
-#             st.stop()     
-#     if not date:
-#         colx.write('**MISSING DATA**')
-#         coly.warning("In put the date of the delivery out come")
-#         st.stop()   
-#     else:
-#         date = datetime.now().date()
-#         formatted = date.strftime("%d-%m-%Y")
-#         data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-#             'CLUSTER': cluster,                
-#             'DISTRICT': district,
-#             'FACILITY': facility,
-#             'IN COHORT?' : cohort,
-#             'ART NO.' : mother,
-#             'VISITOR': parent,
-#             'FROM IDI FACILITY?': parentb,
-#             'IDI FACILITY': parentc,
-#             'OTHER FACILITY': parentd,
-#             'OUTCOME': outcome,
-#             #'OTHERS': others,
-#             'DATE OF DELIVERY': date
+    if cohort =='NO':
+        if not Name:
+            colx.write('**ERROR!!!**')
+            coly.warning("HER NAME IS REQUIRED, input and try again")
+            st.stop()
+        elif not Ag:
+            colx.write('**ERROR!!!**')
+            coly.warning("HER AGE IS REQUIRED, input and try again")
+            st.stop()
+        elif not dist:
+            colx.write('**ERROR!!!**')
+            coly.warning("HER HOME DISTRICT IS REQUIRED, input and try again")
+            st.stop()
+        elif not vil:
+        colx.write('**ERROR!!!**')
+            coly.warning("HER HOME VILLAGE IS REQUIRED, input and try again")
+            st.stop()
+          if phone: 
+               if len(phone)!=10:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop() 
+          if phone2: 
+               if len(phone2)!=10:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop() 
+    else:
+        st.session_state.preview_clicked = True
 
-            #}])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+if not phone:
+     phone = 'NOT FILLED'
+if visit == 'YES':
+     st.session_state['unique_number'] = ''
+else:
+     st.session_state['unique_number'] = generate_unique_number()
+
+
+     date = datetime.now().date()
+     formatted = date.strftime("%d-%m-%Y")
+     data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+            'CLUSTER': cluster,                
+            'DISTRICT': district,
+            'FACILITY': facility,
+            'IN COHORT?' : cohort,
+            'ART NO.' : art,
+            'UNIQUE ID': id,
+            'FROM THIS FACILITY?': visit,
+            'FROM IDI SUPPORTED DISTRICT': visitdistrict,
+            'IDI DISTRICT': ididistrict,
+            'FROM IDI FACILITY':visitfacility,
+            'PARENT FACILITY': fromfacility,
+            'OTHER DISTRICT': outdistrict,
+            'OUTSIDE FACILITY': outfacility,
+            'NAME': Name,
+            'NEW ART NO.': ART,
+            'AGE': Ag,
+            'HER DISTRICT':dist,
+            'SUBPARISH': par,
+            'VILLAGE': vil
+            'PHONE': phone, 
+            'PHONE2': phone2,
+            'OUTCOME': outcome,
+            'DATE OF DELIVERY': date
+            }])   
+    st.write(df)
 #             #data = data.transpose()
 #             try:
 #                 conn = st.connection('gsheets', type=GSheetsConnection)
