@@ -241,12 +241,12 @@ elif cohort=='NO':
     else:
         st.stop()
     if visit=='NO':
-        visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
+        visitdistrict = st.radio(label='**Does She get ART from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
         if not visitdistrict:
              st.stop()
         elif visitdistrict =='YES':
              colr, colt = st.columns([1,1])
-             ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
+             ididistrict = colr.selectbox(f"**Select the IDI supported district where she gets ART from***", ididistricts, index=None)
              visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
              if not visitfacility:
                  st.stop()
