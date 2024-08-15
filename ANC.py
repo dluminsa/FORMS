@@ -163,8 +163,8 @@ def generate_unique_number():
 
 # Initialize the unique number in session state if it doesn't exist
 if 'unique_number' not in st.session_state:
-         st.session_state['unique_number'] = generate_unique_number()
-         ID = st.session_state['unique_number']
+         st.session_state['unique_numbe'] = generate_unique_number()
+         ID = st.session_state['unique_numbe']
 
 # Show the facilities for the selected district and allow selection
 if cluster:
@@ -223,10 +223,10 @@ else:
     col4,col5 = st.columns([2,1])
     ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
-if 'preview_clicked' not in st.session_state:
-    st.session_state.preview_clicked = False
+if 'preview_clicke' not in st.session_state:
+    st.session_state.preview_clicke = False
 if 'submit_clicked' not in st.session_state:
-    st.session_state.submit_clicked = False
+    st.session_state.submit_clicke = False
 
 with st.form(key='PMTCT'):
      coly, colz = st.columns([4,1])
@@ -348,20 +348,20 @@ with st.form(key='PMTCT'):
           else:
                pass
      
-          st.session_state.preview_clicked = True
+          st.session_state.preview_clicke = True
 
-if st.session_state.preview_clicked:
+if st.session_state.preview_clicke:
 
           if not phone:
                phone = 'NOT FILLED'
           if visit == 'YES':
-               st.session_state['unique_number'] = ''
+               st.session_state['unique_numbe'] = ''
           else:
-               st.session_state['unique_number'] = generate_unique_number()
+               st.session_state['unique_numbe'] = generate_unique_number()
 
 
-if st.session_state.preview_clicked and not st.session_state.submit_clicked:
-# if not st.session_state.submit_clicked:    
+if st.session_state.preview_clicke and not st.session_state.submit_clicke:
+# if not st.session_state.submit_clicke:    
      date = datetime.now().date()
      formatted = date.strftime("%d-%m-%Y")
      #st.write(formatted)
@@ -390,7 +390,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                          'EDD': EDD,
                          'ANC DATE':dates,
                          'CODE': PMTCT,
-                         'UNIQUE ID': st.session_state['unique_number'],
+                         'UNIQUE ID': st.session_state['unique_numbe'],
                          }]) 
 
      if visit =='YES':
@@ -415,9 +415,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
      if visitfacility=='YES':
           cola, colb, colc, cold = st.columns(4)
           cola.write (f"**UNIQUE ID:**") 
-          colb.write(f"**{st.session_state['unique_number']}**")
+          colb.write(f"**{st.session_state['unique_numbe']}**")
           st.write('')
-          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_numbe']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -445,9 +445,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
      if visitfacility =='NO':
           cola, colb, colc, cold = st.columns(4)
           cola.write (f"**UNIQUE ID:**") 
-          colb.write(f"**{st.session_state['unique_number']}**")
+          colb.write(f"**{st.session_state['unique_numbe']}**")
           st.write('')
-          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_numbe']}  , write it in the EDD COHORT REGISTER**")
           cola,colb = st.columns(2)
           cola.write(f'**CLUSTER: {cluster}**')
           cola.write(f'**FACILITY DISTRICT: {district}**')
@@ -495,18 +495,18 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
           cola.write(f'**CODE: {PMTCT}**')
           colb.write(f'**TELEPHONE: {phone}**')
      
-if not st.session_state.preview_clicked:
+if not st.session_state.preview_clicke:
      st.stop()
 else:
      submit = st.button('Submit')
 
      if not submit:
-          st.session_state.submit_clicked = False
+          st.session_state.submit_clicke = False
           st.stop()
      else:
-          st.session_state.submit_clicked = True
+          st.session_state.submit_clicke = True
 
-          if st.session_state.submit_clicked:
+          if st.session_state.submit_clicke:
                try:
                     conn = st.connection('gsheets', type=GSheetsConnection)
                     exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
