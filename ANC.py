@@ -345,14 +345,14 @@ with st.form(key='PMTCT'):
      
           st.session_state.preview_clicked = True
 
-if st.session_state.preview_clicked:
+# if st.session_state.preview_clicked:
 
-          if not phone:
-               phone = 'NOT FILLED'
-          if visit == 'YES':
-               st.session_state['unique_number'] = ''
-          else:
-               st.session_state['unique_number'] = generate_unique_number()
+#           if not phone:
+#                phone = 'NOT FILLED'
+#           if visit == 'YES':
+#                st.session_state['unique_number'] = ''
+#           else:
+#                st.session_state['unique_number'] = generate_unique_number()
 
 
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
