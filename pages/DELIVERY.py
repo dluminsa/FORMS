@@ -278,13 +278,23 @@ elif cohort=='NO':
          cole,colf = st.columns(2)
          colf.write('')
          colf.write('')
-         colf.write('')
+         
          dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
          sub = colf.text_input("**SUBCOUNTY**")
          par = cole.text_input("**PARISH**")
          vil = colf.text_input("**VILLAGE**")
          phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
          phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+
+        st.write('**DELIVERY DETAILS**')
+        st.write('')
+        outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
+        if outcome =='OTHERS':
+            others = st.text_input('If others, specify')
+            
+        date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
+
+
          preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 
 
@@ -305,30 +315,8 @@ elif cohort=='NO':
 
 
 
-# st.stop()
-#     parent = st.radio("**Is this her parent facility**", options=['YES', 'NO'], index=None, horizontal=True)
-#     if not parent:
-#          st.stop()
-#     if parent == 'NO':
-#          parentb = st.radio('**Is she from an IDI supported facilty?**', options=['YES','NO'], index=None, horizontal=True)
-#          cola,colb= st.columns([2,1])
-#          if not parentb:
-#               st.stop() 
-#          elif parentb=='YES':
-#               facilities = ALL
-#               parentc = cola.selectbox('**Name of her parent Facility**', options=facilities)
-#               art = colb.text_input('**Write her at No if known**')
-#          elif parentb == 'NO':
-#               parentd = cola.text_input('**Write the name of her parent facility**')
 
-# # if not parent:
-# #     st.stop()
-# if cohort:
-#     outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
-#     if outcome =='OTHERS':
-#         others = st.text_input('If others, specify')
-#     date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
-#     submit =st.button(label='SUBMIT DATA', key='PREVIEW')
+
 #     if submit:
 #         colx,coly = st.columns([1,2])
 #         if cohort =='YES':
