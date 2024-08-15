@@ -335,13 +335,16 @@ with st.form(key='PMTCT'):
                coly.warning("In put either her home District")
                st.stop() 
           else:
-               st.session_state.preview_clicked = False
+               pass
           if not vil:
                colx.write('**ERROR!!!**')
                coly.warning("You didn't provide her village")
                st.stop()
           else:
-               st.session_state.preview_clicked = True
+               pass
+if preview:
+    st.session_state.preview_clicked =True 
+
 if not phone:
      phone = 'NOT FILLED'
 if visit == 'YES':
