@@ -618,6 +618,13 @@ if st.session_state.preview_clicked:
                 updated = pd.concat([existing, data], ignore_index =True)
                 conn.update(worksheet = 'DELIVERY', data = updated)
                 st.success('Your data above has been submitted')
+                st.write('RELOADING PAGE')
+                time.sleep(2)
+                st.write('.............................................................................')
+                time.sleep(2)
+                st.markdown("""
+                    <meta http-equiv="refresh" content="0">
+                         """, unsafe_allow_html=True)
             except:
                 st.write("Couldn't submit, poor network")
 
