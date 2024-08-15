@@ -169,10 +169,11 @@ elif cohort=='YES':
             cola,colb,colc = st.columns([3,1,3])
             art = cola.selectbox('**ART NO.**', numbers, index=None)
             colb.write('')
+            colb.write('')
             colb.write('**OR**')
             id = colc.selectbox('**UNIQUE ID**', ids, index=False)
         except:
-            st.write("POOR NETWORK, COULDN'T CONNECT TO COHORT")
+            st.write("POOR NETWORK, COULDN'T CONNECT TO THE COHORT DATABASE")
             st.write('GET GOOD NETWORK AND TRY AGAIN')
             time.sleep(5)
             st.markdown("""
@@ -182,57 +183,57 @@ elif cohort=='YES':
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
     visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
-if not visit:
-    st.stop()
-elif visit=='NO':
-    visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
-    if not visitdistrict:
-         st.stop()
-    elif visitdistrict =='YES':
-         colr, colt = st.columns([1,1])
-         ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
-         visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
-         if not visitfacility:
+    if not visit:
+        st.stop()
+    elif visit=='NO':
+        visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
+        if not visitdistrict:
              st.stop()
-         elif visitfacility =='YES':
-             col4,col5 = st.columns([2,1])
-             fromfacility= col4.selectbox(label='**Name of her parent facility***',options=ALL, index=None)
-             art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
-         else:
-             col4,col5 = st.columns([2,1])
-             others = col4.text_input(label= '**Name of her parent facility:**')
-    elif visitdistrict=='NO':
-         colr, colt = st.columns([1,1])
-         otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
-         otherfacility = colt.text_input('**Write here the facility name from this district**') 
-else:
-    col4,col5 = st.columns([2,1])
-    ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
-
-if 'preview_clicked' not in st.session_state:
-    st.session_state.preview_clicked = False
-if 'submit_clicked' not in st.session_state:
-    st.session_state.submit_clicked = False
-
-with st.form(key='PMTCT'):
-     coly, colz = st.columns([4,1])
-     Name = coly.text_input(label="**Mother's name**")
-     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
-     
-     cole,colf, colg = st.columns([2,1,1])
-     GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
-     phone = colf.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
-     phone2 = colg.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
-     cole,colf = st.columns(2)
-     EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
-     dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
-     PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
-     colf.write("MOTHER'S ADDRESS")
-     dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-     sub = colf.text_input("**SUBCOUNTY**")
-     par = colf.text_input("**PARISH**")
-     vil = colf.text_input("**VILLAGE**")
-     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+        elif visitdistrict =='YES':
+             colr, colt = st.columns([1,1])
+             ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
+             visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
+             if not visitfacility:
+                 st.stop()
+             elif visitfacility =='YES':
+                 col4,col5 = st.columns([2,1])
+                 fromfacility= col4.selectbox(label='**Name of her parent facility***',options=ALL, index=None)
+                 art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
+             else:
+                 col4,col5 = st.columns([2,1])
+                 others = col4.text_input(label= '**Name of her parent facility:**')
+        elif visitdistrict=='NO':
+             colr, colt = st.columns([1,1])
+             otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
+             otherfacility = colt.text_input('**Write here the facility name from this district**') 
+    else:
+        col4,col5 = st.columns([2,1])
+        ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
+    
+    if 'preview_clicked' not in st.session_state:
+        st.session_state.preview_clicked = False
+    if 'submit_clicked' not in st.session_state:
+        st.session_state.submit_clicked = False
+    
+    with st.form(key='PMTCT'):
+         coly, colz = st.columns([4,1])
+         Name = coly.text_input(label="**Mother's name**")
+         Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+         
+         cole,colf, colg = st.columns([2,1,1])
+         GA = cole.number_input(label='**Gestation Age in weeks,(Write 3 if N/A or HCG pos)**', max_value=50, value=None)
+         phone = colf.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+         phone2 = colg.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+         cole,colf = st.columns(2)
+         EDD = cole.date_input(label='**EXPECTED DATE OF DELIVERY (EDD)**', value=None)
+         dates = colf.date_input(label='**DATE OF THIS ANC VISIT**', value=None) 
+         PMTCT = cole.radio("**Enter Client's PMTCT code**", options = ['TRR', 'TRRK', 'TRR+'], index=None)
+         colf.write("MOTHER'S ADDRESS")
+         dist = colf.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+         sub = colf.text_input("**SUBCOUNTY**")
+         par = colf.text_input("**PARISH**")
+         vil = colf.text_input("**VILLAGE**")
+         preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 
 
 
