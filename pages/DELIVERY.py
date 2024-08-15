@@ -112,7 +112,14 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "SEGUKU HC II","TASO ENTEBBE SPECIAL CLINIC","TRIAM MEDICAL CENTRE HC II","TTIKALU HC III","WAGAGAI HC IV",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
-                                                     
+ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+
+file = r'DISTRICT.csv'
+dis = pd.read_csv(file)
+dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
+alldistricts = dis1['DISTRICT'].unique()
+alldistrictsidi = dis['DISTRICT'].unique()
 
 # Title of the Streamlit app
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
@@ -228,7 +235,7 @@ if cohort=='YES':
 elif cohort=='NO':
     st.write("**FIRST REGISTER THIS MOTHER IN THE DATABASE BEFORE FILLING IN HER DELIVERY DETAILS**")
     st.write('')
-    visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
+    visit = st.radio(label='**Is this mother from this facility's ART CLINIC?**', options=['YES','NO'], index=None, horizontal=True)
     if  visit:
         pass
     else:
