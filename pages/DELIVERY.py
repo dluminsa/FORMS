@@ -383,7 +383,15 @@ if preview:
                if len(phone2)!=10:
                     colx.write('**ERROR!!!**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
-                    st.stop() 
+                    st.stop()
+    if not outcome:
+            colx.write('**ERROR!!!**')
+            coly.warning("INPUT OUTCOME OF DELIVERY")
+            st.stop()
+    if not date:
+            colx.write('**ERROR!!!**')
+            coly.warning("IN PUT DATE OF DELIVERY")
+            st.stop()
     else:
         st.session_state.preview_clicked = True
 
