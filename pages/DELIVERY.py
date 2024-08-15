@@ -318,11 +318,13 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("PARENT FACILITY not provided, input and try again")
             st.stop()
-    if visitfacility =='NO':
+    elif visitfacility =='NO':
         if not otherfacility:
             colx.write('**ERROR!!!**')
             coly.warning("PARENT FACILITY not provided, input and try again")
             st.stop()
+    else:
+        pass
     if visit == 'YES':
         if not ART:
             colx.write('**ERROR!!!**')
