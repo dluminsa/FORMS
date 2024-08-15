@@ -271,18 +271,21 @@ if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
 
 with st.form(key='PMTCT'):
-     st.write("**MOTHER'S DEMOGRAPHICS**")
-     coly, colz = st.columns([4,1])
-     Name = coly.text_input(label="**Mother's name**")
-     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
-     cole,colf = st.columns(2)
-     
-     dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-     sub = colf.text_input("**SUBCOUNTY**")
-     par = cole.text_input("**PARISH**")
-     vil = colf.text_input("**VILLAGE**")
-     phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
-     phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+    if cohort == 'NO':
+         st.write("**MOTHER'S DEMOGRAPHICS**")
+         coly, colz = st.columns([4,1])
+         Name = coly.text_input(label="**Mother's name**")
+         Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+         cole,colf = st.columns(2)
+         
+         dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+         sub = colf.text_input("**SUBCOUNTY**")
+         par = cole.text_input("**PARISH**")
+         vil = colf.text_input("**VILLAGE**")
+         phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+         phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+    else:
+        pass
 
      st.write('**DELIVERY DETAILS**')
      st.write('')
