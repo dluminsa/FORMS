@@ -159,6 +159,11 @@ with cola:
 with colb:
     st.write('**You selected:**')
     st.write(f"**{district} district, and {facility}**")
+    
+if facility:
+    pass
+else:
+    st.stop()
 
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 
