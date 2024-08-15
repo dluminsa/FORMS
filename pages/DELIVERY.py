@@ -402,8 +402,7 @@ if visit == 'YES':
      st.session_state['unique_number'] = ''
 else:
      st.session_state['unique_number'] = generate_unique_number()
-
-
+if preview:
      date = datetime.now().date()
      formatted = date.strftime("%d-%m-%Y")
      data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
