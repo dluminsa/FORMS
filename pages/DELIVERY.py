@@ -269,8 +269,7 @@ if cohort=='YES':
              st.markdown("""
                   <meta http-equiv="refresh" content="0">
                       """, unsafe_allow_html=True)
-if not id:
-    id = ''
+
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
@@ -407,6 +406,10 @@ if preview:
             st.stop()
     else:
         st.session_state.preview_clicked = True
+if not id:
+    id = ''
+if not art:
+    art = ''
 
 if not phone:
      phone = 'NOT FILLED'
