@@ -176,6 +176,8 @@ elif cohort=='YES':
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(27)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            st.write(arts.columns)
+            st.stop()
             numbers = arts['ART No.'].unique()
             ids = arts['UNIQUE ID'].unique()
             search = st.radio('**SEARCH HER BY**')
