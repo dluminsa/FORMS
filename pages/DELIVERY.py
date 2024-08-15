@@ -261,6 +261,10 @@ if cohort=='YES':
              st.markdown("""
                   <meta http-equiv="refresh" content="0">
                       """, unsafe_allow_html=True)
+if not id:
+    id = ''
+if not art:
+    art = ''
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
@@ -412,8 +416,9 @@ if preview:
             'DISTRICT': district,
             'FACILITY': facility,
             'IN COHORT?' : cohort,
-            'ART NO.' : art,
-            'UNIQUE ID': id,
+            'SEARCHED ART NO.' : art,
+            'SEARCHED ID:' id,
+            'UNIQUE ID':  st.session_state['unique_number'],
             'FROM THIS FACILITY?': visit,
             'FROM IDI SUPPORTED DISTRICT': visitdistrict,
             'IDI DISTRICT': ididistrict,
@@ -433,6 +438,71 @@ if preview:
             'DATE OF DELIVERY': date
             }])   
      st.write(data)
+if cohort =='YES':
+            cola,colb = st.columns(2)
+            cola.write(f'**CLUSTER': {cluster}**')               
+            cola.write(f'**DISTRICT': {district}**')
+            cola.write(f'**FACILITY': {facility}**')
+            cola.write(f'**IN COHORT?' : {cohort}**')
+            cola.write(f'**SEARCHED ART NO.' : {art}**')
+            cola.write(f'**SEARCHED ID:' {id}**')
+            cola.write(f'**UNIQUE ID':  {st.session_state['unique_number']}**')
+            cola.write(f'**FROM THIS FACILITY?': {visit}**')
+            cola.write(f'**FROM IDI SUPPORTED DISTRICT': {visitdistrict}**')
+            cola.write(f'**IDI DISTRICT': {ididistrict}**')
+            cola.write(f'**FROM IDI FACILITY':{visitfacility}**')
+            cola.write(f'**PARENT FACILITY': {fromfacility}**')
+            colb.write(f'**OTHER DISTRICT': {outdistrict}**')
+            colb.write(f'**OUTSIDE FACILITY': {outfacility}**')
+            colb.write(f'**NAME': {Name}**')
+            colb.write(f'**NEW ART NO.': {ART}**')
+            colb.write(f'**AGE': {Ag}**')
+            colb.write(f'**HER DISTRICT': {dist}**')
+            colb.write(f'**SUBPARISH': {par}**')
+            colb.write(f'**VILLAGE': {vil}**')
+            colb.write(f'**PHONE': {phone}**')
+            colb.write(f'**PHONE2': {phone2}**')
+            colb.write(f'**OUTCOME': {outcome}**')
+            colb.write(f'**DATE OF DELIVERY': {date}**')
+
+st.stop()
+if visitfacility =='NO':
+            cola,colb = st.columns(2)
+            cola.write(f'**CLUSTER': {cluster}**')               
+            cola.write(f'**DISTRICT': {district}**')
+            cola.write(f'**FACILITY': {facility}**')
+            cola.write(f'**IN COHORT?' : {cohort}**')
+            cola.write(f'**SEARCHED ART NO.' : {art}**')
+            cola.write(f'**SEARCHED ID:' {id}**')
+            cola.write(f'**UNIQUE ID':  {st.session_state['unique_number']}**')
+            cola.write(f'**FROM THIS FACILITY?': {visit}**')
+            cola.write(f'**FROM IDI SUPPORTED DISTRICT': {visitdistrict}**')
+            cola.write(f'**IDI DISTRICT': {ididistrict}**')
+            cola.write(f'**FROM IDI FACILITY':{visitfacility}**')
+            cola.write(f'**PARENT FACILITY': {fromfacility}**')
+            colb.write(f'**OTHER DISTRICT': {outdistrict}**')
+            colb.write(f'**OUTSIDE FACILITY': {outfacility}**')
+            colb.write(f'**NAME': {Name}**')
+            colb.write(f'**NEW ART NO.': {ART}**')
+            colb.write(f'**AGE': {Ag}**')
+            colb.write(f'**HER DISTRICT': {dist}**')
+            colb.write(f'**SUBPARISH': {par}**')
+            colb.write(f'**VILLAGE': {vil}**')
+            colb.write(f'**PHONE': {phone}**')
+            colb.write(f'**PHONE2': {phone2}**')
+            colb.write(f'**OUTCOME': {outcome}**')
+            colb.write(f'**DATE OF DELIVERY': {date}**')
+
+
+
+
+
+
+
+
+
+
+     
 #             #data = data.transpose()
 #             try:
 #                 conn = st.connection('gsheets', type=GSheetsConnection)
