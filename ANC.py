@@ -342,7 +342,7 @@ with st.form(key='PMTCT'):
                st.stop()
           else:
                pass
-     else:
+     
           st.session_state.preview_clicked = True
 
      if st.session_state.preview_clicked:
@@ -489,8 +489,6 @@ with st.form(key='PMTCT'):
                colb.write(f'**ANC DATE: {dates}**')
                cola.write(f'**CODE: {PMTCT}**')
                colb.write(f'**TELEPHONE: {phone}**')
-                      
-      
           
      if not st.session_state.preview_clicked:
           st.stop()
