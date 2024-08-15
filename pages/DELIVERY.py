@@ -161,19 +161,19 @@ else:
     st.stop()
     
 if cohort=='YES':
-        # try:
+         try:
             conn = st.connection('gsheets', type=GSheetsConnection)
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
             
             number = arts[['ART No.']].copy()
-            number = number.dropna(subset = 'ART No.')
+            number = number.dropna(subset = ['ART No.'])
             number['ART No.'] = number['ART No.'].astype(int)
             numbers = number['ART No.'].unique()
             
             id = arts[['UNIQUE ID']].copy()
-            id = id.dropna(subset = 'ART No.')
+            id = id.dropna(subset = ['ART No.'])
             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
             ids = id['UNIQUE ID'].unique()
                         
@@ -184,13 +184,13 @@ if cohort=='YES':
             colb.write('')
             colb.write('**OR**')
             id = colc.selectbox('**UNIQUE ID**', ids, index=False)
-        # except:
-        #     st.write("POOR NETWORK, COULDN'T CONNECT TO THE COHORT DATABASE")
-        #     st.write('GET GOOD NETWORK AND TRY AGAIN')
-        #     time.sleep(5)
-        #     st.markdown("""
-        #          <meta http-equiv="refresh" content="0">
-        #              """, unsafe_allow_html=True)
+         except:
+             st.write("POOR NETWORK, COULDN'T CONNECT TO THE COHORT DATABASE")
+             st.write('GET GOOD NETWORK AND TRY AGAIN')
+             time.sleep(5)
+             st.markdown("""
+                  <meta http-equiv="refresh" content="0">
+                      """, unsafe_allow_html=True)
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
