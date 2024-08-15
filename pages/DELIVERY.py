@@ -271,6 +271,8 @@ elif cohort=='NO':
              colr, colt = st.columns([1,1])
              outdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
              outfacility = colt.text_input('**Write here the facility name from this district**') 
+        else:
+            st.stop()
     elif visit=='YES':
         col4,col5 = st.columns([2,1])
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
