@@ -407,9 +407,9 @@ if preview:
     else:
         st.session_state.preview_clicked = True
 if not id:
-    id = ''
+    id = 'NONE'
 if not art:
-    art = ''
+    art = 'NONE'
 
 if not phone:
      phone = 'NOT FILLED'
