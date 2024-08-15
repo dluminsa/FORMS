@@ -166,9 +166,17 @@ if cohort=='YES':
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
-            arts = arts.dropna(by = ['ART No.', 'UNIQUE ID'])
-            numbers = arts['ART No.'].unique()
-            ids = arts['UNIQUE ID'].unique()
+            
+            number = arts[['ART No.']].copy()
+            number = number.dropna(subset = 'ART No.')
+            number['ART No.'] = number['ART No.'].astype(int)
+            numbers = number['ART No.'].unique()
+            
+            id = arts[['UNIQUE ID']].copy()
+            id = id.dropna(subset = 'ART No.')
+            id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+            ids = id['UNIQUE ID'].unique()
+                        
             search = st.write('**SEARCH HER BY**')
             cola,colb,colc = st.columns([3,1,3])
             art = cola.selectbox('**ART NO.**', numbers, index=None)
