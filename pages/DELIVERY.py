@@ -276,7 +276,6 @@ elif cohort=='NO':
          Name = coly.text_input(label="**Mother's name**")
          Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
          cole,colf = st.columns(2)
-         colf.write('')
          
          dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
          sub = colf.text_input("**SUBCOUNTY**")
