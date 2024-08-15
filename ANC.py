@@ -342,6 +342,7 @@ with st.form(key='PMTCT'):
                st.stop()
           else:
                pass
+st.stop()
 if preview:
     st.session_state.preview_clicked =True 
 if st.session_state.preview_clicked:
