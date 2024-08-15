@@ -190,17 +190,22 @@ with colb:
     st.write('**You selected:**')
     st.write(f"**{district} district, and {facility}**")
 
-visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
+visit = st.radio(label="**Is this mother from this facility?'s ART CLINIC**", options=['YES','NO'], index=None, horizontal=True)
 if not visit:
     st.stop()
 elif visit=='NO':
-    visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
+    st.write(f'**THIS MOTHER WILL BE ASSIGNED A UNIQUE ID, WE SHALL USE THIS TO TRACK HER FOR PCR**')
+    visitdistrict = st.radio(label='**Is her ART CLINIC from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
     if not visitdistrict:
          st.stop()
     elif visitdistrict =='YES':
          colr, colt = st.columns([1,1])
-         ididistrict = colr.selectbox(f"**Select the IDI supported district where she comes from***", ididistricts, index=None)
-         visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
+         ididistrict = colr.selectbox(f"**Select the IDI supported district where her ART CLINIC is from***", ididistricts, index=None)
+         if ididistrict:
+              pass
+         else:
+              st.stop()
+         visitfacility = st.radio(label='**In {ididistrict}, is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
          if not visitfacility:
              st.stop()
          elif visitfacility =='YES':
