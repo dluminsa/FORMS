@@ -235,7 +235,7 @@ if cohort=='YES':
 elif cohort=='NO':
     st.write("**FIRST REGISTER THIS MOTHER IN THE DATABASE BEFORE FILLING IN HER DELIVERY DETAILS**")
     st.write('')
-    visit = st.radio(label='**Is this mother from this facility's ART CLINIC?**', options=['YES','NO'], index=None, horizontal=True)
+    visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=True)
     if  visit:
         pass
     else:
