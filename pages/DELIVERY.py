@@ -265,32 +265,32 @@ elif cohort=='NO':
         col4,col5 = st.columns([2,1])
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
     
-    if 'preview_clicked' not in st.session_state:
-        st.session_state.preview_clicked = False
-    if 'submit_clicked' not in st.session_state:
-        st.session_state.submit_clicked = False
-    
-    with st.form(key='PMTCT'):
-         st.write("**MOTHER'S DEMOGRAPHICS**")
-         coly, colz = st.columns([4,1])
-         Name = coly.text_input(label="**Mother's name**")
-         Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
-         cole,colf = st.columns(2)
-         
-         dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-         sub = colf.text_input("**SUBCOUNTY**")
-         par = cole.text_input("**PARISH**")
-         vil = colf.text_input("**VILLAGE**")
-         phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
-         phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+if 'preview_clicked' not in st.session_state:
+    st.session_state.preview_clicked = False
+if 'submit_clicked' not in st.session_state:
+    st.session_state.submit_clicked = False
 
-         st.write('**DELIVERY DETAILS**')
-         st.write('')
-         outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
-         if outcome =='OTHERS':
-            others = st.text_input('If others, specify')   
-         date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
-         preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+with st.form(key='PMTCT'):
+     st.write("**MOTHER'S DEMOGRAPHICS**")
+     coly, colz = st.columns([4,1])
+     Name = coly.text_input(label="**Mother's name**")
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     cole,colf = st.columns(2)
+     
+     dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+     sub = colf.text_input("**SUBCOUNTY**")
+     par = cole.text_input("**PARISH**")
+     vil = colf.text_input("**VILLAGE**")
+     phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+     phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+
+     st.write('**DELIVERY DETAILS**')
+     st.write('')
+     outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
+     if outcome =='OTHERS':
+        others = st.text_input('If others, specify')   
+     date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
+     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 
 
 
