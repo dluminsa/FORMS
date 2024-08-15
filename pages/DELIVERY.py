@@ -138,7 +138,7 @@ def generate_unique_number():
 # Initialize the unique number in session state if it doesn't exist
 if 'unique_number' not in st.session_state:
          st.session_state['unique_number'] = generate_unique_number()
-         ID = st.session_state['unique_number']
+         #ID = st.session_state['unique_number']
 
 
 art =  ""
@@ -166,6 +166,8 @@ outdistrict = ''
 Name = ''
 Ag = ''
 dist = ''
+par = ''
+vil = ''
 outfacility = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
@@ -267,10 +269,6 @@ if cohort=='YES':
              st.markdown("""
                   <meta http-equiv="refresh" content="0">
                       """, unsafe_allow_html=True)
-# if not id:
-#     id = ''
-# if not art:
-#     art = ''
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
