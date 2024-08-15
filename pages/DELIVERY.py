@@ -169,21 +169,53 @@ if cohort=='YES':
             
             number = arts[['ART No.']].copy()
             number = number.dropna(subset = ['ART No.'])
+            n = number.shape[0]
             number['ART No.'] = number['ART No.'].astype(int)
             numbers = number['ART No.'].unique()
             
             id = arts[['UNIQUE ID']].copy()
             id = id.dropna(subset = ['UNIQUE ID'])
+            i = id.shape[0]
             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
             ids = id['UNIQUE ID'].unique()
-                        
-            search = st.write('**SEARCH HER BY**')
-            cola,colb,colc = st.columns([3,1,3])
-            art = cola.selectbox('**ART NO.**', numbers, index=None)
-            colb.write('')
-            colb.write('')
-            colb.write('**OR**')
-            id = colc.selectbox('**UNIQUE ID**', ids, index=False)
+
+            if int(n)==0:
+                if int(i) ==0:
+                    st.write('** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**)
+                    st.write('**SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**)
+                    st.stop()
+                elif int(i)>0:
+                    st.write('**SEARCH BY ID, NO ART NOs FOR  {facility} WERE FOUND IN THE DATABASE**)
+                    st.write(f'**{i} MOTHERS FOR  {facility} WERE REGISTERED BY UNIQUE IDs INT THIS DATABASE **)
+                    st.write("**IF HER ID DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
+                    cola,colb,colc = st.columns([3,1,3])
+                    id = cola.selectbox('** SEARCH BY UNIQUE ID**', ids, index=None)
+                    
+            elif int(n)>0: 
+                    if int(i)==0:
+                        st.write('**SEARCH BY ART NO, NO UNIQUE IDs  FOR  {facility} WERE FOUND IN THE DATABASE**)
+                        st.write(f'**{n} mothers FOR  {facility} WERE REGISTERED BY ART NOs THE DATA BASE**)
+                        st.write("**IF HER ART NO DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
+                        cola,colb,colc = st.columns([3,1,3])
+                        art = cola.selectbox('**SEARCH BY ART NO**', numbers, index=None)
+                    elif int(i) > 0: 
+                        st.write(f'**FOUND {n} MOTHERS WITH ART NOs AND {i} WITH UNIQUE IDs FOR {facility} IN THE DATA BASE**)
+                        st.write(f'**IF NONE POPS UP, SELECT NO TO QUESTION ABOVE TO REGISTER THIS MOTHER**)
+                        search = st.write('**SEARCH HER BY**')
+                        cola,colb,colc = st.columns([3,1,3])
+                        art = cola.selectbox('**ART NO.**', numbers, index=None)
+                        colb.write('')
+                        colb.write('')
+                        colb.write('**OR**')
+                        id = colc.selectbox('**UNIQUE ID**', ids, index=None)
+
+                        if id and art:
+                             st.write("**YOU CAN'T CHOOSE BOTH ID AND ART NO., CHOOSE ONE, BY WHICH THE MOTHER WAS REGISTERED**")
+                             st.stop()
+                        elif not id and not a
+                             st.stop()
+                        else: 
+                            pass
          # except:
          #     st.write("POOR NETWORK, COULDN'T CONNECT TO THE COHORT DATABASE")
          #     st.write('GET GOOD NETWORK AND TRY AGAIN')
