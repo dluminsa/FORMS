@@ -181,7 +181,7 @@ if cohort=='YES':
 
             if int(n)==0:
                 if int(i) ==0:
-                    st.write('** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**')
+                    st.write(f'** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**')
                     st.write('**SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**')
                     st.stop()
                 elif int(i)>0:
