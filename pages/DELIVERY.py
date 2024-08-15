@@ -571,7 +571,7 @@ if visitdistrict =='NO':
             #cola.write(f'**IDI DISTRICT: {ididistrict}**')
             #cola.write(f'**FROM IDI FACILITY:{visitfacility}**')
             #cola.write(f'**PARENT FACILITY: {fromfacility}**')
-            colb.write(f'**OTHER DISTRICT: {outdistrict}**')
+            cola.write(f'**FACILITY DISTRICT: {outdistrict}**')
             colb.write(f'**OUTSIDE FACILITY: {outfacility}**')
             colb.write(f'**NAME: {Name}**')
             #colb.write(f'**NEW ART NO.: {ART}**')
