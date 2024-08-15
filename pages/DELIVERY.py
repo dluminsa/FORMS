@@ -370,7 +370,7 @@ if preview:
             coly.warning("HER HOME DISTRICT IS REQUIRED, input and try again")
             st.stop()
         elif not vil:
-        colx.write('**ERROR!!!**')
+            colx.write('**ERROR!!!**')
             coly.warning("HER HOME VILLAGE IS REQUIRED, input and try again")
             st.stop()
           if phone: 
