@@ -286,15 +286,12 @@ elif cohort=='NO':
          phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
          phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
 
-        st.write('**DELIVERY DETAILS**')
-        st.write('')
-        outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
-        if outcome =='OTHERS':
-            others = st.text_input('If others, specify')
-            
-        date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
-
-
+         st.write('**DELIVERY DETAILS**')
+         st.write('')
+         outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
+         if outcome =='OTHERS':
+            others = st.text_input('If others, specify')   
+         date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
          preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 
 
