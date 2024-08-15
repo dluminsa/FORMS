@@ -269,6 +269,10 @@ if cohort=='YES':
              st.markdown("""
                   <meta http-equiv="refresh" content="0">
                       """, unsafe_allow_html=True)
+if not id:
+    id = ''
+if not art:
+    art =''
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
@@ -441,7 +445,7 @@ if preview:
             'OUTCOME': outcome,
             'DATE OF DELIVERY': date
             }])   
-     st.write(data)
+     #st.write(data)
 if cohort =='YES':
             cola,colb = st.columns(2)
             cola.write(f'**CLUSTER: {cluster}**')               
