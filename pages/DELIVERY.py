@@ -259,7 +259,7 @@ elif cohort=='NO':
                  others = col4.text_input(label= '**Name of her parent facility:**')
         elif visitdistrict=='NO':
              colr, colt = st.columns([1,1])
-             otherdistrict = colr.selectbox(label='**Select here her District of Origin**',options= alldistricts, index=None)
+             otherdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
              otherfacility = colt.text_input('**Write here the facility name from this district**') 
     else:
         col4,col5 = st.columns([2,1])
