@@ -309,6 +309,7 @@ with st.form(key='PMTCT'):
     cola,colb,colc =st.columns([2,1,1])
     date = cola.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+    
 if preview:
     colx,coly = st.columns([1,2])
     if visitfacility =='YES':
@@ -321,42 +322,42 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("PARENT FACILITY not provided, input and try again")
             st.stop()
-st.stop()
-    colx,coly = st.columns([1,2])
-    if cohort =='YES':
-        if not mother: 
-            colx.write('**MISSING DATA**')
-            coly.warning("ART number not provided, input and try again")
-            st.stop() 
-    if not outcome:
-        colx.write('**MISSING DATA**')
-        coly.warning("CHOOSE AN OUT COME")
-        st.stop() 
-    if outcome == 'OTHERS':
-         if not others:
-            colx.write('**MISSING DATA**')
-            coly.warning("Specify the other delivery")
-            st.stop()     
-    if not date:
-        colx.write('**MISSING DATA**')
-        coly.warning("In put the date of the delivery out come")
-        st.stop()   
-    else:
-        date = datetime.now().date()
-        formatted = date.strftime("%d-%m-%Y")
-        data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-            'CLUSTER': cluster,                
-            'DISTRICT': district,
-            'FACILITY': facility,
-            'IN COHORT?' : cohort,
-            'ART NO.' : mother,
-            'VISITOR': parent,
-            'FROM IDI FACILITY?': parentb,
-            'IDI FACILITY': parentc,
-            'OTHER FACILITY': parentd,
-            'OUTCOME': outcome,
-            #'OTHERS': others,
-            'DATE OF DELIVERY': date
+# st.stop()
+#     colx,coly = st.columns([1,2])
+#     if cohort =='YES':
+#         if not mother: 
+#             colx.write('**MISSING DATA**')
+#             coly.warning("ART number not provided, input and try again")
+#             st.stop() 
+#     if not outcome:
+#         colx.write('**MISSING DATA**')
+#         coly.warning("CHOOSE AN OUT COME")
+#         st.stop() 
+#     if outcome == 'OTHERS':
+#          if not others:
+#             colx.write('**MISSING DATA**')
+#             coly.warning("Specify the other delivery")
+#             st.stop()     
+#     if not date:
+#         colx.write('**MISSING DATA**')
+#         coly.warning("In put the date of the delivery out come")
+#         st.stop()   
+#     else:
+#         date = datetime.now().date()
+#         formatted = date.strftime("%d-%m-%Y")
+#         data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+#             'CLUSTER': cluster,                
+#             'DISTRICT': district,
+#             'FACILITY': facility,
+#             'IN COHORT?' : cohort,
+#             'ART NO.' : mother,
+#             'VISITOR': parent,
+#             'FROM IDI FACILITY?': parentb,
+#             'IDI FACILITY': parentc,
+#             'OTHER FACILITY': parentd,
+#             'OUTCOME': outcome,
+#             #'OTHERS': others,
+#             'DATE OF DELIVERY': date
 
             }])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 #             #data = data.transpose()
