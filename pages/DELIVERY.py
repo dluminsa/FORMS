@@ -245,10 +245,10 @@ elif cohort=='NO':
     st.write("**FIRST REGISTER THIS MOTHER IN THE DATABASE BEFORE FILLING IN HER DELIVERY DETAILS**")
     st.write('')
     visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=True)
-    if  visit:
-        pass
-    else:
-        st.stop()
+if  visit:
+    pass
+else:
+    st.stop()
     if visit=='NO':
         st.write(f'**THIS MOTHER WILL BE ASSIGNED A UNIQUE ID, WE SHALL USE THIS TO TRACK HER FOR PCR**')
         visitdistrict = st.radio(label='**Does She get ART from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
@@ -273,8 +273,8 @@ elif cohort=='NO':
                  otherfacility = col4.text_input(label= '**Name of her parent facility:**')
         elif visitdistrict=='NO':
              colr, colt = st.columns([1,1])
-             otherdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
-             otherfacility = colt.text_input('**Write here the facility name from this district**') 
+             outdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
+             outfacility = colt.text_input('**Write here the facility name from this district**') 
     else:
         col4,col5 = st.columns([2,1])
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
@@ -321,6 +321,21 @@ if preview:
         if not otherfacility:
             colx.write('**ERROR!!!**')
             coly.warning("PARENT FACILITY not provided, input and try again")
+            st.stop()
+    if visit == 'YES':
+        if not ART:
+            colx.write('**ERROR!!!**')
+            coly.warning("ART NO. not provided, input and try again")
+            st.stop()
+
+    if visitdistrict == 'NO':
+        if not outdistrict:
+            colx.write('**ERROR!!!**')
+            coly.warning("DISTRICT OF HER ART CLINIC not provided, input and try again")
+            st.stop()
+        if not outfacility:
+            colx.write('**ERROR!!!**')
+            coly.warning("FACILITY NAME NOT PROVIDED, input and try again")
             st.stop()
 # st.stop()
 #     colx,coly = st.columns([1,2])
