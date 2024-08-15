@@ -270,7 +270,7 @@ elif cohort=='NO':
                  art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
              else:
                  col4,col5 = st.columns([2,1])
-                 others = col4.text_input(label= '**Name of her parent facility:**')
+                 othersfacility = col4.text_input(label= '**Name of her parent facility:**')
         elif visitdistrict=='NO':
              colr, colt = st.columns([1,1])
              otherdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
@@ -310,6 +310,18 @@ with st.form(key='PMTCT'):
     date = cola.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 if preview:
+    colx,coly = st.columns([1,2])
+    if visitfacility =='YES':
+        if not fromfacility:
+            colx.write('**ERROR!!!**')
+            coly.warning("PARENT FACILITY not provided, input and try again")
+            st.stop()
+    if visitfacility =='NO':
+        if not otherfacility:
+            colx.write('**ERROR!!!**')
+            coly.warning("PARENT FACILITY not provided, input and try again")
+            st.stop()
+st.stop()
     colx,coly = st.columns([1,2])
     if cohort =='YES':
         if not mother: 
