@@ -185,22 +185,22 @@ if cohort=='YES':
                     st.write('**SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**')
                     st.stop()
                 elif int(i)>0:
-                    st.write('**SEARCH BY ID, NO ART NOs FOR  {facility} WERE FOUND IN THE DATABASE**')
-                    st.write(f'**{i} MOTHERS FOR  {facility} WERE REGISTERED BY UNIQUE IDs INT THIS DATABASE **')
-                    st.write("**IF HER ID DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
+                    st.write('**SEARCH BY ID, NO ART NOs FOUND FOR  {facility}**')
+                    st.write(f'**{i} MOTHERS FOUND**')
                     cola,colb,colc = st.columns([3,1,3])
                     id = cola.selectbox('** SEARCH BY UNIQUE ID**', ids, index=None)
+                    st.write("**IF HER ID DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
                     
             elif int(n)>0: 
                     if int(i)==0:
-                        st.write('**SEARCH BY ART NO, NO UNIQUE IDs  FOR  {facility} WERE FOUND IN THE DATABASE**')
-                        st.write(f'**{n} mothers FOR  {facility} WERE REGISTERED BY ART NOs THE DATA BASE**')
-                        st.write("**IF HER ART NO DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
+                        st.write(f'**SEARCH BY ART NO, NO UNIQUE IDs  FOUND FOR  {facility}**')
+                        st.write(f'**{n} MOTHER(S) FOUND**')
                         cola,colb,colc = st.columns([3,1,3])
                         art = cola.selectbox('**SEARCH BY ART NO**', numbers, index=None)
+                        st.write("**IF HER ART NO DOESN'T POP UP, SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**")
                     elif int(i) > 0: 
-                        st.write(f'**FOUND {n} MOTHERS WITH ART NOs AND {i} WITH UNIQUE IDs FOR {facility} IN THE DATA BASE**')
-                        st.write(f'**IF NONE POPS UP, SELECT NO TO QUESTION ABOVE TO REGISTER THIS MOTHER**')
+                        st.write(f'**FOUND {n} WITH ART NO(s) AND {i} UNIQUE ID(s) FOR {facility}**')
+                        st.write(f'**IF NONE POPS UP, SELECT NO TO QUESTION ABOVE TO REGISTER HER INSTEAD**')
                         search = st.write('**SEARCH HER BY**')
                         cola,colb,colc = st.columns([3,1,3])
                         art = cola.selectbox('**ART NO.**', numbers, index=None)
