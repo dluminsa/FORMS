@@ -388,6 +388,11 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("INPUT OUTCOME OF DELIVERY")
             st.stop()
+    if not outcome == 'OTHERS':
+        if not others:
+            colx.write('**ERROR!!!**')
+            coly.warning("SPECIFY THE OTHER DELIVERY OUTCOME")
+            st.stop()
     if not date:
             colx.write('**ERROR!!!**')
             coly.warning("IN PUT DATE OF DELIVERY")
@@ -430,7 +435,7 @@ else:
             'OUTCOME': outcome,
             'DATE OF DELIVERY': date
             }])   
-st.write(df)
+st.write(data)
 #             #data = data.transpose()
 #             try:
 #                 conn = st.connection('gsheets', type=GSheetsConnection)
