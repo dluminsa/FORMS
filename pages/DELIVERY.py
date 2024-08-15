@@ -557,8 +557,7 @@ if visitfacility =='NO':
             colb.write(f'**OUTCOME: {outcome}**')
             colb.write(f'**DATE OF DELIVERY: {date}**')
 
-st.stop()
-if visitfacility =='NO':
+if visitdistrict =='NO':
             cola,colb = st.columns(2)
             cola.write(f'**CLUSTER: {cluster}**')               
             cola.write(f'**DISTRICT: {district}**')
