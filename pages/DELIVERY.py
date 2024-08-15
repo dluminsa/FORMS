@@ -421,7 +421,7 @@ else:
             'OUTCOME': outcome,
             'DATE OF DELIVERY': date
             }])   
-    st.write(df)
+st.write(df)
 #             #data = data.transpose()
 #             try:
 #                 conn = st.connection('gsheets', type=GSheetsConnection)
