@@ -158,6 +158,7 @@ cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", o
 conn = st.connection('gsheets', type=GSheetsConnection)
 exist = conn.read(worksheet= 'PMTCT', usecols=list(range(29)),ttl=5)
 arts = exist.dropna(how='all')
+st.write(arts.columns)
 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
 numbers = arts['ART No.'].unique()
 ids = arts['UNIQUE ID'].unique()
