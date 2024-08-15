@@ -168,6 +168,7 @@ elif cohort=='YES':
             search = st.write('**SEARCH HER BY**')
             cola,colb,colc = st.columns([3,1,3])
             art = cola.selectbox('**ART NO.**', numbers, index=None)
+            colb.write('')
             colb.write('**OR**')
             id = colc.selectbox('**UNIQUE ID**', ids, index=False)
         except:
