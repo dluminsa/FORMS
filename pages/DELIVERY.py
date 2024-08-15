@@ -245,7 +245,7 @@ elif cohort=='NO':
         if not visitdistrict:
              st.stop()
         elif visitdistrict =='YES':
-             colr, colt = st.columns([1,1])
+             colr, colt = st.columns([2,1])
              ididistrict = colr.selectbox(f"**Select the IDI supported district where she gets ART from***", ididistricts, index=None)
              visitfacility = st.radio(label='**Is She from an IDI supported facility?**', options=['YES','NO'], index=None, horizontal=True)
              if not visitfacility:
