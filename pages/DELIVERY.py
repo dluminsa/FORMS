@@ -271,11 +271,11 @@ elif cohort=='NO':
         st.session_state.submit_clicked = False
     
     with st.form(key='PMTCT'):
+         st.write("**MOTHER'S DEMOGRAPHICS**")
          coly, colz = st.columns([4,1])
          Name = coly.text_input(label="**Mother's name**")
          Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
          cole,colf = st.columns(2)
-         cole.write("MOTHER'S CONTACT DETAILS")
          colf.write('')
          colf.write('')
          colf.write('')
