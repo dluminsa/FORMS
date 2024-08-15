@@ -270,7 +270,7 @@ elif cohort=='NO':
                  art = col5.number_input(label= '**Her ART No. at the parent facility:**', value=None, min_value=1)
              else:
                  col4,col5 = st.columns([2,1])
-                 othersfacility = col4.text_input(label= '**Name of her parent facility:**')
+                 otherfacility = col4.text_input(label= '**Name of her parent facility:**')
         elif visitdistrict=='NO':
              colr, colt = st.columns([1,1])
              otherdistrict = colr.selectbox(label='**Select here the District of her ART Clinic**',options= alldistricts, index=None)
