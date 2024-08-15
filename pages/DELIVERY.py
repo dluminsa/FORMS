@@ -408,8 +408,9 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("IN PUT DATE OF DELIVERY")
             st.stop()
-    else:
-        st.session_state.preview_clicked = True
+    
+    st.session_state.preview_clicked = True
+    
 if not id:
     id = 'NONE'
 if not art:
@@ -421,7 +422,8 @@ if visit == 'YES':
      st.session_state['unique_number'] = ''
 else:
      st.session_state['unique_number'] = generate_unique_number()
-if preview:
+    
+if st.session_state.preview_clicked and not st.session_state.submit_clicked:
      date = datetime.now().date()
      formatted = date.strftime("%d-%m-%Y")
      data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
@@ -599,48 +601,23 @@ if visitdistrict =='NO':
             #colb.write(f'**PHONE2: {phone2}**')
             colb.write(f'**OUTCOME: {outcome}**')
             colb.write(f'**DATE OF DELIVERY: {date}**')
+    
+if st.session_state.preview_clicked:
+    submit = st.button('Submit')
 
-st.stop()
-if visitfacility =='NO':
-            cola,colb = st.columns(2)
-            cola.write(f'**CLUSTER: {cluster}**')               
-            cola.write(f'**DISTRICT: {district}**')
-            cola.write(f'**FACILITY: {facility}**')
-            cola.write(f'**IN COHORT? : {cohort}**')
-            cola.write(f'**SEARCHED ART NO. : {art}**')
-            cola.write(f'**SEARCHED ID: {id}**')
-            cola.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
-            cola.write(f'**FROM THIS FACILITY?: {visit}**')
-            cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
-            cola.write(f'**IDI DISTRICT: {ididistrict}**')
-            cola.write(f'**FROM IDI FACILITY:{visitfacility}**')
-            cola.write(f'**PARENT FACILITY: {fromfacility}**')
-            colb.write(f'**OTHER DISTRICT: {outdistrict}**')
-            colb.write(f'**OUTSIDE FACILITY: {outfacility}**')
-            colb.write(f'**NAME: {Name}**')
-            colb.write(f'**NEW ART NO.: {ART}**')
-            colb.write(f'**AGE: {Ag}**')
-            colb.write(f'**HER DISTRICT: {dist}**')
-            colb.write(f'**SUBPARISH: {par}**')
-            colb.write(f'**VILLAGE: {vil}**')
-            colb.write(f'**PHONE: {phone}**')
-            colb.write(f'**PHONE2: {phone2}**')
-            colb.write(f'**OUTCOME: {outcome}**')
-            colb.write(f'**DATE OF DELIVERY: {date}**')
+    if submit:
+        st.session_state.submit_clicked = True
 
+        if st.session_state.submit_clicked:
 
-
-
-     
-#             #data = data.transpose()
-#             try:
-#                 conn = st.connection('gsheets', type=GSheetsConnection)
-#                 exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(13)),ttl=5)
-#                 existing= exist.dropna(how='all')
-#                     #st.write(existing)
-#                 updated = pd.concat([existing, data], ignore_index =True)
-#                 conn.update(worksheet = 'DELIVERY', data = updated)
-#                 st.success('Your data above has been submitted')
-#             except:
-#                 st.write("Couldn't submit, poor network")
+            try:
+                conn = st.connection('gsheets', type=GSheetsConnection)
+                exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(30)),ttl=5)
+                existing= exist.dropna(how='all')
+                    #st.write(existing)
+                updated = pd.concat([existing, data], ignore_index =True)
+                conn.update(worksheet = 'DELIVERY', data = updated)
+                st.success('Your data above has been submitted')
+            except:
+                st.write("Couldn't submit, poor network")
 
