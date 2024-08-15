@@ -373,12 +373,12 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("HER HOME VILLAGE IS REQUIRED, input and try again")
             st.stop()
-          if phone: 
+        if phone: 
                if len(phone)!=10:
                     colx.write('**ERROR!!!**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
                     st.stop() 
-          if phone2: 
+        if phone2: 
                if len(phone2)!=10:
                     colx.write('**ERROR!!!**')
                     coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
