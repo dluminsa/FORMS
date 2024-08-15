@@ -163,6 +163,9 @@ fromfacility = ''
 visit = ''
 ART = ''
 outdistrict = ''
+Name = ''
+Ag = ''
+dist = ''
 outfacility = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
