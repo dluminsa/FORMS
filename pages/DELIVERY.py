@@ -291,8 +291,9 @@ with st.form(key='PMTCT'):
     st.write('')
     outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
     if outcome =='OTHERS':
-        others = st.text_input('If others, specify')   
-    date = st.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
+        others = st.text_input('If others, specify') 
+    cola,colb,colc =st.columns([2,1,1])
+    date = cola.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
     preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
 
 
