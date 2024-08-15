@@ -226,6 +226,8 @@ if cohort=='YES':
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
+    st.write("**FIRST REGISTER THIS MOTHER IN THE DATABASE BEFORE FILLING IN HER DELIVERY DETAILS**")
+    st.write('')
     visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
     if  visit:
         pass
