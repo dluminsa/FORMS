@@ -227,9 +227,11 @@ if cohort=='YES':
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
 elif cohort=='NO':
     visit = st.radio(label='**Is this mother from this facility?**', options=['YES','NO'], index=None, horizontal=True)
-    if not visit:
+    if  visit:
+        pass
+    else:
         st.stop()
-    elif visit=='NO':
+    if visit=='NO':
         visitdistrict = st.radio(label='**Is She from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
         if not visitdistrict:
              st.stop()
