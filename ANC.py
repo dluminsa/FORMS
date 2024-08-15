@@ -345,7 +345,7 @@ with st.form(key='PMTCT'):
      else:
           st.session_state.preview_clicked = True
 
-     if st.session_state.preview_clicked = True:
+     if st.session_state.preview_clicked:
      
                if not phone:
                     phone = 'NOT FILLED'
