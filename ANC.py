@@ -345,180 +345,180 @@ with st.form(key='PMTCT'):
      
           st.session_state.preview_clicked = True
 
-     if st.session_state.preview_clicked:
+if st.session_state.preview_clicked:
+
+          if not phone:
+               phone = 'NOT FILLED'
+          if visit == 'YES':
+               st.session_state['unique_number'] = ''
+          else:
+               st.session_state['unique_number'] = generate_unique_number()
+
+
+if st.session_state.preview_clicked and not st.session_state.submit_clicked:
+# if not st.session_state.submit_clicked:    
+     date = datetime.now().date()
+     formatted = date.strftime("%d-%m-%Y")
+     #st.write(formatted)
+     df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+                         'CLUSTER': cluster,
+                         'FACILITY DISTRICT':district,
+                         'HEALTH FACILITY' : facility,
+                         'IS THIS HER PARENT FACILITY?' : visit,
+                         'ART No.' : ART,
+                         'MWP IDI DISTRICT?': visitdistrict,
+                         'IDI SUPPORTED DISTRICT':ididistrict,
+                         'FROM IDI FACILITY?': visitfacility,
+                         'IDI PARENT FACILITY?'  : fromfacility,
+                         'OTHER PARENT FACILITY': others,
+                         'ART NO AT PARENT FACILITY': art,
+                         'OTHER DISTRICT': otherdistrict,
+                         'OUTSIDE FACILITY': otherfacility,
+                         'NAME': Name,
+                         'AGE': Age,
+                         'HER DISTRICT':dist,
+                         'SUBCOUNTY':sub,
+                         'PARISH':par,
+                         'VILLAGE':vil,
+                         'TELEPHONE':phone,
+                         'GESTATION AGE': GA,
+                         'EDD': EDD,
+                         'ANC DATE':dates,
+                         'CODE': PMTCT,
+                         'UNIQUE ID': st.session_state['unique_number'],
+                         }]) 
+
+     if visit =='YES':
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**ART No: {ART}**')
+          cola.write(f'**NAME: {Name}**')
+          cola.write(f'**AGE: {Ag}**')
+          cola.write(f'**HER DISTRICT: {dist}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONE: {phone}**')     
+            
+     if visitfacility=='YES':
+          cola, colb, colc, cold = st.columns(4)
+          cola.write (f"**UNIQUE ID:**") 
+          colb.write(f"**{st.session_state['unique_number']}**")
+          st.write('')
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
+          cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
+          cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
+          cola.write(f'**IDI PARENT FACILITY?: {fromfacility}**')
+          #cola.write(f'**OTHER PARENT FACILITY: {others}**')
+          cola.write(f'**ART NO AT PARENT FACILITY: {art}**')
+          #colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          colb.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONE: {phone}**')
+
+     if visitfacility =='NO':
+          cola, colb, colc, cold = st.columns(4)
+          cola.write (f"**UNIQUE ID:**") 
+          colb.write(f"**{st.session_state['unique_number']}**")
+          st.write('')
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
+          cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
+          cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
+          #cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          cola.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONE: {phone}**')
+                     
+     if visitdistrict =='NO':
+          cola, colb, colc, cold = st.columns(4)
+          cola.write (f"**UNIQUE ID:**") 
+          colb.write(f"**{st.session_state['unique_number']}**")
+          st.write('')
+          st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+          cola,colb = st.columns(2)
+          cola.write(f'**CLUSTER: {cluster}**')
+          cola.write(f'**FACILITY DISTRICT: {district}**')
+          cola.write(f'**HEALTH FACILITY: {facility}**')
+          cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
+          cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
+          cola.write(f'**OTHER DISTRICT: {otherdistrict}**')
+          cola.write(f'**OUTSIDE FACILITY?: {otherfacility}**')
+          colb.write(f'**NAME: {Name}**')
+          colb.write(f'**AGE: {Ag}**')
+          colb.write(f'**HER DISTRICT: {dist}**')
+          #colb.write(f'**SUBCOUNTY: {sub}**')
+          #colb.write(f'**PARISH: {par}**')
+          colb.write(f'**VILLAGE: {vil}**')
+          colb.write(f'**GESTATION AGE: {GA}**')
+          colb.write(f'**EDD: {EDD}**')
+          colb.write(f'**ANC DATE: {dates}**')
+          cola.write(f'**CODE: {PMTCT}**')
+          colb.write(f'**TELEPHONE: {phone}**')
      
-               if not phone:
-                    phone = 'NOT FILLED'
-               if visit == 'YES':
-                    st.session_state['unique_number'] = ''
-               else:
-                    st.session_state['unique_number'] = generate_unique_number()
-     
-     
-     if st.session_state.preview_clicked and not st.session_state.submit_clicked:
-     # if not st.session_state.submit_clicked:    
-          date = datetime.now().date()
-          formatted = date.strftime("%d-%m-%Y")
-          #st.write(formatted)
-          df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-                              'CLUSTER': cluster,
-                              'FACILITY DISTRICT':district,
-                              'HEALTH FACILITY' : facility,
-                              'IS THIS HER PARENT FACILITY?' : visit,
-                              'ART No.' : ART,
-                              'MWP IDI DISTRICT?': visitdistrict,
-                              'IDI SUPPORTED DISTRICT':ididistrict,
-                              'FROM IDI FACILITY?': visitfacility,
-                              'IDI PARENT FACILITY?'  : fromfacility,
-                              'OTHER PARENT FACILITY': others,
-                              'ART NO AT PARENT FACILITY': art,
-                              'OTHER DISTRICT': otherdistrict,
-                              'OUTSIDE FACILITY': otherfacility,
-                              'NAME': Name,
-                              'AGE': Age,
-                              'HER DISTRICT':dist,
-                              'SUBCOUNTY':sub,
-                              'PARISH':par,
-                              'VILLAGE':vil,
-                              'TELEPHONE':phone,
-                              'GESTATION AGE': GA,
-                              'EDD': EDD,
-                              'ANC DATE':dates,
-                              'CODE': PMTCT,
-                              'UNIQUE ID': st.session_state['unique_number'],
-                              }]) 
-     
-          if visit =='YES':
-               cola,colb = st.columns(2)
-               cola.write(f'**CLUSTER: {cluster}**')
-               cola.write(f'**FACILITY DISTRICT: {district}**')
-               cola.write(f'**HEALTH FACILITY: {facility}**')
-               cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-               cola.write(f'**ART No: {ART}**')
-               cola.write(f'**NAME: {Name}**')
-               cola.write(f'**AGE: {Ag}**')
-               cola.write(f'**HER DISTRICT: {dist}**')
-               #colb.write(f'**SUBCOUNTY: {sub}**')
-               #colb.write(f'**PARISH: {par}**')
-               colb.write(f'**VILLAGE: {vil}**')
-               colb.write(f'**GESTATION AGE: {GA}**')
-               colb.write(f'**EDD: {EDD}**')
-               colb.write(f'**ANC DATE: {dates}**')
-               colb.write(f'**CODE: {PMTCT}**')
-               colb.write(f'**TELEPHONE: {phone}**')     
-                 
-          if visitfacility=='YES':
-               cola, colb, colc, cold = st.columns(4)
-               cola.write (f"**UNIQUE ID:**") 
-               colb.write(f"**{st.session_state['unique_number']}**")
-               st.write('')
-               st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
-               cola,colb = st.columns(2)
-               cola.write(f'**CLUSTER: {cluster}**')
-               cola.write(f'**FACILITY DISTRICT: {district}**')
-               cola.write(f'**HEALTH FACILITY: {facility}**')
-               cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-               cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
-               cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
-               cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
-               cola.write(f'**IDI PARENT FACILITY?: {fromfacility}**')
-               #cola.write(f'**OTHER PARENT FACILITY: {others}**')
-               cola.write(f'**ART NO AT PARENT FACILITY: {art}**')
-               #colb.write(f'**OUTSIDE FACILITY: {otherfacility}**')
-               colb.write(f'**NAME: {Name}**')
-               colb.write(f'**AGE: {Ag}**')
-               colb.write(f'**HER DISTRICT: {dist}**')
-               #colb.write(f'**SUBCOUNTY: {sub}**')
-               #colb.write(f'**PARISH: {par}**')
-               colb.write(f'**VILLAGE: {vil}**')
-               colb.write(f'**GESTATION AGE: {GA}**')
-               colb.write(f'**EDD: {EDD}**')
-               colb.write(f'**ANC DATE: {dates}**')
-               colb.write(f'**CODE: {PMTCT}**')
-               colb.write(f'**TELEPHONE: {phone}**')
-     
-          if visitfacility =='NO':
-               cola, colb, colc, cold = st.columns(4)
-               cola.write (f"**UNIQUE ID:**") 
-               colb.write(f"**{st.session_state['unique_number']}**")
-               st.write('')
-               st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
-               cola,colb = st.columns(2)
-               cola.write(f'**CLUSTER: {cluster}**')
-               cola.write(f'**FACILITY DISTRICT: {district}**')
-               cola.write(f'**HEALTH FACILITY: {facility}**')
-               cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-               cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
-               cola.write(f'**IDI SUPPORTED DISTRICT: {ididistrict}**')
-               cola.write(f'**FROM IDI FACILITY?: {visitfacility}**')
-               #cola.write(f'**OTHER PARENT FACILITY: {fromfacility}**')
-               colb.write(f'**NAME: {Name}**')
-               colb.write(f'**AGE: {Ag}**')
-               colb.write(f'**HER DISTRICT: {dist}**')
-               #colb.write(f'**SUBCOUNTY: {sub}**')
-               #colb.write(f'**PARISH: {par}**')
-               colb.write(f'**VILLAGE: {vil}**')
-               colb.write(f'**GESTATION AGE: {GA}**')
-               colb.write(f'**EDD: {EDD}**')
-               colb.write(f'**ANC DATE: {dates}**')
-               cola.write(f'**CODE: {PMTCT}**')
-               colb.write(f'**TELEPHONE: {phone}**')
-                          
-          if visitdistrict =='NO':
-               cola, colb, colc, cold = st.columns(4)
-               cola.write (f"**UNIQUE ID:**") 
-               colb.write(f"**{st.session_state['unique_number']}**")
-               st.write('')
-               st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
-               cola,colb = st.columns(2)
-               cola.write(f'**CLUSTER: {cluster}**')
-               cola.write(f'**FACILITY DISTRICT: {district}**')
-               cola.write(f'**HEALTH FACILITY: {facility}**')
-               cola.write(f'**IS THIS HER PARENT FACILITY?: {visit}**')
-               cola.write(f'**FROM IDI SUPPORTED DISTRICT?: {visitdistrict}**')
-               cola.write(f'**OTHER DISTRICT: {otherdistrict}**')
-               cola.write(f'**OUTSIDE FACILITY?: {otherfacility}**')
-               colb.write(f'**NAME: {Name}**')
-               colb.write(f'**AGE: {Ag}**')
-               colb.write(f'**HER DISTRICT: {dist}**')
-               #colb.write(f'**SUBCOUNTY: {sub}**')
-               #colb.write(f'**PARISH: {par}**')
-               colb.write(f'**VILLAGE: {vil}**')
-               colb.write(f'**GESTATION AGE: {GA}**')
-               colb.write(f'**EDD: {EDD}**')
-               colb.write(f'**ANC DATE: {dates}**')
-               cola.write(f'**CODE: {PMTCT}**')
-               colb.write(f'**TELEPHONE: {phone}**')
-          
-     if not st.session_state.preview_clicked:
+if not st.session_state.preview_clicked:
+     st.stop()
+else:
+     submit = st.button('Submit')
+
+     if not submit:
+          st.session_state.submit_clicked = False
           st.stop()
      else:
-          submit = st.button('Submit')
-     
-          if not submit:
-               st.session_state.submit_clicked = False
-               st.stop()
-          else:
-               st.session_state.submit_clicked = True
-     
-               if st.session_state.submit_clicked:
-                    try:
-                         conn = st.connection('gsheets', type=GSheetsConnection)
-                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-                         existing= exist.dropna(how='all')
-                         updated = pd.concat([existing, df], ignore_index =True)
-                         conn.update(worksheet = 'PMTCT', data = updated)         
-                         st.success('Your data above has been submitted')
-                         time.sleep(2)
-                         st.write('RELOADING PAGE')
-                         st.success('SUBMITTED SUCCESSFULLY')
-                         time.sleep(1)
-                         st.cache_data.clear()
-                         st.cache_resource.clear()
-                         st.markdown("""
-                         <meta http-equiv="refresh" content="0">
-                              """, unsafe_allow_html=True)
-     
-                    except:
-                         st.write("Couldn't submit, poor network") 
+          st.session_state.submit_clicked = True
+
+          if st.session_state.submit_clicked:
+               try:
+                    conn = st.connection('gsheets', type=GSheetsConnection)
+                    exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+                    existing= exist.dropna(how='all')
+                    updated = pd.concat([existing, df], ignore_index =True)
+                    conn.update(worksheet = 'PMTCT', data = updated)         
+                    st.success('Your data above has been submitted')
+                    time.sleep(2)
+                    st.write('RELOADING PAGE')
+                    st.success('SUBMITTED SUCCESSFULLY')
+                    time.sleep(1)
+                    st.cache_data.clear()
+                    st.cache_resource.clear()
+                    st.markdown("""
+                    <meta http-equiv="refresh" content="0">
+                         """, unsafe_allow_html=True)
+
+               except:
+                    st.write("Couldn't submit, poor network") 
 
