@@ -417,7 +417,7 @@ if preview:
             'FACILITY': facility,
             'IN COHORT?' : cohort,
             'SEARCHED ART NO.' : art,
-            'SEARCHED ID:' id,
+            'SEARCHED ID': id,
             'UNIQUE ID':  st.session_state['unique_number'],
             'FROM THIS FACILITY?': visit,
             'FROM IDI SUPPORTED DISTRICT': visitdistrict,
