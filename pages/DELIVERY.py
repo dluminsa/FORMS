@@ -503,6 +503,10 @@ if visit =='YES':
             colb.write(f'**DATE OF DELIVERY: {date}**')
 
 if visitfacility =='YES':
+            cola, colb, colc, cold = st.columns(4)
+            cola.write (f"**UNIQUE ID:**") 
+            colb.write(f"**{st.session_state['unique_number']}**")
+            st.write('')
             cola,colb = st.columns(2)
             cola.write(f'**CLUSTER: {cluster}**')               
             cola.write(f'**DISTRICT: {district}**')
@@ -531,6 +535,10 @@ if visitfacility =='YES':
 
 
 if visitfacility =='NO':
+            cola, colb, colc, cold = st.columns(4)
+            cola.write (f"**UNIQUE ID:**") 
+            colb.write(f"**{st.session_state['unique_number']}**")
+            st.write('')
             cola,colb = st.columns(2)
             cola.write(f'**CLUSTER: {cluster}**')               
             cola.write(f'**DISTRICT: {district}**')
@@ -558,6 +566,10 @@ if visitfacility =='NO':
             colb.write(f'**DATE OF DELIVERY: {date}**')
 
 if visitdistrict =='NO':
+            cola, colb, colc, cold = st.columns(4)
+            cola.write (f"**UNIQUE ID:**") 
+            colb.write(f"**{st.session_state['unique_number']}**")
+            st.write('')
             cola,colb = st.columns(2)
             cola.write(f'**CLUSTER: {cluster}**')               
             cola.write(f'**DISTRICT: {district}**')
