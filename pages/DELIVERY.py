@@ -415,7 +415,7 @@ else:
             'AGE': Ag,
             'HER DISTRICT':dist,
             'SUBPARISH': par,
-            'VILLAGE': vil
+            'VILLAGE': vil,
             'PHONE': phone, 
             'PHONE2': phone2,
             'OUTCOME': outcome,
