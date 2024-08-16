@@ -216,7 +216,7 @@ if cohort=='YES':
             st.write('**SEARCHING DELIVERY DATABASE**')
             time.sleep(3)
             
-         try:
+        try:
             conn = st.connection('gsheets', type=GSheetsConnection)
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
@@ -271,8 +271,8 @@ if cohort=='YES':
                              st.stop()
                         else: 
                             pass
-         except:
-             st.write("POOR NETWORK, COULDN'T CONNECT TO THE COHORT DATABASE")
+        except:
+             st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
              st.write('GET GOOD NETWORK AND TRY AGAIN')
              time.sleep(20)
              st.markdown("""
