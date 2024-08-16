@@ -474,7 +474,7 @@ if st.session_state.preview_click and not st.session_state.submit_click:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 colb.write(f'**SEARCHED ART NO. : {art}**')
                 colb.write(f'**SEARCHED ID: {id}**')
-                colb.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
+                #colb.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 #cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 #cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 #cola.write(f'**IDI DISTRICT: {ididistrict}**')
