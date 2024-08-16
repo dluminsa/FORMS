@@ -320,14 +320,14 @@ elif cohort=='NO':
         st.stop()
 else:
     st.stop()
-if 'preview_clicked' not in st.session_state:
+if 'preview_click' not in st.session_state:
     st.session_state.preview_click = False
-if 'submit_clicked' not in st.session_state:
+if 'submit_click' not in st.session_state:
     st.session_state.submit_click = False
     
-if 'preview_clicked' not in st.session_state:
+if 'preview_click' not in st.session_state:
     st.session_state.preview_click = False
-if 'submit_clicked' not in st.session_state:
+if 'submit_click' not in st.session_state:
     st.session_state.submit_click = False
 
 with st.form(key='PMTCT'):
