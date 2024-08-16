@@ -362,8 +362,8 @@ if st.session_state.preview_clicke:
 
 if st.session_state.preview_clicke and not st.session_state.submit_clicke:
 # if not st.session_state.submit_clicke:    
-     date = datetime.now().date()
-     formatted = date.strftime("%d-%m-%Y")
+     dates = datetime.now().date()
+     formatted = dates.strftime("%d-%m-%Y")
      #st.write(formatted)
      df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
                          'CLUSTER': cluster,
