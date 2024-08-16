@@ -225,7 +225,7 @@ else:
 
 if 'preview_clicke' not in st.session_state:
     st.session_state.preview_clicke = False
-if 'submit_clicked' not in st.session_state:
+if 'submit_clicke' not in st.session_state:
     st.session_state.submit_clicke = False
 
 with st.form(key='PMTCT'):
