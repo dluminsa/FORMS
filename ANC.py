@@ -308,7 +308,11 @@ with st.form(key='PMTCT'):
           elif dates > EDD:
                colx.write('**ERROR!!!**')
                coly.warning("ANC VISIT DATE CAN'T BE GREATER THAN EDD")
-               st.stop()                
+               st.stop()
+          elif dates == EDD:
+               colx.write('**ERROR!!!**')
+               coly.warning("ANC VISIT DATE CAN'T BE EQUAL TO EDD")
+               st.stop()
 
           if not PMTCT:
                colx.write('**ERROR!!!**')
