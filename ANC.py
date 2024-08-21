@@ -508,6 +508,109 @@ else:
           st.session_state.submit_clicke = False
           st.stop()
      else:
+
+          if visit=='YES':
+               if not ART:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("ART number not provided, input and try again")
+                    st.stop()
+
+          if not facility:              
+                    colx.write('**ERROR!!!**')
+                    coly.warning("You didn't select the reporting facility, select and try again")
+                    st.stop() 
+
+          if visit =='NO':
+               if visitfacility=='YES' and not fromfacility:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("You didn't provide her parent facility")
+                    st.stop()
+               elif visitfacility =='NO' and not others:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("You didn't provide her parent facility") 
+                    st.stop()     
+          if not Name:
+               colx.write('**ERROR!!!**')
+               coly.warning("You didn't provide the mother's name")
+               st.stop() 
+          if visitdistrict == 'NO':
+               if not otherdistrict:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("You didn't provide her other district") 
+                    st.stop()  
+               elif not otherfacility:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("You didn't provide her parent facility") 
+                    st.stop()  
+       
+          if not Ag:
+               colx.write('**ERROR!!!**')
+               coly.warning("You didn't provide the mother's AGE")
+               st.stop()
+          else:
+               Age = int(Ag) 
+
+          if not GA:
+               colx.write('**ERROR!!!**')
+               coly.warning("You didn't provide the mother's GESTATION AGE")
+               st.stop()
+
+          if not dates:
+               colx.write('**ERROR!!!**')
+               coly.warning("In put either her ANC VISIT DATE")
+               st.stop() 
+
+          if not EDD:
+               colx.write('**ERROR!!!**')
+               coly.warning("In put either her EDD")
+               st.stop() 
+          elif dates > EDD:
+               colx.write('**ERROR!!!**')
+               coly.warning("ANC VISIT DATE CAN'T BE GREATER THAN EDD")
+               st.stop()
+          elif dates == EDD:
+               colx.write('**ERROR!!!**')
+               coly.warning("ANC VISIT DATE CAN'T BE EQUAL TO EDD")
+               st.stop()
+
+          if not PMTCT:
+               colx.write('**ERROR!!!**')
+               coly.warning("YOU DIDN'T CHOOSE A PMTCT CODE")
+               st.stop() 
+
+          if not vil:
+               colx.write('**ERROR!!!**')
+               coly.warning("Mother's village is required")
+               st.stop() 
+
+          if visitdistrict =='YES':
+               if not ididistrict: 
+                    colx.write('**ERROR!!!**')
+                    coly.warning("SELECT AN IDI SUPPORTED DISTRICT")
+                    st.stop() 
+          if phone: 
+               if len(phone)!=10:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop()
+          if phone2:
+               if len(phone2)!=10:
+                    colx.write('**ERROR!!!**')
+                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+                    st.stop()
+          if not dist:
+               colx.write('**ERROR!!!**')
+               coly.warning("In put either her home District")
+               st.stop() 
+          else:
+               pass
+          if not vil:
+               colx.write('**ERROR!!!**')
+               coly.warning("You didn't provide her village")
+               st.stop()
+          else:
+               pass
+          
           st.session_state.submit_clicke = True
 
           if st.session_state.submit_clicke:
