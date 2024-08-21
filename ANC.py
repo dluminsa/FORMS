@@ -508,7 +508,7 @@ else:
           st.session_state.submit_clicke = False
           st.stop()
      else:
-
+          colx,coly = st.columns([1,2])
           if visit=='YES':
                if not ART:
                     colx.write('**ERROR!!!**')
