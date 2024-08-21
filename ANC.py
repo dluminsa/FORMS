@@ -162,7 +162,7 @@ def generate_unique_number():
     return int(j)  # Convert the sliced string to an intege
 
 # Initialize the unique number in session state if it doesn't exist
-if 'unique_number' not in st.session_state:
+if 'unique_numbe' not in st.session_state:
          st.session_state['unique_numbe'] = generate_unique_number()
          ID = st.session_state['unique_numbe']
 
@@ -361,7 +361,7 @@ if st.session_state.preview_clicke:
           if visit == 'YES':
                st.session_state['unique_numbe'] = ''
           else:
-               st.session_state['unique_numbe'] = generate_unique_number()
+               pass
 
 
 if st.session_state.preview_clicke and not st.session_state.submit_clicke:
