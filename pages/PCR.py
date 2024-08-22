@@ -482,43 +482,43 @@ if preview:
     st.session_state.preview_click = True
     
 
-if not phone:
-     phone = 'NOT FILLED'
-if visit == 'YES':
-     st.session_state['unique_numer'] = ''
-else:
-     st.session_state['unique_numy'] = generate_unique_number()
-    
-if st.session_state.preview_click and not st.session_state.submit_click:
-    dates = datetime.now().date()
-    formatted = dates.strftime("%d-%m-%Y")
-    data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-            'CLUSTER': cluster,                
-            'DISTRICT': district,
-            'FACILITY': facility,
-            'IN COHORT?' : cohort,
-            'SEARCHED ART NO.' : art,
-            'SEARCHED ID': idis,
-            'UNIQUE ID':  st.session_state['unique_numer'],
-            'FROM THIS FACILITY?': visit,
-            'FROM IDI SUPPORTED DISTRICT': visitdistrict,
-            'IDI DISTRICT': ididistrict,
-            'FROM IDI FACILITY':visitfacility,
-            'PARENT FACILITY': fromfacility,
-            'OTHER DISTRICT': outdistrict,
-            'OUTSIDE FACILITY': outfacility,
-            'NAME': Name,
-            'NEW ART NO.': ART,
-            'AGE': Ag,
-            'HER DISTRICT':dist,
-            'SUBPARISH': par,
-            'VILLAGE': vil,
-            'PHONE': phone, 
-            'PHONE2': phone2,
-            'AGE AT PCR': outcome,
-            'DATE OF PCR': date
-            }])   
-         #st.write(data)
+    if not phone:
+         phone = 'NOT FILLED'
+    if visit == 'YES':
+         st.session_state['unique_numer'] = 'NONE'
+    else:
+         st.session_state['unique_numy'] = generate_unique_number()
+        
+    if st.session_state.preview_click and not st.session_state.submit_click:
+        dates = datetime.now().date()
+        formatted = dates.strftime("%d-%m-%Y")
+        data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+                'CLUSTER': cluster,                
+                'DISTRICT': district,
+                'FACILITY': facility,
+                'IN COHORT?' : cohort,
+                'SEARCHED ART NO.' : art,
+                'SEARCHED ID': idis,
+                'UNIQUE ID':  st.session_state['unique_numer'],
+                'FROM THIS FACILITY?': visit,
+                'FROM IDI SUPPORTED DISTRICT': visitdistrict,
+                'IDI DISTRICT': ididistrict,
+                'FROM IDI FACILITY':visitfacility,
+                'PARENT FACILITY': fromfacility,
+                'OTHER DISTRICT': outdistrict,
+                'OUTSIDE FACILITY': outfacility,
+                'NAME': Name,
+                'NEW ART NO.': ART,
+                'AGE': Ag,
+                'HER DISTRICT':dist,
+                'SUBPARISH': par,
+                'VILLAGE': vil,
+                'PHONE': phone, 
+                'PHONE2': phone2,
+                'AGE AT PCR': outcome,
+                'DATE OF PCR': date
+                }])   
+             #st.write(data)
     if cohort =='YES':
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
@@ -670,15 +670,15 @@ if st.session_state.preview_click and not st.session_state.submit_click:
                 #colb.write(f'**PHONE2: {phone2}**')
                 colb.write(f'**AGE AT PCR: {outcome}**')
                 colb.write(f'**DATE OF PCR: {date}**')
-    
-if st.session_state.preview_click:
-    submit = st.button('Submit')
-
-    if submit:
-        st.session_state.submit_click = True
-
-        if st.session_state.submit_click:
-
+    if not st.session_state.preview_click:
+        st.stop()
+    else:
+        submit = st.button('Submit')
+          
+    if not submit:
+       st.session_state.submit_click = False
+       st.stop()
+    else:
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'PCR', usecols=list(range(30)),ttl=5)
