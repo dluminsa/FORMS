@@ -143,7 +143,7 @@ phone = ""
 EDD = ""
 dates = ""
 PMTCT =''
-st.session_state['unique_numbe'] = ''
+#st.session_state['unique_numbe'] = ''
 district = ''
 visitdistrict = ''
 ididistrict= ''
@@ -251,10 +251,7 @@ vil = colf.text_input("**VILLAGE**")
 preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
      
 if preview:
-     # if 'preview_clicke' not in st.session_state:
-     #      st.session_state.preview_clicke = False
-     # elif 'submit_clicke' not in st.session_state:
-     #      st.session_state.submit_clicke = False
+
      def generate_unique_number():
           f = dt.datetime.now()  # Get the current datetime
           g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
@@ -372,7 +369,7 @@ if preview:
      st.session_state.preview_clicke = True
 else:
      st.stop()
-     
+st.session_state.preview_clicke = True     
 if st.session_state.preview_clicke:
 
      if not phone:
