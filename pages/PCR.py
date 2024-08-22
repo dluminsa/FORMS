@@ -212,10 +212,11 @@ if cohort=='YES':
             st.stop()
         elif which == 'DURING ANC':
             st.write('**SEARCHING ANC DATABASE**')
-            time.sleep(3)            
+            time.sleep(1)            
             #try:
             conn = st.connection('gsheets', type=GSheetsConnection)
-#             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+            exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+            st.write(exist)
 #             arts = exist.dropna(how='all')
 #             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
             
