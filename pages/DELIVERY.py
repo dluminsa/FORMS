@@ -318,29 +318,29 @@ if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
     
 
-with st.form(key='PMTCT'):
-    if cohort == 'NO':
-         st.write("**MOTHER'S DEMOGRAPHICS**")
-         coly, colz = st.columns([4,1])
-         Name = coly.text_input(label="**Mother's name**")
-         Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
-         cole,colf = st.columns(2)
-         
-         dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
-         sub = colf.text_input("**SUBCOUNTY**")
-         par = cole.text_input("**PARISH**")
-         vil = colf.text_input("**VILLAGE**")
-         phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
-         phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
-    else:
-        pass
+#with st.form(key='PMTCT'):
+if cohort == 'NO':
+     st.write("**MOTHER'S DEMOGRAPHICS**")
+     coly, colz = st.columns([4,1])
+     Name = coly.text_input(label="**Mother's name**")
+     Ag = colz.number_input(label='**Age in years**', max_value=50, value=None)
+     cole,colf = st.columns(2)
+     
+     dist = cole.selectbox(label="**SELECT HER HOME DISTRICT****", options =alldistrictsidi, index=None)
+     sub = colf.text_input("**SUBCOUNTY**")
+     par = cole.text_input("**PARISH**")
+     vil = colf.text_input("**VILLAGE**")
+     phone = cole.text_input("**Mother's Tel No.**", placeholder='eg 07XXXXXXXX')
+     phone2 = colf.text_input("**Alt Tel No.**", placeholder='eg 07XXXXXXXX')
+else:
+    pass
 
-    st.write('**DELIVERY DETAILS**')
-    st.write('')
-    outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
-    cola,colb,colc =st.columns([2,1,1])
-    date = cola.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
-    preview = st.form_submit_button(label='**PREVIEW BEFORE SUBMISSION**')
+st.write('**DELIVERY DETAILS**')
+st.write('')
+outcome = st.radio('**DELIVERY OUTCOME**', options =['LIVE BIRTH', 'FRESH STILL BIRTH', 'MACERATED STILL BIRTH', 'EARLY NEONATAL DEATH', 'ABORTION / MISCARRIAGE', 'OTHERS'], index=None, horizontal=True)    
+cola,colb,colc =st.columns([2,1,1])
+date = cola.date_input(label='**DATE WHEN THIS OUTCOME HAPPENED**', value=None)
+preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
     
 if preview:
     colx,coly = st.columns([1,2])
@@ -409,17 +409,7 @@ if preview:
     
     st.session_state.preview_clicked = True
     
-# if not id:
-#     id = 'NONE'
-# if not art:
-#     art = 'NONE'
 
-# if not phone:
-#      phone = 'NOT FILLED'
-# if visit == 'YES':
-#      st.session_state['unique_numb'] = ''
-# else:
-#      st.session_state['unique_numb'] = generate_unique_number()
     
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if not phone:
@@ -427,7 +417,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if visit == 'YES':
          st.session_state['unique_numb'] = ''
     else:
-         st.session_state['unique_numb'] = generate_unique_number()
+         st.session_state['unique_numeb'] = generate_unique_number()
         
     datey = datetime.now().date()
     formatted = datey.strftime("%d-%m-%Y")
