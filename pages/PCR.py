@@ -212,7 +212,7 @@ if cohort=='YES':
         elif which == 'DURING ANC':
             st.write('**SEARCHING ANC DATABASE**')
             time.sleep(3)            
-            try:
+            #try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
                 arts = exist.dropna(how='all')
@@ -229,14 +229,14 @@ if cohort=='YES':
                 i = id.shape[0]
                 id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
                 ids = id['UNIQUE ID'].unique()
-            except:
-                 st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
-                 st.write('GET GOOD NETWORK AND TRY AGAIN')
-                 time.sleep(20)
-                 st.markdown("""
-                      <meta http-equiv="refresh" content="0">
-                          """, unsafe_allow_html=True)
-            elif which == 'AFTER DELIVERY':
+            # #except:
+            #      st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
+            #      st.write('GET GOOD NETWORK AND TRY AGAIN')
+            #      time.sleep(20)
+            #      st.markdown("""
+            #           <meta http-equiv="refresh" content="0">
+            #               """, unsafe_allow_html=True)
+        elif which == 'AFTER DELIVERY':
                 st.write('**SEARCHING DELIVERY DATABASE**')
                 time.sleep(3)
                 
