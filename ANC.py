@@ -363,21 +363,16 @@ if preview:
           colx.write('**ERROR!!!**')
           coly.warning("You didn't provide her village")
           st.stop()
-     else:
-          pass
 
      st.session_state.preview_clicke = True
-else:
-     st.stop()
-st.session_state.preview_clicke = True     
+     #st.session_state.submit_clicke = False
 if st.session_state.preview_clicke:
-
      if not phone:
           phone = 'NOT FILLED'
      if visit == 'YES':
           st.session_state['unique_numbe'] = ''
      else:
-          pass
+           st.session_state['unique_number'] = generate_unique_number()
 
 
      if st.session_state.preview_clicke and not st.session_state.submit_clicke:
