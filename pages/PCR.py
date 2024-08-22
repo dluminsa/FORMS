@@ -251,6 +251,10 @@ if cohort=='YES':
                         st.write("**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**")
                         cola, colb,colc = st.columns([2,1,1])
                         arty = cola.selectbox('**SEARCH HER ART NO**', numbers, index=None)
+                        if arty:
+                            pass
+                        else:
+                            st.stop()
     
                 elif search == 'UNIQUE ID':
                     #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
@@ -263,6 +267,10 @@ if cohort=='YES':
                         st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
                         cola, colb,colc = st.columns([2,1,1])
                         unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
+                        if unique:
+                            pass
+                        else:
+                            st.stop()
             except:
                  st.write("POOR NETWORK, COULDN'T CONNECT TO THE ANC DATABASE")
                  st.write('GET GOOD NETWORK AND TRY AGAIN')
@@ -308,6 +316,10 @@ if cohort=='YES':
                                 st.write("**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**")
                                 cola, colb,colc = st.columns([2,1,1])
                                 arty = cola.selectbox('**SEARCH HER ART NO**', numbers, index=None)
+                                if arty:
+                                    pass
+                                else:
+                                    st.stop()
             
                         elif search == 'UNIQUE ID':
                             #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
@@ -320,6 +332,10 @@ if cohort=='YES':
                                 st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
                                 cola, colb,colc = st.columns([2,1,1])
                                 unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
+                                if unique:
+                                    pass
+                                else:
+                                    st.stop()
                     except:
                          st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
                          st.write('GET GOOD NETWORK AND TRY AGAIN')
@@ -371,11 +387,6 @@ if 'preview_click' not in st.session_state:
     st.session_state.preview_click = False
 if 'submit_click' not in st.session_state:
     st.session_state.submit_click = False
-if cohort == 'YES':
-    if not (arty or unique):
-        st.stop()
-    else:
-        st.stop()
 
 if cohort == 'NO':
      st.write("**MOTHER'S DEMOGRAPHICS**")
