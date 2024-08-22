@@ -211,29 +211,59 @@ if cohort=='YES':
             st.stop()
         elif which == 'DURING ANC':
             st.write('**SEARCHING ANC DATABASE**')
-            time.sleep(3)
-        elif which == 'AFTER DELIVERY':
-            st.write('**SEARCHING DELIVERY DATABASE**')
-            time.sleep(3)
-            
-        try:
-            conn = st.connection('gsheets', type=GSheetsConnection)
-            exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-            arts = exist.dropna(how='all')
-            arts =  arts[arts['HEALTH FACILITY']== facility].copy()
-            
-            number = arts[['ART No.']].copy()
-            number = number.dropna(subset = ['ART No.'])
-            n = number.shape[0]
-            number['ART No.'] = number['ART No.'].astype(int)
-            numbers = number['ART No.'].unique()
-            
-            id = arts[['UNIQUE ID']].copy()
-            id = id.dropna(subset = ['UNIQUE ID'])
-            i = id.shape[0]
-            id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
-            ids = id['UNIQUE ID'].unique()
-
+            time.sleep(3)            
+            try:
+                conn = st.connection('gsheets', type=GSheetsConnection)
+                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+                arts = exist.dropna(how='all')
+                arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+                
+                number = arts[['ART No.']].copy()
+                number = number.dropna(subset = ['ART No.'])
+                n = number.shape[0]
+                number['ART No.'] = number['ART No.'].astype(int)
+                numbers = number['ART No.'].unique()
+                
+                id = arts[['UNIQUE ID']].copy()
+                id = id.dropna(subset = ['UNIQUE ID'])
+                i = id.shape[0]
+                id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+                ids = id['UNIQUE ID'].unique()
+            except:
+                 st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
+                 st.write('GET GOOD NETWORK AND TRY AGAIN')
+                 time.sleep(20)
+                 st.markdown("""
+                      <meta http-equiv="refresh" content="0">
+                          """, unsafe_allow_html=True)
+            elif which == 'AFTER DELIVERY':
+                st.write('**SEARCHING DELIVERY DATABASE**')
+                time.sleep(3)
+                
+                try:
+                    conn = st.connection('gsheets', type=GSheetsConnection)
+                    exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
+                    arts = exist.dropna(how='all')
+                    arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+                    
+                    number = arts[['ART No.']].copy()
+                    number = number.dropna(subset = ['NEW ART NO.'])
+                    n = number.shape[0]
+                    number['ART No.'] = number['ART No.'].astype(int)
+                    numbers = number['NEW ART NO.'].unique()
+                    
+                    id = arts[['UNIQUE ID']].copy()
+                    id = id.dropna(subset = ['UNIQUE ID'])
+                    i = id.shape[0]
+                    id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+                    ids = id['UNIQUE ID'].unique()
+                except:
+                     st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
+                     st.write('GET GOOD NETWORK AND TRY AGAIN')
+                     time.sleep(20)
+                     st.markdown("""
+                          <meta http-equiv="refresh" content="0">
+                              """, unsafe_allow_html=True)
             if int(n)==0:
                 if int(i) ==0:
                     st.write(f'** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**')
@@ -275,13 +305,6 @@ if cohort=='YES':
                              st.stop()
                         else: 
                             pass
-        except:
-             st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
-             st.write('GET GOOD NETWORK AND TRY AGAIN')
-             time.sleep(20)
-             st.markdown("""
-                  <meta http-equiv="refresh" content="0">
-                      """, unsafe_allow_html=True)
 
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
