@@ -674,18 +674,16 @@ if preview:
         if not st.session_state.preview_click:
             st.stop()
         else:
-            submit = st.button('Submit')
-              
+            submit = st.button('Submit')          
         if not submit:
            st.session_state.submit_click = False
            st.stop()
         else:
-            st.session_state.submit_click = True
-              
+            st.session_state.submit_click = True  
             if st.session_state.submit_click:
                 try:
                     conn = st.connection('gsheets', type=GSheetsConnection)
-                    exist = conn.read(worksheet= 'PCR', usecols=list(range(30)),ttl=5)
+                    exist = conn.read(worksheet= 'PCR', usecols=list(range(35)),ttl=5)
                     existing= exist.dropna(how='all')
                         #st.write(existing)
                     updated = pd.concat([existing, data], ignore_index =True)
