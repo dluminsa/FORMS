@@ -271,10 +271,10 @@ if cohort=='YES':
                         exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
                         arts = exist.dropna(how='all')
                         arts =  arts[arts['FACILITY']== facility].copy()
-                        st.write(arts)
+                        #st.write(arts)
                 
                         number = arts[['NEW ART NO.']].copy()
-                        #st.write(number)
+                        st.write(number)
                         number = number.dropna(subset = ['ART No.'])
                         n = number.shape[0]
                         number['ART No.'] = number['ART No.'].astype(int)
