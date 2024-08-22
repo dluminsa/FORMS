@@ -227,23 +227,36 @@ if cohort=='YES':
             number['ART No.'] = number['ART No.'].astype(int)
             numbers = number['ART No.'].unique()
 
+            id = arts[['UNIQUE ID']].copy()
+            id = id.dropna(subset = ['UNIQUE ID'])
+            ien = id.shape[0]
+            id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+            ids = id['UNIQUE ID'].unique()
+
             search = st.radio(label="**SEARCH HER BY?**", options = ['ART NO', 'UNIQUE ID'], horizontal=True, index=None)
             if search == 'ART NO':
-                #st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
+                #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                 if n == 0:
                     st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
                     st.write('**SEARCH HER BY ID OR REGISTER HER FIRST**')
                     st.stop()
                 else:
-                    st.write(f'**FOUND {n} IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
-                    st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
+                    st.write(f'**FOUND {n} ART NOs FOR MOTHERS IN {facility} ANC DATA BASE**')
+                    st.write("**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**")
+
+            elif search == 'UNIQUE ID':
+                #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
+                if ien == 0:
+                    st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
+                    st.write('**SEARCH HER BY ID OR REGISTER HER FIRST**')
+                    st.stop()
+                else:
+                    st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
+                    st.write("**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**")
+
 
             
-            # id = arts[['UNIQUE ID']].copy()
-            # id = id.dropna(subset = ['UNIQUE ID'])
-            # i = id.shape[0]
-            # id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
-            # ids = id['UNIQUE ID'].unique()
+
             #st.write(ids)
 #             # #except:
 #             #      st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
