@@ -143,6 +143,7 @@ phone = ""
 EDD = ""
 dates = ""
 PMTCT =''
+st.session_state['unique_numbe'] = ''
 district = ''
 visitdistrict = ''
 ididistrict= ''
