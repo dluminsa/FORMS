@@ -168,9 +168,9 @@ def generate_unique_number():
     return int(j)  # Convert the sliced string to an intege
 
 # Initialize the unique number in session state if it doesn't exist
-if 'unique_number' not in st.session_state:
+if 'unique_numb' not in st.session_state:
          st.session_state['unique_number'] = generate_unique_number()
-         #ID = st.session_state['unique_number']
+         #ID = st.session_state['unique_numb']
 
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
@@ -420,9 +420,9 @@ if preview:
 if not phone:
      phone = 'NOT FILLED'
 if visit == 'YES':
-     st.session_state['unique_number'] = ''
+     st.session_state['unique_numb'] = ''
 else:
-     st.session_state['unique_number'] = generate_unique_number()
+     st.session_state['unique_numb'] = generate_unique_number()
     
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     dates = datetime.now().date()
@@ -434,7 +434,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
             'IN COHORT?' : cohort,
             'SEARCHED ART NO.' : art,
             'SEARCHED ID': id,
-            'UNIQUE ID':  st.session_state['unique_number'],
+            'UNIQUE ID':  st.session_state['unique_numb'],
             'FROM THIS FACILITY?': visit,
             'FROM IDI SUPPORTED DISTRICT': visitdistrict,
             'IDI DISTRICT': ididistrict,
@@ -462,7 +462,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 colb.write(f'**SEARCHED ART NO. : {art}**')
                 colb.write(f'**SEARCHED ID: {id}**')
-                colb.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
+                colb.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 #cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 #cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 #cola.write(f'**IDI DISTRICT: {ididistrict}**')
@@ -490,7 +490,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 #cola.write(f'**SEARCHED ART NO. : {art}**')
                 #cola.write(f'**SEARCHED ID: {id}**')
-                #cola.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
+                #cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 #cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 #cola.write(f'**IDI DISTRICT: {ididistrict}**')
@@ -512,9 +512,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if visitfacility =='YES':
                 cola, colb, colc, cold = st.columns(4)
                 cola.write (f"**UNIQUE ID:**") 
-                colb.write(f"**{st.session_state['unique_number']}**")
+                colb.write(f"**{st.session_state['unique_numb']}**")
                 st.write('')
-                st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+                st.write (f"**UNIQUE ID:   {st.session_state['unique_numb']}  , write it in the EDD COHORT REGISTER**")
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
                 cola.write(f'**DISTRICT: {district}**')
@@ -522,7 +522,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 #cola.write(f'**SEARCHED ART NO. : {art}**')
                 #cola.write(f'**SEARCHED ID: {id}**')
-                cola.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
+                cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 cola.write(f'**IDI DISTRICT: {ididistrict}**')
@@ -545,9 +545,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if visitfacility =='NO':
                 cola, colb, colc, cold = st.columns(4)
                 cola.write (f"**UNIQUE ID:**") 
-                colb.write(f"**{st.session_state['unique_number']}**")
+                colb.write(f"**{st.session_state['unique_numb']}**")
                 st.write('')
-                st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+                st.write (f"**UNIQUE ID:   {st.session_state['unique_numb']}  , write it in the EDD COHORT REGISTER**")
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
                 cola.write(f'**DISTRICT: {district}**')
@@ -555,7 +555,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 #cola.write(f'**SEARCHED ART NO. : {art}**')
                 #cola.write(f'**SEARCHED ID: {id}**')
-                cola.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
+                cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 cola.write(f'**IDI DISTRICT: {ididistrict}**')
@@ -577,9 +577,9 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if visitdistrict =='NO':
                 cola, colb, colc, cold = st.columns(4)
                 cola.write (f"**UNIQUE ID:**") 
-                colb.write(f"**{st.session_state['unique_number']}**")
+                colb.write(f"**{st.session_state['unique_numb']}**")
                 st.write('')
-                st.write (f"**UNIQUE ID:   {st.session_state['unique_number']}  , write it in the EDD COHORT REGISTER**")
+                st.write (f"**UNIQUE ID:   {st.session_state['unique_numb']}  , write it in the EDD COHORT REGISTER**")
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
                 cola.write(f'**DISTRICT: {district}**')
@@ -587,7 +587,7 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**IN COHORT? : {cohort}**')
                 #cola.write(f'**SEARCHED ART NO. : {art}**')
                 #cola.write(f'**SEARCHED ID: {id}**')
-                cola.write(f"**UNIQUE ID:  {st.session_state['unique_number']}**")
+                cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
                 #cola.write(f'**IDI DISTRICT: {ididistrict}**')
