@@ -169,7 +169,7 @@ def generate_unique_number():
 
 # Initialize the unique number in session state if it doesn't exist
 if 'unique_numb' not in st.session_state:
-         st.session_state['unique_number'] = generate_unique_number()
+         st.session_state['unique_numb'] = generate_unique_number()
          #ID = st.session_state['unique_numb']
 
 # Show the facilities for the selected district and allow selection
@@ -425,8 +425,8 @@ else:
      st.session_state['unique_numb'] = generate_unique_number()
     
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
-    dates = datetime.now().date()
-    formatted = dates.strftime("%d-%m-%Y")
+    datey = datetime.now().date()
+    formatted = datey.strftime("%d-%m-%Y")
     data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
             'CLUSTER': cluster,                
             'DISTRICT': district,
