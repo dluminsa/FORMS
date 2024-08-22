@@ -227,7 +227,7 @@ if cohort=='YES':
             number['ART No.'] = number['ART No.'].astype(int)
             numbers = number['ART No.'].unique()
 
-            search = st.radio("**SEARCH HER BY?**"< options = ['ART NO', 'UNIQUE ID'], horizontal=True, index=None)
+            search = st.radio(label="**SEARCH HER BY?**", options = ['ART NO', 'UNIQUE ID'], horizontal=True, index=None)
             if search == 'ART NO':
                 #st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
                 if n == 0:
