@@ -414,12 +414,12 @@ if preview:
 # if not art:
 #     art = 'NONE'
 
-if not phone:
-     phone = 'NOT FILLED'
-if visit == 'YES':
-     st.session_state['unique_numb'] = ''
-else:
-     st.session_state['unique_numb'] = generate_unique_number()
+# if not phone:
+#      phone = 'NOT FILLED'
+# if visit == 'YES':
+#      st.session_state['unique_numb'] = ''
+# else:
+#      st.session_state['unique_numb'] = generate_unique_number()
     
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
     if not phone:
