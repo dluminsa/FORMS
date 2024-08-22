@@ -269,7 +269,7 @@ if cohort=='YES':
              time.sleep(20)
              st.markdown("""
                   <meta http-equiv="refresh" content="0">
-                      """, unsafe_allow_html=True)
+                      """, unsafe_allow_html=True)#
 
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
