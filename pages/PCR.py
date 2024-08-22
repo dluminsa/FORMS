@@ -228,11 +228,12 @@ if cohort=='YES':
             numbers = number['ART No.'].unique()
 
             
-#             id = arts[['UNIQUE ID']].copy()
-#             id = id.dropna(subset = ['UNIQUE ID'])
-#             i = id.shape[0]
-#             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
-#             ids = id['UNIQUE ID'].unique()
+            id = arts[['UNIQUE ID']].copy()
+            id = id.dropna(subset = ['UNIQUE ID'])
+            i = id.shape[0]
+            id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+            ids = id['UNIQUE ID'].unique()
+            st.write(ids)
 #             # #except:
 #             #      st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
 #             #      st.write('GET GOOD NETWORK AND TRY AGAIN')
