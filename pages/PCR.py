@@ -370,8 +370,11 @@ if 'preview_click' not in st.session_state:
     st.session_state.preview_click = False
 if 'submit_click' not in st.session_state:
     st.session_state.submit_click = False
-if not cohort:
-    st.stop()
+if cohort == YES:
+    if not (art or idis):
+        st.stop()
+    else:
+        st.stop()
 
 if cohort == 'NO':
      st.write("**MOTHER'S DEMOGRAPHICS**")
