@@ -371,6 +371,9 @@ if preview:
 
 else:
      st.session_state.preview_clicke = True
+     
+if not st.session_state.preview_clicke:
+     st.stop()
 
 if st.session_state.preview_clicke:
 
