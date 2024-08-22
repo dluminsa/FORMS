@@ -503,7 +503,7 @@ if visitdistrict =='NO':
 if not st.session_state.preview_clicke:
     st.stop()
 else:
-submit = st.button('Submit')
+    submit = st.button('Submit')
 
 if not submit:
      st.session_state.submit_clicke = False
