@@ -232,7 +232,7 @@ if cohort=='YES':
                 #st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
                 if n == 0:
                     st.write(f'**FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
-                     st.write(f'**SEARCH HER BY ID OR REGISTER HER FIRST**')
+                    st.write(f'**SEARCH HER BY ID OR REGISTER HER FIRST**')
                     st.stop()
                 else:
                     st.write('**FOUND {n} IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
