@@ -213,22 +213,22 @@ if cohort=='YES':
             st.write('**SEARCHING ANC DATABASE**')
             time.sleep(3)            
             #try:
-                conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-                arts = exist.dropna(how='all')
-                arts =  arts[arts['HEALTH FACILITY']== facility].copy()
-                
-                number = arts[['ART No.']].copy()
-                number = number.dropna(subset = ['ART No.'])
-                n = number.shape[0]
-                number['ART No.'] = number['ART No.'].astype(int)
-                numbers = number['ART No.'].unique()
-                
-                id = arts[['UNIQUE ID']].copy()
-                id = id.dropna(subset = ['UNIQUE ID'])
-                i = id.shape[0]
-                id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
-                ids = id['UNIQUE ID'].unique()
+            conn = st.connection('gsheets', type=GSheetsConnection)
+            exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+            arts = exist.dropna(how='all')
+            arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            
+            number = arts[['ART No.']].copy()
+            number = number.dropna(subset = ['ART No.'])
+            n = number.shape[0]
+            number['ART No.'] = number['ART No.'].astype(int)
+            numbers = number['ART No.'].unique()
+            
+            id = arts[['UNIQUE ID']].copy()
+            id = id.dropna(subset = ['UNIQUE ID'])
+            i = id.shape[0]
+            id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+            ids = id['UNIQUE ID'].unique()
             # #except:
             #      st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
             #      st.write('GET GOOD NETWORK AND TRY AGAIN')
