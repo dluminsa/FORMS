@@ -236,75 +236,75 @@ if cohort=='YES':
             #      st.markdown("""
             #           <meta http-equiv="refresh" content="0">
             #               """, unsafe_allow_html=True)
-        elif which == 'AFTER DELIVERY':
-                st.write('**SEARCHING DELIVERY DATABASE**')
-                time.sleep(3)
+        # elif which == 'AFTER DELIVERY':
+        #         st.write('**SEARCHING DELIVERY DATABASE**')
+        #         time.sleep(3)
                 
-                try:
-                    conn = st.connection('gsheets', type=GSheetsConnection)
-                    exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
-                    arts = exist.dropna(how='all')
-                    arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+        #         try:
+        #             conn = st.connection('gsheets', type=GSheetsConnection)
+        #             exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
+        #             arts = exist.dropna(how='all')
+        #             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                     
-                    number = arts[['ART No.']].copy()
-                    number = number.dropna(subset = ['NEW ART NO.'])
-                    n = number.shape[0]
-                    number['ART No.'] = number['ART No.'].astype(int)
-                    numbers = number['NEW ART NO.'].unique()
+        #             number = arts[['ART No.']].copy()
+        #             number = number.dropna(subset = ['NEW ART NO.'])
+        #             n = number.shape[0]
+        #             number['ART No.'] = number['ART No.'].astype(int)
+        #             numbers = number['NEW ART NO.'].unique()
                     
-                    id = arts[['UNIQUE ID']].copy()
-                    id = id.dropna(subset = ['UNIQUE ID'])
-                    i = id.shape[0]
-                    id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
-                    ids = id['UNIQUE ID'].unique()
-                except:
-                     st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
-                     st.write('GET GOOD NETWORK AND TRY AGAIN')
-                     time.sleep(20)
-                     st.markdown("""
-                          <meta http-equiv="refresh" content="0">
-                              """, unsafe_allow_html=True)
-            if int(n)==0:
-                if int(i) ==0:
-                    st.write(f'** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**')
-                    st.write('**SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**')
-                    st.stop()
-                elif int(i)>0:
-                    st.write('**SEARCH BY ID, NO ART NOs FOUND FOR  {facility}**')
-                    st.write(f'**{i} MOTHERS FOUND**')
-                    cola,colb,colc = st.columns([3,1,3])
-                    idis = cola.selectbox('** SEARCH BY UNIQUE ID**', ids, index=None)
-                    st.write("**IF HER ID DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
+        #             id = arts[['UNIQUE ID']].copy()
+        #             id = id.dropna(subset = ['UNIQUE ID'])
+        #             i = id.shape[0]
+        #             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+        #             ids = id['UNIQUE ID'].unique()
+        #         except:
+        #              st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
+        #              st.write('GET GOOD NETWORK AND TRY AGAIN')
+        #              time.sleep(20)
+        #              st.markdown("""
+        #                   <meta http-equiv="refresh" content="0">
+        #                       """, unsafe_allow_html=True)
+        #     if int(n)==0:
+        #         if int(i) ==0:
+        #             st.write(f'** {facility} HAS NO MOTHER REGISTERED IN THIS DATABASE**')
+        #             st.write('**SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**')
+        #             st.stop()
+        #         elif int(i)>0:
+        #             st.write('**SEARCH BY ID, NO ART NOs FOUND FOR  {facility}**')
+        #             st.write(f'**{i} MOTHERS FOUND**')
+        #             cola,colb,colc = st.columns([3,1,3])
+        #             idis = cola.selectbox('** SEARCH BY UNIQUE ID**', ids, index=None)
+        #             st.write("**IF HER ID DOESN'T POP UP, THEN SELECT NO TO THE QUESTION ABOVE TO REGISTER THIS MOTHER**")
                     
-            elif int(n)>0: 
-                    if int(i)==0:
-                        st.write(f'**SEARCH BY ART NO, NO UNIQUE IDs  FOUND FOR  {facility}**')
-                        st.write(f'**{n} MOTHER(S) FOUND**')
-                        cola,colb,colc = st.columns([3,1,3])
-                        arts = cola.selectbox('**SEARCH BY ART NO**', numbers, index=None)
-                        st.write("**IF HER ART NO DOESN'T POP UP, SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**")
-                    elif int(i) > 0: 
-                        st.write(f'**FOUND {n} WITH ART NO(s) AND {i} UNIQUE ID(s) FOR {facility}**')
-                        st.write(f'**IF NONE POPS UP, SELECT NO TO QUESTION ABOVE TO REGISTER HER INSTEAD**')
-                        search = st.write('**SEARCH HER BY**')
-                        cola,colb,colc = st.columns([3,1,3])
-                        art = cola.selectbox('**ART NO.**', numbers, index=None)
-                        colb.write('')
-                        colb.write('')
-                        colb.write('**OR**')
-                        idis = colc.selectbox('**UNIQUE ID**', ids, index=None)
+        #     elif int(n)>0: 
+        #             if int(i)==0:
+        #                 st.write(f'**SEARCH BY ART NO, NO UNIQUE IDs  FOUND FOR  {facility}**')
+        #                 st.write(f'**{n} MOTHER(S) FOUND**')
+        #                 cola,colb,colc = st.columns([3,1,3])
+        #                 arts = cola.selectbox('**SEARCH BY ART NO**', numbers, index=None)
+        #                 st.write("**IF HER ART NO DOESN'T POP UP, SELECT NO TO THE QUESTION ABOVE TO REGISTER HER INSTEAD**")
+        #             elif int(i) > 0: 
+        #                 st.write(f'**FOUND {n} WITH ART NO(s) AND {i} UNIQUE ID(s) FOR {facility}**')
+        #                 st.write(f'**IF NONE POPS UP, SELECT NO TO QUESTION ABOVE TO REGISTER HER INSTEAD**')
+        #                 search = st.write('**SEARCH HER BY**')
+        #                 cola,colb,colc = st.columns([3,1,3])
+        #                 art = cola.selectbox('**ART NO.**', numbers, index=None)
+        #                 colb.write('')
+        #                 colb.write('')
+        #                 colb.write('**OR**')
+        #                 idis = colc.selectbox('**UNIQUE ID**', ids, index=None)
 
-                        if idis and arts:
-                             st.write("**YOU CAN'T CHOOSE BOTH ID AND ART NO., CHOOSE ONE, BY WHICH THE MOTHER WAS REGISTERED**")
-                             st.stop()
-                        elif not idis:
-                            idis = 'NONE'
-                        elif not arts:
-                            arts = 'NONE'
-                        elif not idis and not arts:
-                             st.stop()
-                        else: 
-                            pass
+        #                 if idis and arts:
+        #                      st.write("**YOU CAN'T CHOOSE BOTH ID AND ART NO., CHOOSE ONE, BY WHICH THE MOTHER WAS REGISTERED**")
+        #                      st.stop()
+        #                 elif not idis:
+        #                     idis = 'NONE'
+        #                 elif not arts:
+        #                     arts = 'NONE'
+        #                 elif not idis and not arts:
+        #                      st.stop()
+        #                 else: 
+        #                     pass
 
       
 #mother = st.number_input("**MOTHER'S ART No.**", min_value=1, value=None)
