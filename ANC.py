@@ -223,10 +223,10 @@ else:
     col4,col5 = st.columns([2,1])
     ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
 
-if 'preview_clicke' not in st.session_state:
-    st.session_state.preview_clicke = False
-if 'submit_clicke' not in st.session_state:
-    st.session_state.submit_clicke = False
+# if 'preview_clicke' not in st.session_state:
+#     st.session_state.preview_clicke = False
+# if 'submit_clicke' not in st.session_state:
+#     st.session_state.submit_clicke = False
 
 #with st.form(key='PMTCT'):
 coly, colz = st.columns([4,1])
@@ -250,6 +250,10 @@ vil = colf.text_input("**VILLAGE**")
 preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
      
 if preview:
+     if 'preview_clicke' not in st.session_state:
+          st.session_state.preview_clicke = False
+     if 'submit_clicke' not in st.session_state:
+          st.session_state.submit_clicke = False
      def generate_unique_number():
           f = dt.datetime.now()  # Get the current datetime
           g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
