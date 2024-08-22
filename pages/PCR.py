@@ -263,7 +263,7 @@ if cohort=='YES':
                  st.write('GET GOOD NETWORK AND TRY AGAIN')
                  st.stop()
 
-        elif which == 'DURING DELIVERY':
+        elif which == 'AFTER DELIVERY':
                     st.write('**SEARCHING DELIVERY DATABASE**')
                     time.sleep(1)            
                     try:
