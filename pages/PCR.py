@@ -370,7 +370,7 @@ if 'preview_click' not in st.session_state:
     st.session_state.preview_click = False
 if 'submit_click' not in st.session_state:
     st.session_state.submit_click = False
-if cohort == YES:
+if cohort == 'YES':
     if not (art or idis):
         st.stop()
     else:
