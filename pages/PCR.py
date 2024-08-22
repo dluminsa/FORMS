@@ -274,7 +274,7 @@ if cohort=='YES':
                         #st.write(arts)
                 
                         number = arts[['NEW ART NO.']].copy()
-                        st.write(number)
+                        #st.write(number)
                         number = number.dropna(subset = ['NEW ART NO.'])
                         n = number.shape[0]
                         number['NEW ART NO.'] = number['NEW ART NO.'].astype(int)
