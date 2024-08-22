@@ -268,9 +268,9 @@ if cohort=='YES':
                              st.write("**YOU CAN'T CHOOSE BOTH ID AND ART NO., CHOOSE ONE, BY WHICH THE MOTHER WAS REGISTERED**")
                              st.stop()
                         elif not idis:
-                            idis = ''
+                            idis = 'NONE'
                         elif not arts:
-                            arts = ''
+                            arts = 'NONE'
                         elif not idis and not arts:
                              st.stop()
                         else: 
