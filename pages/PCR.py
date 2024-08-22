@@ -221,11 +221,22 @@ if cohort=='YES':
             #st.write(arts)
             
             number = arts[['ART No.']].copy()
-            st.write(number)
+            #st.write(number)
             number = number.dropna(subset = ['ART No.'])
             n = number.shape[0]
             number['ART No.'] = number['ART No.'].astype(int)
             numbers = number['ART No.'].unique()
+
+            search = st.write("**SEARCH HER BY?**"< options = ['ART NO', 'UNIQUE ID'], horizontal=True, index=None)
+            if origin == 'ART NO':
+                st.write('**SEARCH HER BY HER ART NO**')
+                st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
+                if n == 0:
+                    st.write(f'**FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
+                     st.write(f'**SEARCH HER BY ID OR REGISTER HER FIRST**')
+                    st.stop()
+                else:
+                    st.write('**FOUND {n} IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
 
             
             id = arts[['UNIQUE ID']].copy()
@@ -233,7 +244,7 @@ if cohort=='YES':
             i = id.shape[0]
             id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
             ids = id['UNIQUE ID'].unique()
-            st.write(ids)
+            #st.write(ids)
 #             # #except:
 #             #      st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
 #             #      st.write('GET GOOD NETWORK AND TRY AGAIN')
