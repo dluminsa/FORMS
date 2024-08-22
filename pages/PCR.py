@@ -216,9 +216,9 @@ if cohort=='YES':
             #try:
             conn = st.connection('gsheets', type=GSheetsConnection)
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-            st.write(exist)
-#             arts = exist.dropna(how='all')
-#             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            arts = exist.dropna(how='all')
+            arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+            st.write(arts)
             
 #             number = arts[['ART No.']].copy()
 #             number = number.dropna(subset = ['ART No.'])
