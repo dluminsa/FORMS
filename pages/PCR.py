@@ -679,6 +679,9 @@ if preview:
        st.session_state.submit_click = False
        st.stop()
     else:
+        st.session_state.submit_click = True
+          
+        if st.session_state.submit_click:
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'PCR', usecols=list(range(30)),ttl=5)
