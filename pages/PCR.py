@@ -236,7 +236,7 @@ if cohort=='YES':
                     st.stop()
                 else:
                     st.write('**FOUND {n} IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
-                     st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
+                    st.write('**IF NOT FOUND, THEN EITHER SEARCH HER BY UNIQUE ID OR FIRST REGISTER HER**')
 
             
             # id = arts[['UNIQUE ID']].copy()
