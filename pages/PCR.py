@@ -218,7 +218,7 @@ if cohort=='YES':
             exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
             arts = exist.dropna(how='all')
             arts =  arts[arts['HEALTH FACILITY']== facility].copy()
-            #st.write(arts)
+            st.write(arts)
             
             number = arts[['ART No.']].copy()
             #st.write(number)
