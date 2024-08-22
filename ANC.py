@@ -366,37 +366,37 @@ if st.session_state.preview_clicke:
 
 
 if st.session_state.preview_clicke and not st.session_state.submit_clicke:
-# if not st.session_state.submit_clicke:    
-datey = datetime.now().date()
-formatted = datey.strftime("%d-%m-%Y")
-#st.write(formatted)
-df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
-                    'CLUSTER': cluster,
-                    'FACILITY DISTRICT':district,
-                    'HEALTH FACILITY' : facility,
-                    'IS THIS HER PARENT FACILITY?' : visit,
-                    'ART No.' : ART,
-                    'MWP IDI DISTRICT?': visitdistrict,
-                    'IDI SUPPORTED DISTRICT':ididistrict,
-                    'FROM IDI FACILITY?': visitfacility,
-                    'IDI PARENT FACILITY?'  : fromfacility,
-                    'OTHER PARENT FACILITY': others,
-                    'ART NO AT PARENT FACILITY': art,
-                    'OTHER DISTRICT': otherdistrict,
-                    'OUTSIDE FACILITY': otherfacility,
-                    'NAME': Name,
-                    'AGE': Age,
-                    'HER DISTRICT':dist,
-                    'SUBCOUNTY':sub,
-                    'PARISH':par,
-                    'VILLAGE':vil,
-                    'TELEPHONE':phone,
-                    'GESTATION AGE': GA,
-                    'EDD': EDD,
-                    'ANC DATE':dates,
-                    'CODE': PMTCT,
-                    'UNIQUE ID': st.session_state['unique_numbe'],
-                    }]) 
+     # if not st.session_state.submit_clicke:    
+     datey = datetime.now().date()
+     formatted = datey.strftime("%d-%m-%Y")
+     #st.write(formatted)
+     df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
+                         'CLUSTER': cluster,
+                         'FACILITY DISTRICT':district,
+                         'HEALTH FACILITY' : facility,
+                         'IS THIS HER PARENT FACILITY?' : visit,
+                         'ART No.' : ART,
+                         'MWP IDI DISTRICT?': visitdistrict,
+                         'IDI SUPPORTED DISTRICT':ididistrict,
+                         'FROM IDI FACILITY?': visitfacility,
+                         'IDI PARENT FACILITY?'  : fromfacility,
+                         'OTHER PARENT FACILITY': others,
+                         'ART NO AT PARENT FACILITY': art,
+                         'OTHER DISTRICT': otherdistrict,
+                         'OUTSIDE FACILITY': otherfacility,
+                         'NAME': Name,
+                         'AGE': Age,
+                         'HER DISTRICT':dist,
+                         'SUBCOUNTY':sub,
+                         'PARISH':par,
+                         'VILLAGE':vil,
+                         'TELEPHONE':phone,
+                         'GESTATION AGE': GA,
+                         'EDD': EDD,
+                         'ANC DATE':dates,
+                         'CODE': PMTCT,
+                         'UNIQUE ID': st.session_state['unique_numbe'],
+                         }]) 
 
 if visit =='YES':
      cola,colb = st.columns(2)
@@ -501,7 +501,7 @@ if visitdistrict =='NO':
      colb.write(f'**TELEPHONE: {phone}**')
 
 if not st.session_state.preview_clicke:
-st.stop()
+    st.stop()
 else:
 submit = st.button('Submit')
 
