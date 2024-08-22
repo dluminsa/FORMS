@@ -225,8 +225,8 @@ if cohort=='YES':
                 number = number.dropna(subset = ['ART No.'])
                 n = number.shape[0]
                 number['ART No.'] = number['ART No.'].astype(int)
-                numbers = number['ART No.'].unique()
-                st.write(n)
+                numbers = number['ART NO.'].unique()
+                #st.write(n)
     
                 id = arts[['UNIQUE ID']].copy()
                 id = id.dropna(subset = ['UNIQUE ID'])
