@@ -157,6 +157,7 @@ dist = ''
 par = ''
 vil = ''
 id = ''
+art = ''
 outfacility = ''
 # Radio button to select a district
 cluster = st.radio("**Choose a cluster:**", list(CLUSTER.keys()),horizontal=True, index=None)
@@ -167,7 +168,7 @@ def generate_unique_number():
     j = h[1:5]  # Get the second through fifth digits of the microseconds part
     return int(j)  # Convert the sliced string to an intege
 
-# Initialize the unique number in session state if it doesn't exist
+##### Initialize the unique number in session state if it doesn't exist#######
 if 'unique_numb' not in st.session_state:
          st.session_state['unique_numb'] = generate_unique_number()
          #ID = st.session_state['unique_numb']
@@ -316,10 +317,6 @@ if 'preview_clicked' not in st.session_state:
 if 'submit_clicked' not in st.session_state:
     st.session_state.submit_clicked = False
     
-if 'preview_clicked' not in st.session_state:
-    st.session_state.preview_clicked = False
-if 'submit_clicked' not in st.session_state:
-    st.session_state.submit_clicked = False
 
 with st.form(key='PMTCT'):
     if cohort == 'NO':
@@ -425,6 +422,13 @@ else:
      st.session_state['unique_numb'] = generate_unique_number()
     
 if st.session_state.preview_clicked and not st.session_state.submit_clicked:
+    if not phone:
+         phone = 'NOT FILLED'
+    if visit == 'YES':
+     st.session_state['unique_numb'] = ''
+    else:
+         st.session_state['unique_numb'] = generate_unique_number()
+        
     datey = datetime.now().date()
     formatted = datey.strftime("%d-%m-%Y")
     data = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
