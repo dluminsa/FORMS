@@ -256,8 +256,7 @@ if cohort=='YES':
                 else:
                     st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
                     st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
-                    cola, colb,colc = ([2,1,1])
-                    st.write(ids)
+                    cola, colb,colc = st.columns([2,1,1])
                     unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
 
 
