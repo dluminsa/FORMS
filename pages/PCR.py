@@ -128,7 +128,8 @@ st.markdown("<h4><b>FIRST PCR ENTRY FORM</b></h4>", unsafe_allow_html=True)
 st.markdown('***means required**')
 
 ##################UNIQUE NUMBER
-
+arty = ''
+unique = ''
 art =  ""
 facility = ""
 parenta = ""
