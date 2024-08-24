@@ -258,14 +258,14 @@ if cohort=='YES':
     
                 elif search == 'UNIQUE ID':
                     arty = 'NONE'
-                    #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
+                    #st.write('**If you don't find her ART NO, either search her by ID or click on NO above to register her first**')
                     if ien == 0:
                         st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
                         st.write('**SEARCH HER BY ID OR REGISTER HER FIRST**')
                         st.stop()
                     else:
                         st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
-                        st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
+                        st.write("**If you don't find her UNIQUE ID, either search her by ART NO or click on NO above to register her first**")
                         cola, colb,colc = st.columns([2,1,1])
                         unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
                         if unique:
@@ -280,7 +280,7 @@ if cohort=='YES':
         elif which == 'AFTER DELIVERY':
                     st.write('**SEARCHING DELIVERY DATABASE**')
                     time.sleep(1)            
-                    try:
+        :
                         conn = st.connection('gsheets', type=GSheetsConnection)
                         exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
                         arts = exist.dropna(how='all')
