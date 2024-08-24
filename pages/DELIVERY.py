@@ -129,7 +129,7 @@ st.markdown('***means required**')
 
 ##################UNIQUE NUMBER
 
-art =  ""
+arty =  "NONE"
 facility = ""
 parenta = ""
 parentb = ""
@@ -143,7 +143,7 @@ district=''
 phone = ''
 phone2 = ''
 mother = ''
-ids = ''
+unique  = 'NONE'
 visitfacility =''
 visitdistrict = ''
 ididistrict = ''
@@ -202,10 +202,10 @@ else:
 
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 
-if cohort:
-    pass
-else:
+if not cohort:
     st.stop()
+else:
+    pass
     
 if cohort=='YES':
             st.write('**SEARCHING ANC DATABASE**')
