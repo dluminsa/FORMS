@@ -258,7 +258,7 @@ if cohort=='YES':
                     #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                     if ien == 0:
                         st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
-                        st.write('**SEARCH HER BY ID OR REGISTER HER FIRST**')
+                        st.write('**SEARCH HER BY ART NO OR REGISTER HER FIRST**')
                         st.stop()
                     else:
                         st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
