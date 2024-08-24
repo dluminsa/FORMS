@@ -430,8 +430,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
             'DISTRICT': district,
             'FACILITY': facility,
             'IN COHORT?' : cohort,
-            'SEARCHED ART NO.' : art,
-            'SEARCHED ID': id,
+            'SEARCHED ART NO.' : arty,
+            'SEARCHED ID': unique,
             'UNIQUE ID':  st.session_state['unique_numb'],
             'FROM THIS FACILITY?': visit,
             'FROM IDI SUPPORTED DISTRICT': visitdistrict,
@@ -458,8 +458,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**DISTRICT: {district}**')
                 cola.write(f'**FACILITY: {facility}**')
                 cola.write(f'**IN COHORT? : {cohort}**')
-                colb.write(f'**SEARCHED ART NO. : {art}**')
-                colb.write(f'**SEARCHED ID: {id}**')
+                colb.write(f'**SEARCHED ART NO. : {arty}**')
+                colb.write(f'**SEARCHED ID: {unique}**')
                 colb.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 #cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 #cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
@@ -486,8 +486,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**DISTRICT: {district}**')
                 cola.write(f'**FACILITY: {facility}**')
                 cola.write(f'**IN COHORT? : {cohort}**')
-                #cola.write(f'**SEARCHED ART NO. : {art}**')
-                #cola.write(f'**SEARCHED ID: {id}**')
+                #cola.write(f'**SEARCHED ART NO. : {arty}**')
+                #cola.write(f'**SEARCHED ID: {unique}**')
                 #cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 #cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
@@ -518,8 +518,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**DISTRICT: {district}**')
                 cola.write(f'**FACILITY: {facility}**')
                 cola.write(f'**IN COHORT? : {cohort}**')
-                #cola.write(f'**SEARCHED ART NO. : {art}**')
-                #cola.write(f'**SEARCHED ID: {id}**')
+                #cola.write(f'**SEARCHED ART NO. : {arty}**')
+                #cola.write(f'**SEARCHED ID: {unique}**')
                 cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
@@ -551,8 +551,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**DISTRICT: {district}**')
                 cola.write(f'**FACILITY: {facility}**')
                 cola.write(f'**IN COHORT? : {cohort}**')
-                #cola.write(f'**SEARCHED ART NO. : {art}**')
-                #cola.write(f'**SEARCHED ID: {id}**')
+                #cola.write(f'**SEARCHED ART NO. : {arty}**')
+                #cola.write(f'**SEARCHED ID: {unique}**')
                 cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
@@ -583,8 +583,8 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 cola.write(f'**DISTRICT: {district}**')
                 cola.write(f'**FACILITY: {facility}**')
                 cola.write(f'**IN COHORT? : {cohort}**')
-                #cola.write(f'**SEARCHED ART NO. : {art}**')
-                #cola.write(f'**SEARCHED ID: {id}**')
+                #cola.write(f'**SEARCHED ART NO. : {arty}**')
+                #cola.write(f'**SEARCHED ID: {unique}**')
                 cola.write(f"**UNIQUE ID:  {st.session_state['unique_numb']}**")
                 cola.write(f'**FROM THIS FACILITY?: {visit}**')
                 cola.write(f'**FROM IDI SUPPORTED DISTRICT: {visitdistrict}**')
