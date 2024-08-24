@@ -240,6 +240,7 @@ if cohort=='YES':
                 else:
                     st.stop()
                 if search == 'ART NO':
+                    unique = 'NONE'
                     #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                     if n == 0:
                         st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
@@ -256,6 +257,7 @@ if cohort=='YES':
                             st.stop()
     
                 elif search == 'UNIQUE ID':
+                    arty = 'NONE'
                     #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                     if ien == 0:
                         st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
@@ -305,6 +307,7 @@ if cohort=='YES':
                         else:
                             st.stop()
                         if search == 'ART NO':
+                            unique = 'NONE'
                             #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                             if n == 0:
                                 st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
@@ -321,6 +324,7 @@ if cohort=='YES':
                                     st.stop()
             
                         elif search == 'UNIQUE ID':
+                            arty = 'NONE'
                             #st.write('**If you don't find her ART NO, either search her by ID or register or click NO above to register her first**')
                             if ien == 0:
                                 st.write(f'FOUND NO MOTHER FOR {facility} IN THE DATABASE**')
@@ -480,13 +484,12 @@ if preview:
             coly.warning("IN PUT DATE OF PCR")
             st.stop()
     
-    #st.session_state.preview_click = True
-if preview:
-    st.session_state.preview_click = True
-else:
-    st.stop()
-if st.session_state.preview_click:
-    
+    st.session_state.preview_click  = True
+# if preview:
+#     st.session_state.preview_click = True
+# else:
+#     st.stop()
+if st.session_state.preview_click: 
     if not phone:
          phone = 'NOT FILLED'
     if visit == 'YES':
@@ -678,12 +681,12 @@ if st.session_state.preview_click:
     
     submit = st.button('SUBMIT')          
     if  submit:
-       st.session_state.submit_click = True
-    else:
-        st.stop()
-    if st.session_state.submit_click:
-        # st.session_state.submit_click = True  
-        # if st.session_state.submit_click:
+    #    st.session_state.submit_click = True
+    # else:
+    #     st.stop()
+    # if st.session_state.submit_click:
+    #     # st.session_state.submit_click = True  
+    #     # if st.session_state.submit_click:
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'PCR', usecols=list(range(35)),ttl=5)
@@ -701,5 +704,7 @@ if st.session_state.preview_click:
                          """, unsafe_allow_html=True)
             except:
                 st.write("Couldn't submit, poor network")
-
-   
+    # else:
+    #     st.stop()
+else:
+    st.stop()
