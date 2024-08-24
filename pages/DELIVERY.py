@@ -208,6 +208,7 @@ else:
     pass
     
 if cohort=='YES':
+            st.session_state['unique_numb']='NONE'
             st.write('**SEARCHING ANC DATABASE**')
             time.sleep(1)            
             try:
@@ -310,12 +311,14 @@ elif cohort=='NO':
         else:
             st.stop()
     elif visit=='YES':
+        st.session_state['unique_numb'] = 'NONE'
         col4,col5 = st.columns([2,1])
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
     else:
         st.stop()
 else:
     st.stop()
+    
 if 'preview_clicked' not in st.session_state:
     st.session_state.preview_clicked = False
 if 'submit_clicked' not in st.session_state:
@@ -392,16 +395,21 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("HER HOME VILLAGE IS REQUIRED, input and try again")
             st.stop()
-        if phone: 
-               if len(phone)!=10:
-                    colx.write('**ERROR!!!**')
-                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
-                    st.stop() 
-        if phone2: 
-               if len(phone2)!=10:
-                    colx.write('**ERROR!!!**')
-                    coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
-                    st.stop()
+    if phone: 
+         if len(phone)!=10:
+             colx.write('**ERROR!!!**')
+             coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+             st.stop() 
+    if phone2: 
+         if len(phone2)!=10:
+              colx.write('**ERROR!!!**')
+              coly.warning("PHONE NUMBER MUST BE TEN CHARACTERS")
+              st.stop()
+    if cohort == 'YES': 
+         if not (arty or unique):
+              colx.write('**ERROR!!!**')
+              coly.warning("SEARCH HER BY UNIQUE ID OR ART NO")
+              st.stop()
     if not outcome:
             colx.write('**ERROR!!!**')
             coly.warning("INPUT OUTCOME OF DELIVERY")
@@ -413,15 +421,10 @@ if preview:
     
     st.session_state.preview_clicked = True
     
-
     
-if st.session_state.preview_clicked and not st.session_state.submit_clicked:
+if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
     if not phone:
          phone = 'NOT FILLED'
-    if visit == 'YES':
-         st.session_state['unique_numb'] = ''
-    else:
-         st.session_state['unique_numeb'] = generate_unique_number()
         
     datey = datetime.now().date()
     formatted = datey.strftime("%d-%m-%Y")
@@ -604,14 +607,10 @@ if st.session_state.preview_clicked and not st.session_state.submit_clicked:
                 colb.write(f'**OUTCOME: {outcome}**')
                 colb.write(f'**DATE OF DELIVERY: {date}**')
     
-if st.session_state.preview_clicked:
+# if st.session_state.preview_clicked:
     submit = st.button('Submit')
 
     if submit:
-        st.session_state.submit_clicked = True
-
-        if st.session_state.submit_clicked:
-
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(30)),ttl=5)
@@ -629,4 +628,9 @@ if st.session_state.preview_clicked:
                          """, unsafe_allow_html=True)
             except:
                 st.write("Couldn't submit, poor network")
+    else:
+        st.stop()
+else:
+    st.stop()
+                
 
