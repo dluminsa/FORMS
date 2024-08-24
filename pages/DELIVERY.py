@@ -169,8 +169,6 @@ def generate_unique_number():
     return int(j)  # Convert the sliced string to an intege
 
 ##### Initialize the unique number in session state if it doesn't exist#######
-if 'unique_numb' not in st.session_state:
-         st.session_state['unique_numb'] = generate_unique_number()
          #ID = st.session_state['unique_numb']
 
 # Show the facilities for the selected district and allow selection
@@ -283,7 +281,8 @@ elif cohort=='NO':
     st.write('')
     visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=True)
     if visit=='NO':
-        st.session_state['unique_numb'] = generate_unique_number()
+        if 'unique_numb' not in st.session_state:
+             st.session_state['unique_numb'] = generate_unique_number()
         st.write(f'**THIS MOTHER WILL BE ASSIGNED A UNIQUE ID, WE SHALL USE THIS TO TRACK HER FOR PCR**')
         visitdistrict = st.radio(label='**Does She get ART from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
         if not visitdistrict:
