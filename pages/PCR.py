@@ -278,8 +278,8 @@ if cohort=='YES':
                  st.stop()
 
         elif which == 'AFTER DELIVERY':
-                        st.write('**SEARCHING DELIVERY DATABASE**')
-                        time.sleep(1)            
+                 st.write('**SEARCHING DELIVERY DATABASE**')
+                 time.sleep(1)            
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
                         exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
