@@ -628,7 +628,7 @@ if st.session_state.preview_clicke:
                if st.session_state.submit_clicke:
                     try:
                          conn = st.connection('gsheets', type=GSheetsConnection)
-                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=0)
                          existing= exist.dropna(how='all')
                          updated = pd.concat([existing, df], ignore_index =True)
                          conn.update(worksheet = 'PMTCT', data = updated)         
