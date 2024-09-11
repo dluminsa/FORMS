@@ -303,9 +303,10 @@ if cohort=='YES':
                         arts = art.copy()
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
+                        number = number[~number[['NEW ART NO.'].isnull()]
                         number = number.dropna(subset = ['NEW ART NO.'])
                         n = number.shape[0]
-                        #number['NEW ART NO.'] = number['NEW ART NO.'].astype(int)
+                        number['NEW ART NO.'] = number['NEW ART NO.'].astype(int)
                         numbers = number['NEW ART NO.'].unique()
                         #st.write(numbers)
     
