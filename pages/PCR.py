@@ -305,14 +305,14 @@ if cohort=='YES':
                         #st.write(number)
                         number = number.dropna(subset = ['NEW ART NO.'])
                         n = number.shape[0]
-                        number['NEW ART NO.'] = number['NEW ART NO.'].astype(int)
+                        #number['NEW ART NO.'] = number['NEW ART NO.'].astype(int)
                         numbers = number['NEW ART NO.'].unique()
                         #st.write(numbers)
     
                         id = arts[['UNIQUE ID']].copy()
                         id = id.dropna(subset = ['UNIQUE ID'])
                         ien = id.shape[0]
-                        id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
+                        #id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
                         ids = id['UNIQUE ID'].unique()
     
                         search = st.radio(label="**SEARCH HER BY?**", options = ['ART NO', 'UNIQUE ID'], horizontal=True, index=None)
