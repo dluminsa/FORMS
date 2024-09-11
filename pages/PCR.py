@@ -117,14 +117,14 @@ ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTE
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
 
 file = r'DISTRICT.csv'
-backup = r'New BAK.xlsx'
+#backup = r'New BAK.xlsx'
 
 dis = pd.read_csv(file)
 dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
 alldistricts = dis1['DISTRICT'].unique()
 alldistrictsidi = dis['DISTRICT'].unique()
 
-dfback = pd.read_excel(backup)
+#dfback = pd.read_excel(backup)
 
 # Title of the Streamlit app
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
@@ -219,9 +219,10 @@ if cohort=='YES':
             time.sleep(1)            
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
+                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
+                back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
                 #arts = exist.dropna(how='all')
-                df = pd.concat([arts, dfback])
+                df = pd.concat([arts, exist])
                 arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                 #st.write(arts)
