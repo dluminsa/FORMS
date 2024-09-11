@@ -299,7 +299,7 @@ if cohort=='YES':
                  else:
                         arts = st.session_state['exist_df']
                         
-                  try:
+                 try:
                      conn = st.connection('gsheets', type=GSheetsConnection)
                      if 'exist_df' not in st.session_state:
                         arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
@@ -359,7 +359,7 @@ if cohort=='YES':
                                     pass
                                 else:
                                     st.stop()
-                  except:
+                 except:
                          st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
                          st.write('GET GOOD NETWORK AND TRY AGAIN')
                          st.stop()
