@@ -220,9 +220,14 @@ if cohort=='YES':
             time.sleep(1)            
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-                back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=0)
-                df = pd.concat([back, exist])
+                if 'exist_df' not in st.session_state:
+                      exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+                      back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=0)
+                      df = pd.concat([back, exist])
+                                  # Store the fetched data in session state
+                      st.session_state['exist_df'] = df
+                else:
+                   df = st.session_state['exist_df']
                 arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                 #st.write(arts)
@@ -288,12 +293,13 @@ if cohort=='YES':
                  st.write('**SEARCHING DELIVERY DATABASE**')
                  time.sleep(1)            
                  try:
-                        conn = st.connection('gsheets', type=GSheetsConnection)
-                        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
-                        #arts = exist.dropna(how='all')
-                        arts =  arts[arts['FACILITY']== facility].copy()
-                        #st.write(arts)
-                
+                     conn = st.connection('gsheets', type=GSheetsConnection)
+                     if 'exist_df' not in st.session_state:
+                        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
+                        st.session_state['exist_df'] = arts
+                     else:
+                        arts = st.session_state['exist_df']
+                        
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
                         number = number.dropna(subset = ['NEW ART NO.'])
