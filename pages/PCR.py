@@ -294,11 +294,11 @@ if cohort=='YES':
                  time.sleep(1)  
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
-                        if 'exist_df' not in st.session_state:
+                        if 'exist_d' not in st.session_state:
                             art = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
-                            st.session_state['exist_df'] = art
+                            st.session_state['exist_d'] = art
                         else:
-                            art = st.session_state['exist_df']
+                            art = st.session_state['exist_d']
                         st.write(arts.columns)
                         arts = art.copy()
                         number = arts[['NEW ART NO.']].copy()
@@ -348,6 +348,7 @@ if cohort=='YES':
                                 st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
                                 st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
                                 cola, colb,colc = st.columns([2,1,1])
+                                gh
                                 unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
                                 if unique:
                                     pass
@@ -355,8 +356,8 @@ if cohort=='YES':
                                     st.stop()
                  except Exception as e:
                          st.write(f"An error occurred: {e}")
-                         st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
-                         st.write('GET GOOD NETWORK AND TRY AGAIN')
+                         st.info("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
+                         st.info('GET GOOD NETWORK AND TRY AGAIN')
                          st.stop()
 
       
