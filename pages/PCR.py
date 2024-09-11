@@ -299,7 +299,7 @@ if cohort=='YES':
                             st.session_state['exist_df'] = arts
                         else:
                             arts = st.session_state['exist_df']
-                        
+                        st.write(arts.columns)
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
                         number = number.dropna(subset = ['NEW ART NO.'])
