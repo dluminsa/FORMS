@@ -298,6 +298,9 @@ if cohort=='YES':
                         st.session_state['exist_df'] = arts
                  else:
                         arts = st.session_state['exist_df']
+                 st.write(arts)
+                 ddf
+                 st.stop()
                         
                  try:
                      conn = st.connection('gsheets', type=GSheetsConnection)
