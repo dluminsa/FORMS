@@ -117,11 +117,12 @@ ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTE
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
 
 file = r'DISTRICT.csv'
+backup = r'BACK UP 1.xlsx'
 dis = pd.read_csv(file)
 dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
 alldistricts = dis1['DISTRICT'].unique()
 alldistrictsidi = dis['DISTRICT'].unique()
-
+dfback = pd.read_excel(backup)
 # Title of the Streamlit app
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
 st.markdown("<h4><b>FIRST PCR ENTRY FORM</b></h4>", unsafe_allow_html=True)
@@ -216,7 +217,9 @@ if cohort=='YES':
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
                 exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-                arts = exist.dropna(how='all')
+                #arts = exist.dropna(how='all')
+                df = pd.concat([arts, dfback])
+                arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                 #st.write(arts)
                 
