@@ -290,6 +290,7 @@ if cohort=='YES':
                  st.stop()
 
         elif which == 'AFTER DELIVERY':
+             dff
                  st.write('**SEARCHING DELIVERY DATABASE**')
                  time.sleep(1)  
                  try:
@@ -348,7 +349,6 @@ if cohort=='YES':
                                 st.write(f'**FOUND {ien} UNIQUE IDS FOR MOTHERS IN {facility} ANC DATA BASE**')
                                 st.write("**If you don't find her UNIQUE ID, either search her by ART NO or register or click NO above to register her first**")
                                 cola, colb,colc = st.columns([2,1,1])
-                                gh
                                 unique = cola.selectbox(f'**SEARCH HER UNIQUE ID**', ids, index=None)
                                 if unique:
                                     pass
