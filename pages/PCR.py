@@ -312,6 +312,7 @@ if cohort=='YES':
     
                         id = arts[['UNIQUE ID']].copy()
                         id = id[~id['UNIQUE ID'].isnull()]
+                        id = id[id['UNIQUE ID']!='NONE']
                         id = id.dropna(subset = ['UNIQUE ID'])
                         ien = id.shape[0]
                         #id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
