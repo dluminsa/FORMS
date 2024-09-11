@@ -203,14 +203,14 @@ if facility:
 else:
     st.stop()
 
-cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
-conn = st.connection('gsheets', type=GSheetsConnection)
-exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
-back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
-#arts = exist.dropna(how='all')
-df = pd.concat([arts, exist])
-arts = df.copy()
-arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+# cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
+# conn = st.connection('gsheets', type=GSheetsConnection)
+# exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
+# back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
+# #arts = exist.dropna(how='all')
+# df = pd.concat([arts, exist])
+# arts = df.copy()
+# arts =  arts[arts['HEALTH FACILITY']== facility].copy()
 
 if cohort:
     pass
@@ -230,7 +230,7 @@ if cohort=='YES':
                 exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
                 back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
                 #arts = exist.dropna(how='all')
-                df = pd.concat([arts, exist])
+                df = pd.concat([back, exist])
                 arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                 #st.write(arts)
@@ -297,8 +297,8 @@ if cohort=='YES':
                  time.sleep(1)            
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
-                        exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
-                        arts = exist.dropna(how='all')
+                        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(34)),ttl=5)
+                        #arts = exist.dropna(how='all')
                         arts =  arts[arts['FACILITY']== facility].copy()
                         #st.write(arts)
                 
