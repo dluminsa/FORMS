@@ -299,7 +299,7 @@ if cohort=='YES':
                             st.session_state['exist_d'] = art
                         else:
                             art = st.session_state['exist_d']
-                        st.write(arts.columns)
+                        #st.write(arts.columns)
                         arts = art.copy()
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
