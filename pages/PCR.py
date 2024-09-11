@@ -290,7 +290,6 @@ if cohort=='YES':
                  st.stop()
 
         elif which == 'AFTER DELIVERY':
-             dff
                  st.write('**SEARCHING DELIVERY DATABASE**')
                  time.sleep(1)  
                  try:
