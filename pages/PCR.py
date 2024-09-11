@@ -117,12 +117,15 @@ ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTE
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
 
 file = r'DISTRICT.csv'
-backup = r'BACK UP 1.xlsx'
+backup = r'BACK1.csv'
+
 dis = pd.read_csv(file)
 dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
 alldistricts = dis1['DISTRICT'].unique()
 alldistrictsidi = dis['DISTRICT'].unique()
-dfback = pd.read_excel(backup)
+
+dfback = pd.read_csv(backup)
+
 # Title of the Streamlit app
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
 st.markdown("<h4><b>FIRST PCR ENTRY FORM</b></h4>", unsafe_allow_html=True)
