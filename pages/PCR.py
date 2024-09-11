@@ -353,7 +353,7 @@ if cohort=='YES':
                                 else:
                                     st.stop()
                  except Exception as e:
-                         st.write((f"An error occurred: {e}")
+                         st.write(f"An error occurred: {e}")
                          st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
                          st.write('GET GOOD NETWORK AND TRY AGAIN')
                          st.stop()
