@@ -292,23 +292,23 @@ if cohort=='YES':
         elif which == 'AFTER DELIVERY':
                  st.write('**SEARCHING DELIVERY DATABASE**')
                  time.sleep(1)   
-                 conn = st.connection('gsheets', type=GSheetsConnection)
-                 if 'exist_df' not in st.session_state:
-                        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
-                        st.session_state['exist_df'] = arts
-                 else:
-                        arts = st.session_state['exist_df']
-                 st.write(arts)
-                 ddf
-                 st.stop()
+                 # conn = st.connection('gsheets', type=GSheetsConnection)
+                 # if 'exist_df' not in st.session_state:
+                 #        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
+                 #        st.session_state['exist_df'] = arts
+                 # else:
+                 #        arts = st.session_state['exist_df']
+                 # st.write(arts)
+                 # ddf
+                 # st.stop()
                         
                  try:
-                     conn = st.connection('gsheets', type=GSheetsConnection)
-                     if 'exist_df' not in st.session_state:
-                        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
-                        st.session_state['exist_df'] = arts
-                     else:
-                        arts = st.session_state['exist_df']
+                        conn = st.connection('gsheets', type=GSheetsConnection)
+                        if 'exist_df' not in st.session_state:
+                            arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
+                            st.session_state['exist_df'] = arts
+                        else:
+                            arts = st.session_state['exist_df']
                         
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
