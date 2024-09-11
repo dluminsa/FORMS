@@ -295,11 +295,12 @@ if cohort=='YES':
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
                         if 'exist_df' not in st.session_state:
-                            arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
-                            st.session_state['exist_df'] = arts
+                            art = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
+                            st.session_state['exist_df'] = art
                         else:
-                            arts = st.session_state['exist_df']
+                            art = st.session_state['exist_df']
                         st.write(arts.columns)
+                        arts = art.copy()
                         number = arts[['NEW ART NO.']].copy()
                         #st.write(number)
                         number = number.dropna(subset = ['NEW ART NO.'])
