@@ -204,11 +204,19 @@ else:
     st.stop()
 
 cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
+conn = st.connection('gsheets', type=GSheetsConnection)
+exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
+back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
+#arts = exist.dropna(how='all')
+df = pd.concat([arts, exist])
+arts = df.copy()
+arts =  arts[arts['HEALTH FACILITY']== facility].copy()
 
 if cohort:
     pass
 else:
     st.stop()
+
     
 if cohort=='YES':
         which = st.radio(f"**WHEN WAS SHE REGISTERD IN THE DATA BASE?**", options = ['DURING ANC', 'AFTER DELIVERY'], index=None, horizontal=True)
