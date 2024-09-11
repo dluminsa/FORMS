@@ -4,7 +4,6 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
-bnd
 
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
