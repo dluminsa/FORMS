@@ -9,7 +9,7 @@ st.set_page_config(
      page_title= 'PMTCT FORMS'
 )
 
-sddd
+
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
     "KYOTERA": ["KYOTERA", "RAKAI"],
@@ -659,7 +659,6 @@ if st.session_state.preview_clicke:
                               st.stop()
                          else:
                               pass  
-                              rrr
                          updated = pd.concat([exist, df], ignore_index =True)
                          if updated.shape[0]<400:
                               st.stop()
