@@ -203,7 +203,7 @@ if facility:
 else:
     st.stop()
 
-# cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
+cohort = st.radio(label="**Is this mother from this facility's EDD COHORT?**", options=['YES','NO'], index=None, horizontal=True)
 # conn = st.connection('gsheets', type=GSheetsConnection)
 # exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=5)
 # back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=5)
