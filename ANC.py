@@ -628,56 +628,57 @@ if st.session_state.preview_clicke:
                if st.session_state.submit_clicke:
                     try:
                          conn = st.connection('gsheets', type=GSheetsConnection)
-                         if 'exist_df' not in st.session_state:
-                              exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-                                  # Store the fetched data in session state
-                              st.session_state['exist_df'] = exist
-                         else:
-                              exist = st.session_state['exist_df']
-                         if exist.shape[0]<400:
-                              st.info("SOMETHING WENT WRONG, COULDN'T CONNECT TO DATABASE")
-                              time.sleep(1)
-                              st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                              time.sleep(2)
-                              st.rerun(scope='app')
-                              st.stop()
-                         else:
-                              pass 
-                         #existing= exist.dropna(how='all')
-                         if 'my_df' not in st.session_state:
-                              st.session_state['my_df'] = df
-                         else:
-                              pass
-                         df = st.session_state['my_df']
+                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+                         # if 'exist_df' not in st.session_state:
+                         #      exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+                         #          # Store the fetched data in session state
+                         #      st.session_state['exist_df'] = exist
+                         # else:
+                         #      exist = st.session_state['exist_df']
+                         # if exist.shape[0]<400:
+                         #      st.info("SOMETHING WENT WRONG, COULDN'T CONNECT TO DATABASE")
+                         #      time.sleep(1)
+                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+                         #      time.sleep(2)
+                         #      st.rerun(scope='app')
+                         #      st.stop()
+                         # else:
+                         #      pass 
+                         # #existing= exist.dropna(how='all')
+                         # if 'my_df' not in st.session_state:
+                         #      st.session_state['my_df'] = df
+                         # else:
+                         #      pass
+                         # df = st.session_state['my_df']
                          
-                         if df.shape[0]==0:
-                              st.write('YOUR ENTRIES FOR THIS MOTHER WERE NOT CAPTURED')
-                              time.sleep(1)
-                              st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                              time.sleep(2)
-                              st.rerun(scope='app')
-                              st.stop()
-                         else:
-                              pass  
+                         # if df.shape[0]==0:
+                         #      st.write('YOUR ENTRIES FOR THIS MOTHER WERE NOT CAPTURED')
+                         #      time.sleep(1)
+                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+                         #      time.sleep(2)
+                         #      st.rerun(scope='app')
+                         #      st.stop()
+                         # else:
+                         #      pass  
                          updated = pd.concat([exist, df], ignore_index =True)
-                         if updated.shape[0]<400:
-                              st.stop()
-                              st.write("SOMETHING WENT WRONG, RE-ENTER THIS MOTHER'S DETAILS")
-                              time.sleep(1)
-                              st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                              time.sleep(2)
-                              st.rerun(scope='app')
-                              st.stop()
-                         else:
-                              conn.update(worksheet = 'PMTCT', data = updated)         
-                              st.success('Your data above has been submitted')
-                              time.sleep(2)
-                              st.write('RELOADING PAGE')
-                              st.success('SUBMITTED SUCCESSFULLY')
-                              time.sleep(1)
-                              st.cache_data.clear()
-                              st.cache_resource.clear()
-                              st.markdown("""
+                         # if updated.shape[0]<400:
+                         #      st.stop()
+                         #      st.write("SOMETHING WENT WRONG, RE-ENTER THIS MOTHER'S DETAILS")
+                         #      time.sleep(1)
+                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+                         #      time.sleep(2)
+                         #      st.rerun(scope='app')
+                         #      st.stop()
+                         # else:
+                         conn.update(worksheet = 'PMTCT', data = updated)         
+                         st.success('Your data above has been submitted')
+                         time.sleep(2)
+                         st.write('RELOADING PAGE')
+                         st.success('SUBMITTED SUCCESSFULLY')
+                         time.sleep(1)
+                         st.cache_data.clear()
+                         st.cache_resource.clear()
+                         st.markdown("""
                               <meta http-equiv="refresh" content="0">
                                    """, unsafe_allow_html=True)
           
