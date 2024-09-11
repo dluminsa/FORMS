@@ -211,8 +211,10 @@ if cohort=='YES':
             time.sleep(1)            
             try:
                 conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(34)),ttl=5)
-                arts = exist.dropna(how='all')
+                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+                back = conn.read(worksheet= 'BACK1', usecols=list(range(26)),ttl=0)
+                df = pd.concat([back, exist])
+                arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
                 #st.write(arts)
                 
