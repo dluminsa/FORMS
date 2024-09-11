@@ -368,15 +368,15 @@ if preview:
      st.session_state.preview_clicke = True
      #st.session_state.submit_clicke = False
 if st.session_state.preview_clicke:
-     if not phone:
-          phone = 'NOT FILLED'
-     if visit == 'YES':
-          st.session_state['unique_numbe'] = ''
-     else:
-           st.session_state['unique_number'] = generate_unique_number()
+          if not phone:
+               phone = 'NOT FILLED'
+          if visit == 'YES':
+               st.session_state['unique_numbe'] = ''
+          else:
+                st.session_state['unique_number'] = generate_unique_number()
 
 
-     if st.session_state.preview_clicke and not st.session_state.submit_clicke:
+     #if st.session_state.preview_clicke and not st.session_state.submit_clicke:
           # if not st.session_state.submit_clicke:    
           datey = datetime.now().date()
           formatted = datey.strftime("%d-%m-%Y")
