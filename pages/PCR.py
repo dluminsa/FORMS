@@ -296,7 +296,7 @@ if cohort=='YES':
                  if 'exist_df' not in st.session_state:
                         arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
                         st.session_state['exist_df'] = arts
-                  else:
+                 else:
                         arts = st.session_state['exist_df']
                         
                   try:
