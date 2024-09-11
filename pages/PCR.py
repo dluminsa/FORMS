@@ -291,17 +291,7 @@ if cohort=='YES':
 
         elif which == 'AFTER DELIVERY':
                  st.write('**SEARCHING DELIVERY DATABASE**')
-                 time.sleep(1)   
-                 # conn = st.connection('gsheets', type=GSheetsConnection)
-                 # if 'exist_df' not in st.session_state:
-                 #        arts = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
-                 #        st.session_state['exist_df'] = arts
-                 # else:
-                 #        arts = st.session_state['exist_df']
-                 # st.write(arts)
-                 # ddf
-                 # st.stop()
-                        
+                 time.sleep(1)  
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
                         if 'exist_df' not in st.session_state:
@@ -362,7 +352,8 @@ if cohort=='YES':
                                     pass
                                 else:
                                     st.stop()
-                 except:
+                 except Exception as e
+                         st.write((f"An error occurred: {e}")
                          st.write("POOR NETWORK, COULDN'T CONNECT TO THE DATABASE")
                          st.write('GET GOOD NETWORK AND TRY AGAIN')
                          st.stop()
