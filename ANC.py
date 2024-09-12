@@ -626,7 +626,7 @@ if st.session_state.preview_clicke:
                #st.session_state.submit_clicke = True
                if submit:
                     MAX_RETRIES = 4  # Maximum number of retries
-                    WAIT_SECONDS = 5  # Time to wait between retries
+                    WAIT_SECONDS = 60  # Time to wait between retries
                     try:
                         # Connect to the Google Sheet
                         conn = st.connection('gsheets', type=GSheetsConnection)
