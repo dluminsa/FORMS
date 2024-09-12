@@ -625,7 +625,7 @@ if st.session_state.preview_clicke:
                
                #st.session_state.submit_clicke = True
                if submit:
-                    MAX_RETRIES = 2  # Maximum number of retries
+                    MAX_RETRIES = 3  # Maximum number of retries
                     WAIT_SECONDS = 5  # Time to wait between retries
                     try:
                         # Connect to the Google Sheet
@@ -656,7 +656,7 @@ if st.session_state.preview_clicke:
                                    """, unsafe_allow_html=True)
                                 break  # Exit the loop and stop retrying since submission was successful
                             else:
-                                st.write(f"TOO MAY USERS SUBMITING... Retrying in {WAIT_SECONDS} seconds...")
+                                st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
                                 time.sleep(WAIT_SECONDS)  # Wait before retrying
                         else:
                             # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
