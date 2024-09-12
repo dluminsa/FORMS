@@ -633,7 +633,7 @@ if st.session_state.preview_clicke:
                     try:
                         # Connect to the Google Sheet
                         conn = st.connection('gsheets', type=GSheetsConnection)
-                    
+                        st.write('SUBMITTING')
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
                             # Read the existing data from the worksheet
@@ -645,7 +645,6 @@ if st.session_state.preview_clicke:
                             # Check if the number of rows is sufficient (100 in this case)
                             if updated.shape[0] >= 100:
                                 time.sleep(3)
-                                st.write('SUBMITTING')
                                 conn.update(worksheet='PMTCT', data=updated)
                                 time.sleep(2)
                                 df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
