@@ -660,7 +660,7 @@ if st.session_state.preview_clicke:
                                 time.sleep(WAIT_SECONDS)  # Wait before retrying
                         else:
                             # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
-                            st.warning('**TOO MANY PEOPLE SUBMITTING AT THE SAME TIME**') 
+                            st.write('**Too many people submitting ata the same time**') 
                             st.info('**PRESS SUBMIT AGAIN TO RETRY**')
                             st.stop()  # Stop the Streamlit app here to let the user manually retry
                     
