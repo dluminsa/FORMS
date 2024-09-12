@@ -379,6 +379,7 @@ if st.session_state.preview_clicke:
      #if st.session_state.preview_clicke and not st.session_state.submit_clicke:
           # if not st.session_state.submit_clicke:    
           datey = datetime.now().date()
+          tim = datetime.now().date()
           formatted = datey.strftime("%d-%m-%Y")
           #st.write(formatted)
           df = pd.DataFrame([{ 'DATE OF SUBMISSION': formatted,
@@ -396,7 +397,7 @@ if st.session_state.preview_clicke:
                               'OTHER DISTRICT': otherdistrict,
                               'OUTSIDE FACILITY': otherfacility,
                               'NAME': Name,
-                              'AGE': Age,
+                              'AGE': Ag,
                               'HER DISTRICT':dist,
                               'SUBCOUNTY':sub,
                               'PARISH':par,
@@ -407,6 +408,7 @@ if st.session_state.preview_clicke:
                               'ANC DATE':dates,
                               'CODE': PMTCT,
                               'UNIQUE ID': st.session_state['unique_numbe'],
+                              'TIME' :tim,
                               }]) 
      
           if visit =='YES':
@@ -634,7 +636,7 @@ if st.session_state.preview_clicke:
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
                             # Read the existing data from the worksheet
-                            exist = conn.read(worksheet='PMTCT', usecols=list(range(26)), ttl=0)
+                            exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
                             
                             # Combine the existing data with new data (df)
                             updated = pd.concat([exist, df], ignore_index=True)
@@ -644,18 +646,23 @@ if st.session_state.preview_clicke:
                                 time.sleep(3)
                                 st.write('SUBMITTING')
                                 conn.update(worksheet='PMTCT', data=updated)
-                                #st.success("Your data has been successfully submitted.")
-                                st.success('Your data above has been submitted')
                                 time.sleep(2)
-                                st.write('RELOADING PAGE')
-                                st.success('SUBMITTED SUCCESSFULLY')
-                                time.sleep(1)
-                                st.cache_data.clear()
-                                st.cache_resource.clear()
-                                st.markdown("""
-                                 <meta http-equiv="refresh" content="0">
-                                   """, unsafe_allow_html=True)
-                                break  # Exit the loop and stop retrying since submission was successful
+                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                                df = df.tail(20)
+                                names = df['NAME'].unique()  # Extract unique names
+                                facilities = df['HEALTH FACILITY'].unique()
+                                if name in names and facility in facilities:
+                                     st.success('Your data above has been submitted')
+                                     time.sleep(2)
+                                     st.write('RELOADING PAGE')
+                                     st.success('SUBMITTED SUCCESSFULLY')
+                                     time.sleep(1)
+                                     st.cache_data.clear()
+                                     st.cache_resource.clear()
+                                     st.markdown("""
+                                      <meta http-equiv="refresh" content="0">
+                                        """, unsafe_allow_html=True)
+                                     break  # Exit the loop and stop retrying since submission was successful
                             else:
                                 #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
                                 time.sleep(WAIT_SECONDS)  # Wait before retrying
