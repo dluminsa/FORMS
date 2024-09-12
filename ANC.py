@@ -641,6 +641,7 @@ if st.session_state.preview_clicke:
                             
                             # Check if the number of rows is sufficient (100 in this case)
                             if updated.shape[0] >= 100:
+                                time.sleep(30)
                                 st.write('SUBMITTING')
                                 conn.update(worksheet='PMTCT', data=updated)
                                 #st.success("Your data has been successfully submitted.")
@@ -745,7 +746,7 @@ if st.session_state.preview_clicke:
                #                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
                #                updated = pd.concat([exist, df], ignore_index =True)
                #                if updated.shape[0] <100:
-               #                     time.sleep(2)
+               #                     time.sleep(30)
                #                     st.write('SUBMITTING')
                #                     conn = st.connection('gsheets', type=GSheetsConnection)
                #                     exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
