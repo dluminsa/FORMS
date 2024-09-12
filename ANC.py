@@ -623,65 +623,163 @@ if st.session_state.preview_clicke:
                else:
                     pass
                
-               st.session_state.submit_clicke = True
-          
-               if st.session_state.submit_clicke:
+               #st.session_state.submit_clicke = True
+               if submit:
+                    MAX_RETRIES = 5  # Maximum number of retries
+                    WAIT_SECONDS = 2  # Time to wait between retries
                     try:
-                         conn = st.connection('gsheets', type=GSheetsConnection)
-                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-                         # if 'exist_df' not in st.session_state:
-                         #      exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-                         #          # Store the fetched data in session state
-                         #      st.session_state['exist_df'] = exist
-                         # else:
-                         #      exist = st.session_state['exist_df']
-                         # if exist.shape[0]<400:
-                         #      st.info("SOMETHING WENT WRONG, COULDN'T CONNECT TO DATABASE")
-                         #      time.sleep(1)
-                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                         #      time.sleep(2)
-                         #      st.rerun(scope='app')
-                         #      st.stop()
-                         # else:
-                         #      pass 
-                         # #existing= exist.dropna(how='all')
-                         # if 'my_df' not in st.session_state:
-                         #      st.session_state['my_df'] = df
-                         # else:
-                         #      pass
-                         # df = st.session_state['my_df']
-                         
-                         # if df.shape[0]==0:
-                         #      st.write('YOUR ENTRIES FOR THIS MOTHER WERE NOT CAPTURED')
-                         #      time.sleep(1)
-                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                         #      time.sleep(2)
-                         #      st.rerun(scope='app')
-                         #      st.stop()
-                         # else:
-                         #      pass  
-                         updated = pd.concat([exist, df], ignore_index =True)
-                         # if updated.shape[0]<400:
-                         #      st.stop()
-                         #      st.write("SOMETHING WENT WRONG, RE-ENTER THIS MOTHER'S DETAILS")
-                         #      time.sleep(1)
-                         #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-                         #      time.sleep(2)
-                         #      st.rerun(scope='app')
-                         #      st.stop()
-                         # else:
-                         conn.update(worksheet = 'PMTCT', data = updated)         
-                         st.success('Your data above has been submitted')
-                         time.sleep(2)
-                         st.write('RELOADING PAGE')
-                         st.success('SUBMITTED SUCCESSFULLY')
-                         time.sleep(1)
-                         st.cache_data.clear()
-                         st.cache_resource.clear()
-                         st.markdown("""
-                              <meta http-equiv="refresh" content="0">
+                        # Connect to the Google Sheet
+                        conn = st.connection('gsheets', type=GSheetsConnection)
+                    
+                        # Initialize retry loop
+                        for attempt in range(MAX_RETRIES):
+                            # Read the existing data from the worksheet
+                            exist = conn.read(worksheet='PMTCT', usecols=list(range(26)), ttl=0)
+                            
+                            # Combine the existing data with new data (df)
+                            updated = pd.concat([exist, df], ignore_index=True)
+                            
+                            # Check if the number of rows is sufficient (100 in this case)
+                            if updated.shape[0] >= 100:
+                                st.write('SUBMITTING')
+                                conn.update(worksheet='PMTCT', data=updated)
+                                #st.success("Your data has been successfully submitted.")
+                                st.success('Your data above has been submitted')
+                                time.sleep(2)
+                                st.write('RELOADING PAGE')
+                                st.success('SUBMITTED SUCCESSFULLY')
+                                time.sleep(1)
+                                st.cache_data.clear()
+                                st.cache_resource.clear()
+                                st.markdown("""
+                                 <meta http-equiv="refresh" content="0">
                                    """, unsafe_allow_html=True)
+                                break  # Exit the loop and stop retrying since submission was successful
+                            else:
+                                st.write(f"Attempt {attempt + 1}: Waiting for other users... Retrying in {WAIT_SECONDS} seconds...")
+                                time.sleep(WAIT_SECONDS)  # Wait before retrying
+                        else:
+                            # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
+                            st.warning('**TOO MANY PEOPLE SUBMITTING AT THE SAME TIME**') 
+                            st.info('**PRESS SUBMIT AGAING TO RETRY**')
+                            st.stop()  # Stop the Streamlit app here to let the user manually retry
+                    
+                    except ConnectionError:
+                        st.write("Couldn't submit, poor network")
+
+
+
+
+
+
+
+               
           
-                    except:
-                         st.write("Couldn't submit, poor network") 
+               # if st.session_state.submit_clicke:
+               #      try:
+               #           conn = st.connection('gsheets', type=GSheetsConnection)
+               #           exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #           # if 'exist_df' not in st.session_state:
+               #           #      exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #           #          # Store the fetched data in session state
+               #           #      st.session_state['exist_df'] = exist
+               #           # else:
+               #           #      exist = st.session_state['exist_df']
+               #           # if exist.shape[0]<400:
+               #           #      st.info("SOMETHING WENT WRONG, COULDN'T CONNECT TO DATABASE")
+               #           #      time.sleep(1)
+               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+               #           #      time.sleep(2)
+               #           #      st.rerun(scope='app')
+               #           #      st.stop()
+               #           # else:
+               #           #      pass 
+               #           # #existing= exist.dropna(how='all')
+               #           # if 'my_df' not in st.session_state:
+               #           #      st.session_state['my_df'] = df
+               #           # else:
+               #           #      pass
+               #           # df = st.session_state['my_df']
+                         
+               #           # if df.shape[0]==0:
+               #           #      st.write('YOUR ENTRIES FOR THIS MOTHER WERE NOT CAPTURED')
+               #           #      time.sleep(1)
+               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+               #           #      time.sleep(2)
+               #           #      st.rerun(scope='app')
+               #           #      st.stop()
+               #           # else:
+               #           #      pass  
+               #           updated = pd.concat([exist, df], ignore_index =True)
+               #           # if updated.shape[0]<400:
+               #           #      st.stop()
+               #           #      st.write("SOMETHING WENT WRONG, RE-ENTER THIS MOTHER'S DETAILS")
+               #           #      time.sleep(1)
+               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
+               #           #      time.sleep(2)
+               #           #      st.rerun(scope='app')
+               #           #      st.stop()
+               #           # else:
+               #           conn.update(worksheet = 'PMTCT', data = updated)         
+               #           st.success('Your data above has been submitted')
+               #           time.sleep(2)
+               #           st.write('RELOADING PAGE')
+               #           st.success('SUBMITTED SUCCESSFULLY')
+               #           time.sleep(1)
+               #           st.cache_data.clear()
+               #           st.cache_resource.clear()
+               #           st.markdown("""
+               #                <meta http-equiv="refresh" content="0">
+               #                     """, unsafe_allow_html=True)
+          
+               #      except:
+               #           st.write("Couldn't submit, poor network") 
      
+               #      try:
+               #           conn = st.connection('gsheets', type=GSheetsConnection)
+               #           exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #           updated = pd.concat([exist, df], ignore_index =True)
+               #           if updated.shape[0] <100:
+               #                time.sleep(2)
+               #                conn = st.connection('gsheets', type=GSheetsConnection)
+               #                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                updated = pd.concat([exist, df], ignore_index =True)
+               #                if updated.shape[0] <100:
+               #                     time.sleep(2)
+               #                     st.write('SUBMITTING')
+               #                     conn = st.connection('gsheets', type=GSheetsConnection)
+               #                     exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                     updated = pd.concat([exist, df], ignore_index =True)
+               #                     if updated.shape[0] <100:
+               #                          time.sleep(2)
+               #                          st.write('SUBMITTING')
+               #                          conn = st.connection('gsheets', type=GSheetsConnection)
+               #                          exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                          updated = pd.concat([exist, df], ignore_index =True)
+               #                          if updated.shape[0] <100:
+               #                               time.sleep(2)
+               #                               st.write('SUBMITTING')
+               #                               conn = st.connection('gsheets', type=GSheetsConnection)
+               #                               exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                               updated = pd.concat([exist, df], ignore_index =True)
+               #                               if updated.shape[0] <100:
+               #                                         time.sleep(2)
+               #                                         st.write('SUBMITTING')
+               #                                         conn = st.connection('gsheets', type=GSheetsConnection)
+               #                                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                                         updated = pd.concat([exist, df], ignore_index =True)
+               #                                        if updated.shape[0] <100:
+               #                                              time.sleep(2)
+               #                                              st.write('SUBMITTING')
+               #                                              conn = st.connection('gsheets', type=GSheetsConnection)
+               #                                              exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
+               #                                              updated = pd.concat([exist, df], ignore_index =True)
+                                             
+                                             
+                              
+                              
+               #           conn.update(worksheet = 'PMTCT', data = updated)
+               #           if conn
+               #           st.success('Your data above has been submitted')
+               #      except:
+               #           st.write("Couldn't submit, poor network") 
