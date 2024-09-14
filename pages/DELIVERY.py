@@ -210,7 +210,7 @@ else:
     pass
     
 if cohort=='YES':
-            st.session_state['unique_numb']='NONE'
+            #st.session_state['unique_numb']='NONE'
             st.write('**SEARCHING ANC DATABASE**')
             time.sleep(1)            
             try:
@@ -317,7 +317,7 @@ elif cohort=='NO':
         else:
             st.stop()
     elif visit=='YES':
-        st.session_state['unique_numb'] = 'NONE'
+        #st.session_state['unique_numb'] = 'NONE'
         col4,col5 = st.columns([2,1])
         ART = col4.number_input(label= '**Her ART No:**', value=None, min_value=1)
     else:
@@ -424,6 +424,10 @@ if preview:
             colx.write('**ERROR!!!**')
             coly.warning("IN PUT DATE OF DELIVERY")
             st.stop()
+    if cohort == 'YES':
+               st.session_state['unique_numb'] = ''
+    if visit == 'YES':
+               st.session_state['unique_numb'] = ''
     
     st.session_state.preview_clicked = True
     
