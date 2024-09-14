@@ -171,6 +171,9 @@ def generate_unique_number():
 ##### Initialize the unique number in session state if it doesn't exist#######
          #ID = st.session_state['unique_numb']
 
+if 'unique_numb' not in st.session_state:
+            st.session_state['unique_numb'] = generate_unique_number()
+
 # Show the facilities for the selected district and allow selection
 if cluster is not None:
     districts = CLUSTER[cluster]
@@ -283,8 +286,8 @@ elif cohort=='NO':
     st.write('')
     visit = st.radio(label="**Is this mother from this facility's ART CLINIC?**", options=['YES','NO'], index=None, horizontal=True)
     if visit=='NO':
-        if 'unique_numb' not in st.session_state:
-             st.session_state['unique_numb'] = generate_unique_number()
+        # if 'unique_numb' not in st.session_state:
+        #      st.session_state['unique_numb'] = generate_unique_number()
         st.write(f'**THIS MOTHER WILL BE ASSIGNED A UNIQUE ID, WE SHALL USE THIS TO TRACK HER FOR PCR**')
         visitdistrict = st.radio(label='**Does She get ART from an IDI supported DISTRICT?**', options=['YES','NO'], index=None, horizontal=True)
         if not visitdistrict:
@@ -443,6 +446,7 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
             'IDI DISTRICT': ididistrict,
             'FROM IDI FACILITY':visitfacility,
             'PARENT FACILITY': fromfacility,
+            'OTHER PARENT FACILITY': otherfacility,
             'OTHER DISTRICT': outdistrict,
             'OUTSIDE FACILITY': outfacility,
             'NAME': Name,
