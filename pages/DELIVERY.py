@@ -221,6 +221,7 @@ if cohort=='YES':
                 df = pd.concat([back, exist])
                 arts = df.copy()
                 arts =  arts[arts['HEALTH FACILITY']== facility].copy()
+                arts = arts.drop_duplicates(subset = ['ART No.'], keep='first')
                 #st.write(arts)
                 
                 number = arts[['ART No.']].copy()
@@ -233,6 +234,7 @@ if cohort=='YES':
     
                 id = arts[['UNIQUE ID']].copy()
                 id = id.dropna(subset = ['UNIQUE ID'])
+                id = id.drop_duplicates(subset = ['UNIQUE ID'], keep='first')
                 ien = id.shape[0]
                 id['UNIQUE ID'] = id['UNIQUE ID'].astype(int)
                 ids = id['UNIQUE ID'].unique()
