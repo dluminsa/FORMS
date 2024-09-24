@@ -649,7 +649,7 @@ if st.session_state.preview_clicke:
                #st.session_state.submit_clicke = True
                if submit:
                     spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
-                    sheet = client.open_by_url(spreadsheet_url).worksheet("Sheet1")  # Change "Sheet1" to your worksheet name
+                    sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
                     new_data_rows = df.values.tolist()
                     # Append each row from `data` to the Google Sheets
                     for row in new_data_rows:
