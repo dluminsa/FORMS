@@ -6,7 +6,8 @@ import time
 import datetime as dt
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-creds = {
+
+creds = { a
     "type": st.secrets["connections"]["gsheets"]["type"],
     "project_id": st.secrets["connections"]["gsheets"]["project_id"],
     "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
