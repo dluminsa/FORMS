@@ -4,25 +4,25 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+# import gspread
+# from oauth2client.service_account import ServiceAccountCredentials
 
-creds = { 
-    "type": st.secrets["connections"]["gsheets"]["type"],
-    "project_id": st.secrets["connections"]["gsheets"]["project_id"],
-    "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
-    "private_key": st.secrets["connections"]["gsheets"]["private_key"],
-    "client_email": st.secrets["connections"]["gsheets"]["client_email"],
-    "client_id": st.secrets["connections"]["gsheets"]["client_id"],
-    "auth_uri": st.secrets["connections"]["gsheets"]["auth_uri"],
-    "token_uri": st.secrets["connections"]["gsheets"]["token_uri"],
-    "auth_provider_x509_cert_url": st.secrets["connections"]["gsheets"]["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": st.secrets["connections"]["gsheets"]["client_x509_cert_url"]
-}
-# Define the scope for the Google Sheets API
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
-client = gspread.authorize(credentials)
+# creds = { 
+#     "type": st.secrets["connections"]["gsheets"]["type"],
+#     "project_id": st.secrets["connections"]["gsheets"]["project_id"],
+#     "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
+#     "private_key": st.secrets["connections"]["gsheets"]["private_key"],
+#     "client_email": st.secrets["connections"]["gsheets"]["client_email"],
+#     "client_id": st.secrets["connections"]["gsheets"]["client_id"],
+#     "auth_uri": st.secrets["connections"]["gsheets"]["auth_uri"],
+#     "token_uri": st.secrets["connections"]["gsheets"]["token_uri"],
+#     "auth_provider_x509_cert_url": st.secrets["connections"]["gsheets"]["auth_provider_x509_cert_url"],
+#     "client_x509_cert_url": st.secrets["connections"]["gsheets"]["client_x509_cert_url"]
+# }
+# # Define the scope for the Google Sheets API
+# scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
+# client = gspread.authorize(credentials)
 
 st.set_page_config(
      page_title= 'PMTCT FORMS'
@@ -431,8 +431,8 @@ if st.session_state.preview_clicke:
                               'UNIQUE ID': st.session_state['unique_numbe'],
                               'TIME' :tim,
                               }])
-          new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
-                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
+          # new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
+          #                others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
      
           if visit =='YES':
                cola,colb = st.columns(2)
@@ -650,76 +650,58 @@ if st.session_state.preview_clicke:
                
                #st.session_state.submit_clicke = True
                if submit:
-                    spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
-                    sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
-                    #new_data_rows = data1.values.tolist()
-                    # Append each row from `data` to the Google Sheets
-                    for row in new_data_rows:
-                        sheet.append_row(row)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    
-                    # MAX_RETRIES = 4  # Maximum number of retries
-                    # WAIT_SECONDS = 5  # Time to wait between retries
-                    # try:
-                    #     # Connect to the Google Sheet
-                    #     conn = st.connection('gsheets', type=GSheetsConnection)
-                    #     st.write('SUBMITTING')
-                    #     # Initialize retry loop
-                    #     for attempt in range(MAX_RETRIES):
-                    #         # Read the existing data from the worksheet
-                    #         exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                    # spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
+                    # sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
+                    # #new_data_rows = data1.values.tolist()
+                    # # Append each row from `data` to the Google Sheets
+                    # for row in new_data_rows:
+                    #     sheet.append_row(row)                  
+                    MAX_RETRIES = 4  # Maximum number of retries
+                    WAIT_SECONDS = 5  # Time to wait between retries
+                    try:
+                        # Connect to the Google Sheet
+                        conn = st.connection('gsheets', type=GSheetsConnection)
+                        st.write('SUBMITTING')
+                        # Initialize retry loop
+                        for attempt in range(MAX_RETRIES):
+                            # Read the existing data from the worksheet
+                            exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
                             
-                    #         # Combine the existing data with new data (df)
-                    #         updated = pd.concat([exist, df], ignore_index=True)
+                            # Combine the existing data with new data (df)
+                            updated = pd.concat([exist, df], ignore_index=True)
                             
-                    #         # Check if the number of rows is sufficient (100 in this case)
-                    #         if updated.shape[0] >= 100:
-                    #             time.sleep(3)
-                    #             conn.update(worksheet='PMTCT', data=updated)
-                    #             time.sleep(2)
-                    #             df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
-                    #             df = df.tail(20)
-                    #             names = df['NAME'].unique()  # Extract unique names
-                    #             facilities = df['HEALTH FACILITY'].unique()
-                    #             if Name in names and facility in facilities:
-                    #                  #st.success('Your data above has been submitted')
-                    #                  #time.sleep(2)
-                    #                  st.success('SUBMITTED SUCCESSFULLY')
-                    #                  st.write('RELOADING PAGE')
-                    #                  time.sleep(1)
-                    #                  st.cache_data.clear()
-                    #                  st.cache_resource.clear()
-                    #                  st.markdown("""
-                    #                   <meta http-equiv="refresh" content="0">
-                    #                     """, unsafe_allow_html=True)
-                    #                  break  # Exit the loop and stop retrying since submission was successful
-                    #         else:
-                    #             #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
-                    #             time.sleep(WAIT_SECONDS)  # Wait before retrying
-                    #     else:
-                    #         # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
-                    #         st.write('**Too many people submitting ata the same time**') 
-                    #         st.info('**PRESS SUBMIT AGAIN TO RETRY**')
-                    #         st.stop()  # Stop the Streamlit app here to let the user manually retry
+                            # Check if the number of rows is sufficient (100 in this case)
+                            if updated.shape[0] >= 100:
+                                time.sleep(3)
+                                conn.update(worksheet='PMTCT', data=updated)
+                                time.sleep(2)
+                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                                df = df.tail(20)
+                                names = df['NAME'].unique()  # Extract unique names
+                                facilities = df['HEALTH FACILITY'].unique()
+                                if Name in names and facility in facilities:
+                                     #st.success('Your data above has been submitted')
+                                     #time.sleep(2)
+                                     st.success('SUBMITTED SUCCESSFULLY')
+                                     st.write('RELOADING PAGE')
+                                     time.sleep(1)
+                                     st.cache_data.clear()
+                                     st.cache_resource.clear()
+                                     st.markdown("""
+                                      <meta http-equiv="refresh" content="0">
+                                        """, unsafe_allow_html=True)
+                                     break  # Exit the loop and stop retrying since submission was successful
+                            else:
+                                #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
+                                time.sleep(WAIT_SECONDS)  # Wait before retrying
+                        else:
+                            # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
+                            st.write('**Too many people submitting ata the same time**') 
+                            st.info('**PRESS SUBMIT AGAIN TO RETRY**')
+                            st.stop()  # Stop the Streamlit app here to let the user manually retry
                     
-                    # except ConnectionError:
-                    #     st.write("Couldn't submit, poor network")
+                    except ConnectionError:
+                        st.write("Couldn't submit, poor network")
 
 
 
