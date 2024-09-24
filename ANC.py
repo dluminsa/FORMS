@@ -133,6 +133,7 @@ alldistrictsidi = dis['DISTRICT'].unique()
 #st.title("PMTCT DASHBOARD DATA ENTRY FORM")
 st.markdown("<h4><b>PMTCT DASHBOARD ANC DATA ENTRY FORM</b></h4>", unsafe_allow_html=True)
 st.markdown('***means required**')
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 ART =  ""
 aa = ''
@@ -630,52 +631,76 @@ if st.session_state.preview_clicke:
                
                #st.session_state.submit_clicke = True
                if submit:
-                    MAX_RETRIES = 4  # Maximum number of retries
-                    WAIT_SECONDS = 5  # Time to wait between retries
-                    try:
-                        # Connect to the Google Sheet
-                        conn = st.connection('gsheets', type=GSheetsConnection)
-                        st.write('SUBMITTING')
-                        # Initialize retry loop
-                        for attempt in range(MAX_RETRIES):
-                            # Read the existing data from the worksheet
-                            exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
-                            
-                            # Combine the existing data with new data (df)
-                            updated = pd.concat([exist, df], ignore_index=True)
-                            
-                            # Check if the number of rows is sufficient (100 in this case)
-                            if updated.shape[0] >= 100:
-                                time.sleep(3)
-                                conn.update(worksheet='PMTCT', data=updated)
-                                time.sleep(2)
-                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
-                                df = df.tail(20)
-                                names = df['NAME'].unique()  # Extract unique names
-                                facilities = df['HEALTH FACILITY'].unique()
-                                if Name in names and facility in facilities:
-                                     #st.success('Your data above has been submitted')
-                                     #time.sleep(2)
-                                     st.success('SUBMITTED SUCCESSFULLY')
-                                     st.write('RELOADING PAGE')
-                                     time.sleep(1)
-                                     st.cache_data.clear()
-                                     st.cache_resource.clear()
-                                     st.markdown("""
-                                      <meta http-equiv="refresh" content="0">
-                                        """, unsafe_allow_html=True)
-                                     break  # Exit the loop and stop retrying since submission was successful
-                            else:
-                                #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
-                                time.sleep(WAIT_SECONDS)  # Wait before retrying
-                        else:
-                            # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
-                            st.write('**Too many people submitting ata the same time**') 
-                            st.info('**PRESS SUBMIT AGAIN TO RETRY**')
-                            st.stop()  # Stop the Streamlit app here to let the user manually retry
+                    # Connect to Google Sheets using Streamlit's connection method
+                    conn = st.secrets["connections"]["gsheets"]
+                    existing_data = pd.DataFrame(conn.read(sheet_name=conn["PMTCT"]))
+                    existing_data = existing_data.dropna(how='all')
+                    new_data_rows = df.values.tolist()
+                    for row in new_data_rows:
+                       conn.append_row(row, table=conn["PMTCT"])
+                    st.success('Your data above has been submitted')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     
-                    except ConnectionError:
-                        st.write("Couldn't submit, poor network")
+                    # MAX_RETRIES = 4  # Maximum number of retries
+                    # WAIT_SECONDS = 5  # Time to wait between retries
+                    # try:
+                    #     # Connect to the Google Sheet
+                    #     conn = st.connection('gsheets', type=GSheetsConnection)
+                    #     st.write('SUBMITTING')
+                    #     # Initialize retry loop
+                    #     for attempt in range(MAX_RETRIES):
+                    #         # Read the existing data from the worksheet
+                    #         exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                            
+                    #         # Combine the existing data with new data (df)
+                    #         updated = pd.concat([exist, df], ignore_index=True)
+                            
+                    #         # Check if the number of rows is sufficient (100 in this case)
+                    #         if updated.shape[0] >= 100:
+                    #             time.sleep(3)
+                    #             conn.update(worksheet='PMTCT', data=updated)
+                    #             time.sleep(2)
+                    #             df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                    #             df = df.tail(20)
+                    #             names = df['NAME'].unique()  # Extract unique names
+                    #             facilities = df['HEALTH FACILITY'].unique()
+                    #             if Name in names and facility in facilities:
+                    #                  #st.success('Your data above has been submitted')
+                    #                  #time.sleep(2)
+                    #                  st.success('SUBMITTED SUCCESSFULLY')
+                    #                  st.write('RELOADING PAGE')
+                    #                  time.sleep(1)
+                    #                  st.cache_data.clear()
+                    #                  st.cache_resource.clear()
+                    #                  st.markdown("""
+                    #                   <meta http-equiv="refresh" content="0">
+                    #                     """, unsafe_allow_html=True)
+                    #                  break  # Exit the loop and stop retrying since submission was successful
+                    #         else:
+                    #             #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
+                    #             time.sleep(WAIT_SECONDS)  # Wait before retrying
+                    #     else:
+                    #         # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
+                    #         st.write('**Too many people submitting ata the same time**') 
+                    #         st.info('**PRESS SUBMIT AGAIN TO RETRY**')
+                    #         st.stop()  # Stop the Streamlit app here to let the user manually retry
+                    
+                    # except ConnectionError:
+                    #     st.write("Couldn't submit, poor network")
 
 
 
@@ -683,113 +708,3 @@ if st.session_state.preview_clicke:
 
 
 
-               
-          
-               # if st.session_state.submit_clicke:
-               #      try:
-               #           conn = st.connection('gsheets', type=GSheetsConnection)
-               #           exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #           # if 'exist_df' not in st.session_state:
-               #           #      exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #           #          # Store the fetched data in session state
-               #           #      st.session_state['exist_df'] = exist
-               #           # else:
-               #           #      exist = st.session_state['exist_df']
-               #           # if exist.shape[0]<400:
-               #           #      st.info("SOMETHING WENT WRONG, COULDN'T CONNECT TO DATABASE")
-               #           #      time.sleep(1)
-               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-               #           #      time.sleep(2)
-               #           #      st.rerun(scope='app')
-               #           #      st.stop()
-               #           # else:
-               #           #      pass 
-               #           # #existing= exist.dropna(how='all')
-               #           # if 'my_df' not in st.session_state:
-               #           #      st.session_state['my_df'] = df
-               #           # else:
-               #           #      pass
-               #           # df = st.session_state['my_df']
-                         
-               #           # if df.shape[0]==0:
-               #           #      st.write('YOUR ENTRIES FOR THIS MOTHER WERE NOT CAPTURED')
-               #           #      time.sleep(1)
-               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-               #           #      time.sleep(2)
-               #           #      st.rerun(scope='app')
-               #           #      st.stop()
-               #           # else:
-               #           #      pass  
-               #           updated = pd.concat([exist, df], ignore_index =True)
-               #           # if updated.shape[0]<400:
-               #           #      st.stop()
-               #           #      st.write("SOMETHING WENT WRONG, RE-ENTER THIS MOTHER'S DETAILS")
-               #           #      time.sleep(1)
-               #           #      st.write("REFRESHING PAGE, RE-ENTER THIS MOTHER'S DETAILS")
-               #           #      time.sleep(2)
-               #           #      st.rerun(scope='app')
-               #           #      st.stop()
-               #           # else:
-               #           conn.update(worksheet = 'PMTCT', data = updated)         
-               #           st.success('Your data above has been submitted')
-               #           time.sleep(2)
-               #           st.write('RELOADING PAGE')
-               #           st.success('SUBMITTED SUCCESSFULLY')
-               #           time.sleep(1)
-               #           st.cache_data.clear()
-               #           st.cache_resource.clear()
-               #           st.markdown("""
-               #                <meta http-equiv="refresh" content="0">
-               #                     """, unsafe_allow_html=True)
-          
-               #      except:
-               #           st.write("Couldn't submit, poor network") 
-     
-               #      try:
-               #           conn = st.connection('gsheets', type=GSheetsConnection)
-               #           exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #           updated = pd.concat([exist, df], ignore_index =True)
-               #           if updated.shape[0] <100:
-               #                time.sleep(2)
-               #                conn = st.connection('gsheets', type=GSheetsConnection)
-               #                exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                updated = pd.concat([exist, df], ignore_index =True)
-               #                if updated.shape[0] <100:
-               #                     time.sleep(30)
-               #                     st.write('SUBMITTING')
-               #                     conn = st.connection('gsheets', type=GSheetsConnection)
-               #                     exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                     updated = pd.concat([exist, df], ignore_index =True)
-               #                     if updated.shape[0] <100:
-               #                          time.sleep(2)
-               #                          st.write('SUBMITTING')
-               #                          conn = st.connection('gsheets', type=GSheetsConnection)
-               #                          exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                          updated = pd.concat([exist, df], ignore_index =True)
-               #                          if updated.shape[0] <100:
-               #                               time.sleep(2)
-               #                               st.write('SUBMITTING')
-               #                               conn = st.connection('gsheets', type=GSheetsConnection)
-               #                               exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                               updated = pd.concat([exist, df], ignore_index =True)
-               #                               if updated.shape[0] <100:
-               #                                         time.sleep(2)
-               #                                         st.write('SUBMITTING')
-               #                                         conn = st.connection('gsheets', type=GSheetsConnection)
-               #                                         exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                                         updated = pd.concat([exist, df], ignore_index =True)
-               #                                        if updated.shape[0] <100:
-               #                                              time.sleep(2)
-               #                                              st.write('SUBMITTING')
-               #                                              conn = st.connection('gsheets', type=GSheetsConnection)
-               #                                              exist = conn.read(worksheet= 'PMTCT', usecols=list(range(26)),ttl=0)
-               #                                              updated = pd.concat([exist, df], ignore_index =True)
-                                             
-                                             
-                              
-                              
-               #           conn.update(worksheet = 'PMTCT', data = updated)
-               #           if conn
-               #           st.success('Your data above has been submitted')
-               #      except:
-               #           st.write("Couldn't submit, poor network") 
