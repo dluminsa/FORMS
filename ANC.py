@@ -431,34 +431,8 @@ if st.session_state.preview_clicke:
                               'UNIQUE ID': st.session_state['unique_numbe'],
                               'TIME' :tim,
                               }])
-          data1 = { 'DATE OF SUBMISSION': formatted,
-                              'CLUSTER': cluster,
-                              'FACILITY DISTRICT':district,
-                              'HEALTH FACILITY' : facility,
-                              'IS THIS HER PARENT FACILITY?' : visit,
-                              'ART No.' : ART,
-                              'MWP IDI DISTRICT?': visitdistrict,
-                              'IDI SUPPORTED DISTRICT':ididistrict,
-                              'FROM IDI FACILITY?': visitfacility,
-                              'IDI PARENT FACILITY?'  : fromfacility,
-                              'OTHER PARENT FACILITY': others,
-                              'ART NO AT PARENT FACILITY': art,
-                              'OTHER DISTRICT': otherdistrict,
-                              'OUTSIDE FACILITY': otherfacility,
-                              'NAME': Name,
-                              'AGE': Ag,
-                              'HER DISTRICT':dist,
-                              'SUBCOUNTY':sub,
-                              'PARISH':par,
-                              'VILLAGE':vil,
-                              'TELEPHONE':phone,
-                              'GESTATION AGE': GA,
-                              'EDD': EDD,
-                              'ANC DATE':dates,
-                              'CODE': PMTCT,
-                              'UNIQUE ID': st.session_state['unique_numbe'],
-                              'TIME' :tim,
-                              }
+          new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
+                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
      
           if visit =='YES':
                cola,colb = st.columns(2)
@@ -678,7 +652,7 @@ if st.session_state.preview_clicke:
                if submit:
                     spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
                     sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
-                    new_data_rows = data1.values.tolist()
+                    #new_data_rows = data1.values.tolist()
                     # Append each row from `data` to the Google Sheets
                     for row in new_data_rows:
                         sheet.append_row(row)
