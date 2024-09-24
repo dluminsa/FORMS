@@ -6,6 +6,22 @@ import time
 import datetime as dt
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+creds = {
+    "type": st.secrets["connections"]["gsheets"]["type"],
+    "project_id": st.secrets["connections"]["gsheets"]["project_id"],
+    "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
+    "private_key": st.secrets["connections"]["gsheets"]["private_key"],
+    "client_email": st.secrets["connections"]["gsheets"]["client_email"],
+    "client_id": st.secrets["connections"]["gsheets"]["client_id"],
+    "auth_uri": st.secrets["connections"]["gsheets"]["auth_uri"],
+    "token_uri": st.secrets["connections"]["gsheets"]["token_uri"],
+    "auth_provider_x509_cert_url": st.secrets["connections"]["gsheets"]["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": st.secrets["connections"]["gsheets"]["client_x509_cert_url"]
+}
+# Define the scope for the Google Sheets API
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
+client = gspread.authorize(credentials)
 
 st.set_page_config(
      page_title= 'PMTCT FORMS'
@@ -631,14 +647,14 @@ if st.session_state.preview_clicke:
                
                #st.session_state.submit_clicke = True
                if submit:
-                    # Connect to Google Sheets using Streamlit's connection method
-                    conn = st.secrets["connections"]["gsheets"]
-                    existing_data = pd.DataFrame(conn.read(sheet_name=conn["PMTCT"]))
-                    existing_data = existing_data.dropna(how='all')
+                    spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
+                    sheet = client.open_by_url(spreadsheet_url).worksheet("Sheet1")  # Change "Sheet1" to your worksheet name
                     new_data_rows = df.values.tolist()
+                    # Append each row from `data` to the Google Sheets
                     for row in new_data_rows:
-                       conn.append_row(row, table=conn["PMTCT"])
-                    st.success('Your data above has been submitted')
+                        sheet.append_row(row)
+
+
 
 
 
