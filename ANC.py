@@ -4,13 +4,16 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
-# import gspread
-# from oauth2client.service_account import ServiceAccountCredentials
+import json
+import gspread
+from google.oauth2.service_account import Credentials
+from oauth2client.service_account import ServiceAccountCredentials
 
 st.set_page_config(
      page_title= 'PMTCT FORMS'
 )
 
+# st.stop()
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
     "KYOTERA": ["KYOTERA", "RAKAI"],
@@ -120,7 +123,60 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
-                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
+# scopes = ["https://www.googleapis.com/auth/spreadsheets",
+#           "https://www.googleapis.com/auth/drive"]
+
+# credentials = Credentials.from_service_account_info(secrets, scopes=scopes)
+
+# Access the credentials from the correct path
+secrets = st.secrets["connections"]["gsheets"]
+
+# Prepare the credentials dictionary
+credentials_info = {
+    "type": secrets["type"],
+    "project_id": secrets["project_id"],
+    "private_key_id": secrets["private_key_id"],
+    "private_key": secrets["private_key"],
+    "client_email": secrets["client_email"],
+    "client_id": secrets["client_id"],
+    "auth_uri": secrets["auth_uri"],
+    "token_uri": secrets["token_uri"],
+    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": secrets["client_x509_cert_url"]
+}
+
+# Define the scopes needed for your application
+scopes = ["https://www.googleapis.com/auth/spreadsheets",
+          "https://www.googleapis.com/auth/drive"]
+
+# # Create credentials object
+# credentials = Credentials.from_service_account_info(credentials_info)
+# Create credentials object with the required scopes
+credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+
+# Authorize and access Google Sheets
+client = gspread.authorize(credentials)
+
+# Open the Google Sheet by URL
+#spreadsheet_url = secrets["spreadsheet"]
+#spreadsheet_url ="https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ/edit?gid=777763999#gid=777763999" 
+spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
+spreadsheet = client.open_by_url(spreadsheetu)
+
+# Access the worksheet named 'PMTCTB'
+sheet = spreadsheet.worksheet("PMTCTB")
+
+
+# Prepare the data you want to append
+# rows_to_append = [
+#     ["Data 1", "Data 2", "Data 3"],
+#     ["Data 4", "Data 5", "Data 6"],
+#     # Add more rows as needed
+# ]
+
+# Append the rows to the end of the sheet
+#sheet.append_rows(rows_to_append, value_input_option='RAW')
 
 file = r'DISTRICT.csv'
 dis = pd.read_csv(file)
@@ -254,18 +310,6 @@ vil = colf.text_input("**VILLAGE**")
 preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
      
 if preview:
-
-     # def generate_unique_number():
-     #      f = dt.datetime.now()  # Get the current datetime
-     #      g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
-     #      h = g.split('.')[1]  # Extract the microseconds part of the formatted string
-     #      j = h[1:5]  # Get the second through fifth digits of the microseconds part
-     #      return int(j)  # Convert the sliced string to an intege
-
-     # # Initialize the unique number in session state if it doesn't exist
-     # if 'unique_numbe' not in st.session_state:
-     #          st.session_state['unique_numbe'] = generate_unique_number()
-     #          ID = st.session_state['unique_numbe']
      colx,coly = st.columns([1,2])
      if visit=='YES':
           if not ART:
@@ -413,8 +457,13 @@ if st.session_state.preview_clicke:
                               'UNIQUE ID': st.session_state['unique_numbe'],
                               'TIME' :tim,
                               }])
-          # new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
-          #                others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
+          ad = st.session_state['unique_numbe']
+          formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
+          EDD = str(EDD)
+          dates = str(dates)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
+     
+          row_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
+                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, ad,tim]
           dfa =df.copy()
           if visit =='YES':
                cola,colb = st.columns(2)
@@ -631,13 +680,7 @@ if st.session_state.preview_clicke:
                     pass
                
                #st.session_state.submit_clicke = True
-               if submit:
-                    # spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
-                    # sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
-                    # #new_data_rows = data1.values.tolist()
-                    # # Append each row from `data` to the Google Sheets
-                    # for row in new_data_rows:
-                    #     sheet.append_row(row)                  
+               if submit: 
                     MAX_RETRIES = 4  # Maximum number of retries
                     WAIT_SECONDS = 5  # Time to wait between retries
                     try:
@@ -646,31 +689,34 @@ if st.session_state.preview_clicke:
                         st.write('SUBMITTING')
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
-                            # Read the existing data from the worksheet
-                            exist = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
-                            
-                            # Combine the existing data with new data (df)
-                            updated = pd.concat([exist, df], ignore_index=True)
-                            
-                            # Check if the number of rows is sufficient (100 in this case)
-                            if exist.shape[0] >= 100:
-                                time.sleep(3)
-                                conn.update(worksheet='PMTCT', data=updated)
-                                time.sleep(2)
-                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                                sheet1 = spreadsheet.worksheet("BACK1")
+                                sheet1.append_row(row_to_append, value_input_option='RAW')
+                                sheet2 = spreadsheet.worksheet("PMTCTB")
+                                sheet2.append_row(row_to_append, value_input_option='RAW')
+                                sheet3 = spreadsheet.worksheet("PMTCTC")
+                                sheet3.append_row(row_to_append, value_input_option='RAW')
+                                df = conn.read(worksheet='BACK1', usecols=list(range(27)), ttl=0)
                                 df = df.tail(20)
                                 names = df['NAME'].unique()  # Extract unique names
                                 facilities = df['HEALTH FACILITY'].unique()
                                 if Name in names and facility in facilities:
-                                     #st.success('Your data above has been submitted')
-                                     #time.sleep(2)
-                                     st.success('SUBMITTED SUCCESSFULLY')
-                                     exist2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
-                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
-                                     conn.update(worksheet='PMTCTB', data=updated2)
-                                     exist2 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
-                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
-                                     conn.update(worksheet='PMTCTC', data=updated2)
+                                     pass
+                                else:
+                                     time.sleep(WAIT_SECONDS)
+                                     
+                                df2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
+                                df2 = df2.tail(20)
+                                names2 = df2['NAME'].unique()  # Extract unique names
+                                facilities2 = df['HEALTH FACILITY'].unique()
+                                if Name in names2 and facility in facilities2:
+                                     pass
+                                else:
+                                     time.sleep(WAIT_SECONDS)
+                                df3 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
+                                df3 = df3.tail(20)
+                                names3 = df3['NAME'].unique()  # Extract unique names
+                                facilities3 = df['HEALTH FACILITY'].unique()
+                                if Name in names3 and facility in facilities3:
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
@@ -679,11 +725,9 @@ if st.session_state.preview_clicke:
                                       <meta http-equiv="refresh" content="0">
                                         """, unsafe_allow_html=True)
                                      break  # Exit the loop and stop retrying since submission was successful
-                            else:
-                                #st.write(f"**Waiting for another user to submit... Retrying in {WAIT_SECONDS} seconds...**")
-                                time.sleep(WAIT_SECONDS)  # Wait before retrying
+                                else:
+                                     time.sleep(WAIT_SECONDS)
                         else:
-                            # If after MAX_RETRIES, the data is still insufficient, notify the user and stop the script
                             st.write('**Too many people submitting ata the same time**') 
                             st.info('**PRESS SUBMIT AGAIN TO RETRY**')
                             st.stop()  # Stop the Streamlit app here to let the user manually retry
