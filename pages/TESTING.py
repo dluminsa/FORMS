@@ -4,8 +4,9 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
-# import gspread
-# from oauth2client.service_account import ServiceAccountCredentials
+import json
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 st.set_page_config(
      page_title= 'PMTCT FORMS'
@@ -121,7 +122,41 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
-                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
+
+credentials_json = '''{
+     type = "service_account"
+     project_id = "pmtct-436005"
+     private_key_id = "0725bf23560e930e9d35dbba459dd7a717c1dd01"
+     private_key = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDKrF0kKR6b4ALj\nOrXcF1TeNa73tUYwH+V21Y92+y2WJBMx33N0X/QSdmC/WeyGfMkeBN0Vn9v5it9x\nEfsKY8feqFplHBUUy+dCg6tcV5D7VQwCvu1g5Ourbvl7OBrk7RwFB4Ehe62DJi+1\nl5Xqlhhwx3vYy2cT4SY3yYmeYF8msebAJcVqBZVqSNl0O/GKpBFvsVfdhiCIYcL0\nLJOmBjIPtg+clrznFWLKn8c5NEx5PTmymhXo22FvF+E6Zu7cS7hBf3A8QZgTiQHm\nao9GGCO4Twxt1KtPhJEVinJXPXqbCmaVvPxHepIiV36wPj0kLiG71m2MmXpLkORq\nC9cxqcs1AgMBAAECggEAL2mmOnTiI74Cfuz3qV7N7FPrtCg0nMKBeEzajI+TKQoU\ncXjgNgvSedU2qd0cD5Q2qm6h19K3b8fUoMt/in0wPz7sMrYgmmZfGfjaiDY2BQ3u\nyt+mgaHcHhVOiMxlwkNT6DtKsq4Pt9whkh49pIzrd8q7BssCuKxVt/xOVP4flFnk\nKGwaSX9VMKhWSQiywdHxg/WkLO4lL6IYfKcxtH6kBAYqOaVea/eQQNa9qDuAUG14\n+h3Z92bgayXRaVWorkf4c8OyxSDlJ0I/2nYt4xgRQwS28j23RIa5i98LegnklQiZ\nyX6fzYc9KcnqWtz/xGe1c6MLXeYOShqrrVX3qa53SwKBgQDx61asxpMmyI+UEq01\nXGeaGsOY+AAHHrjnmjSotxRy/1V5ooXSK1EPISPAIlzBipyjD5Dd5CC4vAE7yy5V\neuRp8ZCv01nbRdxINK4BAUd/0XlqjamJKLxzwRJnafVu1qmpFKRxd4kLrJ3IfEzG\nMmTYLYI/Pe2k2bDNRXRzX5AgZwKBgQDWeD/ipz5kC6t6zq9w37hy7NmBgah+lmVw\nJfxR5XIo0Nb3z76L2hCl6G9Jlor91pPxCVQjyPiLIKvScL9sjoBZNj2jmdOakhc8\n4DbCj7Ah4CwrIY3EKivj4U3ABRPn0XuElriGmhfEm6lDHBWwII6J/qmOT7dTs5CH\nnkGhfbEGAwKBgG1VcifF2y11CUbfpf5u07fXDr1sn/6XyPOLQu9ZRtmuQkAlzpss\nzoaq8JBeN1OVRLOBTnSqLIuxFFGkwz0IvICRF1YPjBXIngTYIif8HwdKcbhRa+S8\nT2d1Q88PGUhNpgHvfV52qq5nBixc2QneLqtw7eONJoERjZFIKZgXAXlTAoGBAKoe\n7oYKJYpUW2xpoG6Hd5bp20pIH/Bxufrwlqobt6c6qRofFsV2bzg7HHOhz5S0bduH\ni89q7gPmIYUm3CDvFE4voUsxjNESSw6Fx8ojEhJ88GwyDHLrBK+ZGwRSwsxitXih\n2bMjbfENjIDoOSfhW0+IytRQ1Vm2mNGKrgK8YfwjAoGBAJ7+n7HCg+vT8J5LOBEL\n4nbLwVAZEuvGXodbP7c/Z1qhNjONIUDxRsPLxdX6cMhJNLhTeKAk9DmYdKAykSvY\np7YJEr2/XMLPfUP7fqPbyxn2WAW8exe2Ud3ttfkKs+4HDOrpBWzHSpXZ56DdizNa\nlRlLGwAQZmXz1HKvhSbrINNb\n-----END PRIVATE KEY-----\n"
+     client_email = "pmtct-entry-form@pmtct-436005.iam.gserviceaccount.com"
+     client_id = "103577032586913951733"
+     auth_uri = "https://accounts.google.com/o/oauth2/auth"
+     token_uri = "https://oauth2.googleapis.com/token"
+     auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
+     client_x509_cert_url = "https://www.googleapis.com/robot/v1/metadata/x509/pmtct-entry-form%40pmtct-436005.iam.gserviceaccount.com"
+   }'''
+# Load the credentials JSON string as a dictionary
+credentials_dict = json.loads(credentials_json)
+
+# Create Credentials object
+credentials = Credentials.from_service_account_info(credentials_dict)
+
+# Authorize gspread with the credentials
+client = gspread.authorize(credentials)
+
+# Open your Google Sheet
+
+
+# Prepare the data you want to append
+# rows_to_append = [
+#     ["Data 1", "Data 2", "Data 3"],
+#     ["Data 4", "Data 5", "Data 6"],
+#     # Add more rows as needed
+# ]
+
+# Append the rows to the end of the sheet
+sheet.append_rows(rows_to_append, value_input_option='RAW')
 
 file = r'DISTRICT.csv'
 dis = pd.read_csv(file)
@@ -255,18 +290,6 @@ vil = colf.text_input("**VILLAGE**")
 preview = st.button(label='**PREVIEW BEFORE SUBMISSION**')
      
 if preview:
-
-     # def generate_unique_number():
-     #      f = dt.datetime.now()  # Get the current datetime
-     #      g = f.strftime("%Y-%m-%d %H:%M:%S.%f")  # Format datetime as a string including microseconds
-     #      h = g.split('.')[1]  # Extract the microseconds part of the formatted string
-     #      j = h[1:5]  # Get the second through fifth digits of the microseconds part
-     #      return int(j)  # Convert the sliced string to an intege
-
-     # # Initialize the unique number in session state if it doesn't exist
-     # if 'unique_numbe' not in st.session_state:
-     #          st.session_state['unique_numbe'] = generate_unique_number()
-     #          ID = st.session_state['unique_numbe']
      colx,coly = st.columns([1,2])
      if visit=='YES':
           if not ART:
@@ -414,8 +437,9 @@ if st.session_state.preview_clicke:
                               'UNIQUE ID': st.session_state['unique_numbe'],
                               'TIME' :tim,
                               }])
-          # new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
-          #                others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
+     
+          rows_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
+                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
           dfa =df.copy()
           if visit =='YES':
                cola,colb = st.columns(2)
@@ -632,13 +656,7 @@ if st.session_state.preview_clicke:
                     pass
                
                #st.session_state.submit_clicke = True
-               if submit:
-                    # spreadsheet_url = st.secrets["connections"]["gsheets"]["spreadsheet"]
-                    # sheet = client.open_by_url(spreadsheet_url).worksheet("PMTCT")  # Change "Sheet1" to your worksheet name
-                    # #new_data_rows = data1.values.tolist()
-                    # # Append each row from `data` to the Google Sheets
-                    # for row in new_data_rows:
-                    #     sheet.append_row(row)                  
+               if submit:               
                     MAX_RETRIES = 4  # Maximum number of retries
                     WAIT_SECONDS = 5  # Time to wait between retries
                     try:
@@ -666,12 +684,15 @@ if st.session_state.preview_clicke:
                                      #st.success('Your data above has been submitted')
                                      #time.sleep(2)
                                      st.success('SUBMITTED SUCCESSFULLY')
-                                     exist2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
-                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
-                                     conn.update(worksheet='PMTCTB', data=updated2)
-                                     exist2 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
-                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
-                                     conn.update(worksheet='PMTCTC', data=updated2)
+                                     # exist2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
+                                     # updated2 = pd.concat([exist2, dfa], ignore_index=True)
+                                     # conn.update(worksheet='PMTCTB', data=updated2)
+                                     # exist2 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
+                                     # updated2 = pd.concat([exist2, dfa], ignore_index=True)
+                                     # conn.update(worksheet='PMTCTC', data=updated2)
+                                     sheet = client.open("PMTCT").worksheet('PMTCTC')  # You can also use .worksheet("Sheet Name")
+                                     # Append the rows to the end of the sheet
+                                     sheet.append_rows(rows_to_append, value_input_option='RAW')
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
