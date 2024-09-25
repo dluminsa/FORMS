@@ -141,11 +141,9 @@ credentials_info = {
     "client_x509_cert_url": secrets["client_x509_cert_url"]
 }
 
-# Load the credentials JSON string as a dictionary
-credentials_dict = json.loads(credentials_json)
 
-# Create Credentials object
-credentials = Credentials.from_service_account_info(credentials_dict)
+# Create credentials object
+credentials = Credentials.from_service_account_info(credentials_info)
 
 # Authorize gspread with the credentials
 client = gspread.authorize(credentials)
