@@ -681,38 +681,17 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
                         sheet2.append_row(row_to_append, value_input_option='RAW')
                         sheet3 = spreadsheet.worksheet("DELIVERYC")
                         sheet3.append_row(row_to_append, value_input_option='RAW')
-                        df = conn.read(worksheet='DELIVERYA', usecols=list(range(27)), ttl=0)
-                        df = df.tail(20)
-                        names = df['NAME'].unique()  # Extract unique names
-                        facilities = df['HEALTH FACILITY'].unique()
-                        if Name in names and facility in facilities:
-                             pass
-                        else:
-                             time.sleep(WAIT_SECONDS)
-                             
-                        df2 = conn.read(worksheet='DELIVERB', usecols=list(range(27)), ttl=0)
-                        df2 = df2.tail(20)
-                        names2 = df2['NAME'].unique()  # Extract unique names
-                        facilities2 = df['HEALTH FACILITY'].unique()
-                        if Name in names2 and facility in facilities2:
-                             pass
-                        else:
-                             time.sleep(WAIT_SECONDS)
-                        df3 = conn.read(worksheet='DELIVERYC', usecols=list(range(27)), ttl=0)
-                        df3 = df3.tail(20)
-                        names3 = df3['NAME'].unique()  # Extract unique names
-                        facilities3 = df['HEALTH FACILITY'].unique()
-                        if Name in names3 and facility in facilities3:
-                             st.write('RELOADING PAGE')
-                             time.sleep(1)
-                             st.cache_data.clear()
-                             st.cache_resource.clear()
-                             st.markdown("""
-                              <meta http-equiv="refresh" content="0">
-                                """, unsafe_allow_html=True)
-                             break  # Exit the loop and stop retrying since submission was successful
-                        else:
-                             time.sleep(WAIT_SECONDS)
+
+                        st.write('RELOADING PAGE')
+                        time.sleep(1)
+                        st.cache_data.clear()
+                        st.cache_resource.clear()
+                        st.markdown("""
+                          <meta http-equiv="refresh" content="0">
+                            """, unsafe_allow_html=True)
+                        break  # Exit the loop and stop retrying since submission was successful
+                    else:
+                         time.sleep(WAIT_SECONDS)
                 else:
                     st.write('**Too many people submitting ata the same time**') 
                     st.info('**PRESS SUBMIT AGAIN TO RETRY**')
