@@ -11,7 +11,7 @@ st.set_page_config(
      page_title= 'PMTCT FORMS'
 )
 
-
+st.stop()
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
     "KYOTERA": ["KYOTERA", "RAKAI"],
