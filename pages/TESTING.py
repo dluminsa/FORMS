@@ -459,7 +459,7 @@ if st.session_state.preview_clicke:
                               }])
           ad = st.session_state['unique_numbe']
      
-          rows_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
+          row_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
                          others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, ad,tim]
           dfa =df.copy()
           if visit =='YES':
