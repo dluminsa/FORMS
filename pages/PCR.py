@@ -4,6 +4,10 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
+import json
+import gspread
+from google.oauth2.service_account import Credentials
+from oauth2client.service_account import ServiceAccountCredentials
 
 CLUSTER = {
     "KALANGALA": ["KALANGALA"],
@@ -114,7 +118,39 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
-                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']  
+# Access the credentials from the correct path
+secrets = st.secrets["connections"]["gsheets"]
+
+# Prepare the credentials dictionary
+credentials_info = {
+    "type": secrets["type"],
+    "project_id": secrets["project_id"],
+    "private_key_id": secrets["private_key_id"],
+    "private_key": secrets["private_key"],
+    "client_email": secrets["client_email"],
+    "client_id": secrets["client_id"],
+    "auth_uri": secrets["auth_uri"],
+    "token_uri": secrets["token_uri"],
+    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": secrets["client_x509_cert_url"]
+}
+
+# Define the scopes needed for your application
+scopes = ["https://www.googleapis.com/auth/spreadsheets",
+          "https://www.googleapis.com/auth/drive"]
+
+# # Create credentials object
+# credentials = Credentials.from_service_account_info(credentials_info)
+# Create credentials object with the required scopes
+credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+
+# Authorize and access Google Sheets
+client = gspread.authorize(credentials)
+
+# Open the Google Sheet by URL
+spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
+spreadsheet = client.open_by_url(spreadsheetu)
 
 file = r'DISTRICT.csv'
 #backup = r'New BAK.xlsx'
@@ -544,7 +580,15 @@ if st.session_state.preview_click:
             'AGE AT PCR': outcome,
             'DATE OF PCR': date
             }])   
-         #st.write(data)
+    
+    ad =  st.session_state['unique_numer']
+    formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
+    date = str(date)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
+     
+    row_to_append =   [formatted, cluster, district, facility,cohort, arty,unique, ad,visit,visitdistrict,
+            ididistrict,visitfacility,fromfacility,outdistrict,outfacility,Name, ART,Ag,dist, par,vil,
+            phone, phone2,outcome, date] 
+
     if cohort =='YES':
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
@@ -699,30 +743,26 @@ if st.session_state.preview_click:
     
     submit = st.button('SUBMIT')          
     if  submit:
-    #    st.session_state.submit_click = True
-    # else:
-    #     st.stop()
-    # if st.session_state.submit_click:
-    #     # st.session_state.submit_click = True  
-    #     # if st.session_state.submit_click:
             try:
-                conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'PCR', usecols=list(range(35)),ttl=5)
-                existing= exist.dropna(how='all')
-                    #st.write(existing)
-                updated = pd.concat([existing, data], ignore_index =True)
-                conn.update(worksheet = 'PCR', data = updated)
-                st.success('Your data above has been submitted')
+                # Connect to the Google Sheet
+                #conn = st.connection('gsheets', type=GSheetsConnection)
+                st.write('SUBMITTING')
+                # Initialize retry loop
+                
+                sheet1 = spreadsheet.worksheet("PCRA")
+                sheet1.append_row(row_to_append, value_input_option='RAW')
+                sheet2 = spreadsheet.worksheet("PCRB")
+                sheet2.append_row(row_to_append, value_input_option='RAW')
+                sheet3 = spreadsheet.worksheet("PCRC")
+                sheet3.append_row(row_to_append, value_input_option='RAW')
+
                 st.write('RELOADING PAGE')
-                time.sleep(2)
-                st.write('.............................................................................')
-                time.sleep(2)
+                time.sleep(1)
+                st.cache_data.clear()
+                st.cache_resource.clear()
                 st.markdown("""
-                    <meta http-equiv="refresh" content="0">
-                         """, unsafe_allow_html=True)
-            except:
+                          <meta http-equiv="refresh" content="0">
+                            """, unsafe_allow_html=True)
+            
+            except ConnectionError:
                 st.write("Couldn't submit, poor network")
-    # else:
-    #     st.stop()
-else:
-    st.stop()
