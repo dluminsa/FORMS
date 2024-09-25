@@ -149,7 +149,12 @@ credentials = Credentials.from_service_account_info(credentials_info)
 # Authorize and access Google Sheets
 client = gspread.authorize(credentials)
 
-# Open your Google Sheet
+# Open the Google Sheet by URL
+spreadsheet_url = secrets["spreadsheet"]
+spreadsheet = client.open_by_url(spreadsheet_url)
+
+# Access the worksheet named 'PMTCTB'
+sheet = spreadsheet.worksheet("PMTCTB")
 
 
 # Prepare the data you want to append
@@ -697,6 +702,7 @@ if st.session_state.preview_clicke:
                                      sheet = client.open("PMTCT").worksheet('PMTCTC')  # You can also use .worksheet("Sheet Name")
                                      # Append the rows to the end of the sheet
                                      sheet.append_rows(rows_to_append, value_input_option='RAW')
+                                     #sheet.append_rows(rows_to_append, value_input_option='RAW')
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
