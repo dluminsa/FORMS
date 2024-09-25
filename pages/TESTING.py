@@ -710,7 +710,8 @@ if st.session_state.preview_clicke:
                                      # exist2 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
                                      # updated2 = pd.concat([exist2, dfa], ignore_index=True)
                                      # conn.update(worksheet='PMTCTC', data=updated2)
-                                     sheet = client.open("PMTCT").worksheet('PMTCTC')  # You can also use .worksheet("Sheet Name")
+                                     sheet = spreadsheet.worksheet("PMTCTB")
+                                     #sheet = client.open("PMTCT").worksheet('PMTCTC')  # You can also use .worksheet("Sheet Name")
                                      # Append the rows to the end of the sheet
                                      sheet.append_rows(rows_to_append, value_input_option='RAW')
                                      #sheet.append_rows(rows_to_append, value_input_option='RAW')
