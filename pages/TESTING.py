@@ -123,7 +123,7 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
-xxxx
+
 credentials_json = '''{
      "type" : "service_account",
      "project_id": "pmtct-436005",
