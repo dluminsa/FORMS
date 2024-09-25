@@ -125,7 +125,7 @@ ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTE
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
 
 # Extract credentials from secrets
-secrets = st.secrets["gcp_service_account"]
+secrets = st.secrets["connections.gsheets"]
 
 # Print credentials for debugging purposes (be cautious with sensitive info)
 st.write(json.dumps(secrets, indent=2))
