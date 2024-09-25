@@ -689,7 +689,7 @@ if st.session_state.preview_clicke:
                         st.write('SUBMITTING')
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
-                                sheet1 = spreadsheet.worksheet("PMTCT")
+                                sheet1 = spreadsheet.worksheet("BACK1")
                                 sheet1.append_row(row_to_append, value_input_option='RAW')
                                 sheet2 = spreadsheet.worksheet("PMTCTB")
                                 sheet2.append_row(row_to_append, value_input_option='RAW')
