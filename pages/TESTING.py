@@ -152,8 +152,8 @@ client = gspread.authorize(credentials)
 # Open the Google Sheet by URL
 #spreadsheet_url = secrets["spreadsheet"]
 #spreadsheet_url ="https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ/edit?gid=777763999#gid=777763999" 
-spreadsheet_url = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
-spreadsheet = client.open_by_url(spreadsheet_url)
+spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
+spreadsheet = client.open_by_url(spreadsheetu)
 
 # Access the worksheet named 'PMTCTB'
 sheet = spreadsheet.worksheet("PMTCTB")
