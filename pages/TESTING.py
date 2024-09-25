@@ -457,9 +457,10 @@ if st.session_state.preview_clicke:
                               'UNIQUE ID': st.session_state['unique_numbe'],
                               'TIME' :tim,
                               }])
+          ad = st.session_state['unique_numbe']
      
           rows_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
-                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
+                         others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, ad,tim]
           dfa =df.copy()
           if visit =='YES':
                cola,colb = st.columns(2)
@@ -676,7 +677,12 @@ if st.session_state.preview_clicke:
                     pass
                
                #st.session_state.submit_clicke = True
-               if submit:               
+               if submit: 
+                    try:
+                        sheet.append_row(row_to_append, value_input_option='RAW')
+                        st.write("Row appended successfully to 'PMTCTB'!")
+                    except Exception as e:
+                         st.error(f"An error occurred while appending the row: {e}")
                     MAX_RETRIES = 4  # Maximum number of retries
                     WAIT_SECONDS = 5  # Time to wait between retries
                     try:
