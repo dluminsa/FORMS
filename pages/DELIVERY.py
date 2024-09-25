@@ -667,33 +667,31 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
     submit = st.button('Submit')
 
     if submit:
-            MAX_RETRIES = 4  # Maximum number of retries
-            WAIT_SECONDS = 5  # Time to wait between retries
             try:
                 # Connect to the Google Sheet
-                conn = st.connection('gsheets', type=GSheetsConnection)
+                #conn = st.connection('gsheets', type=GSheetsConnection)
                 st.write('SUBMITTING')
                 # Initialize retry loop
-                for attempt in range(MAX_RETRIES):
-                        sheet1 = spreadsheet.worksheet("DELIVERYA")
-                        sheet1.append_row(row_to_append, value_input_option='RAW')
-                        sheet2 = spreadsheet.worksheet("DELIVERB")
-                        sheet2.append_row(row_to_append, value_input_option='RAW')
-                        sheet3 = spreadsheet.worksheet("DELIVERYC")
-                        sheet3.append_row(row_to_append, value_input_option='RAW')
+                
+                sheet1 = spreadsheet.worksheet("DELIVERYA")
+                sheet1.append_row(row_to_append, value_input_option='RAW')
+                sheet2 = spreadsheet.worksheet("DELIVERB")
+                sheet2.append_row(row_to_append, value_input_option='RAW')
+                sheet3 = spreadsheet.worksheet("DELIVERYC")
+                sheet3.append_row(row_to_append, value_input_option='RAW')
 
-                        st.write('RELOADING PAGE')
-                        time.sleep(1)
-                        st.cache_data.clear()
-                        st.cache_resource.clear()
-                        st.markdown("""
+                st.write('RELOADING PAGE')
+                time.sleep(1)
+                st.cache_data.clear()
+                st.cache_resource.clear()
+                st.markdown("""
                           <meta http-equiv="refresh" content="0">
                             """, unsafe_allow_html=True)
-                        break  # Exit the loop and stop retrying since submission was successful
-                else:
-                    st.write('**Too many people submitting ata the same time**') 
-                    st.info('**PRESS SUBMIT AGAIN TO RETRY**')
-                    st.stop()  # Stop the Streamlit app here to let the user manually retry
+                break  # Exit the loop and stop retrying since submission was successful
+                #else:
+                 #   st.write('**Too many people submitting ata the same time**') 
+                  #  st.info('**PRESS SUBMIT AGAIN TO RETRY**')
+                   # st.stop()  # Stop the Streamlit app here to let the user manually retry
             
             except ConnectionError:
                 st.write("Couldn't submit, poor network")
