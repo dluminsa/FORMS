@@ -7,23 +7,6 @@ import datetime as dt
 # import gspread
 # from oauth2client.service_account import ServiceAccountCredentials
 
-# creds = { 
-#     "type": st.secrets["connections"]["gsheets"]["type"],
-#     "project_id": st.secrets["connections"]["gsheets"]["project_id"],
-#     "private_key_id": st.secrets["connections"]["gsheets"]["private_key_id"],
-#     "private_key": st.secrets["connections"]["gsheets"]["private_key"],
-#     "client_email": st.secrets["connections"]["gsheets"]["client_email"],
-#     "client_id": st.secrets["connections"]["gsheets"]["client_id"],
-#     "auth_uri": st.secrets["connections"]["gsheets"]["auth_uri"],
-#     "token_uri": st.secrets["connections"]["gsheets"]["token_uri"],
-#     "auth_provider_x509_cert_url": st.secrets["connections"]["gsheets"]["auth_provider_x509_cert_url"],
-#     "client_x509_cert_url": st.secrets["connections"]["gsheets"]["client_x509_cert_url"]
-# }
-# # Define the scope for the Google Sheets API
-# scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-# credentials = ServiceAccountCredentials.from_json_keyfile_dict(creds, scope)
-# client = gspread.authorize(credentials)
-
 st.set_page_config(
      page_title= 'PMTCT FORMS'
 )
@@ -684,8 +667,8 @@ if st.session_state.preview_clicke:
                                      #time.sleep(2)
                                      st.success('SUBMITTED SUCCESSFULLY')
                                      exist2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
-                                     updated = pd.concat([exist2, df], ignore_index=True)
-                                     conn.update(worksheet='PMTCTB', data=updated)
+                                     updated2 = pd.concat([exist2, df], ignore_index=True)
+                                     conn.update(worksheet='PMTCTB', data=updated2)
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
