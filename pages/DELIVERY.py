@@ -687,7 +687,7 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
                 st.markdown("""
                           <meta http-equiv="refresh" content="0">
                             """, unsafe_allow_html=True)
-                break  # Exit the loop and stop retrying since submission was successful
+                #break  # Exit the loop and stop retrying since submission was successful
                 #else:
                  #   st.write('**Too many people submitting ata the same time**') 
                   #  st.info('**PRESS SUBMIT AGAIN TO RETRY**')
