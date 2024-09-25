@@ -133,7 +133,7 @@ credentials_json = '''{
      "client_id":  "103577032586913951733",
      "auth_uri" : "https://accounts.google.com/o/oauth2/auth",
      "token_uri" : "https://oauth2.googleapis.com/token",
-     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
+     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
      "client_x509_cert_url" : "https://www.googleapis.com/robot/v1/metadata/x509/pmtct-entry-form%40pmtct-436005.iam.gserviceaccount.com"
    }'''
 # Load the credentials JSON string as a dictionary
