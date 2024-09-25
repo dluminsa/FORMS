@@ -458,9 +458,9 @@ if st.session_state.preview_clicke:
                               'TIME' :tim,
                               }])
           ad = st.session_state['unique_numbe']
-          formatted = formatted.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
-          EDD = EDD.strftime('%Y-%m-%d') if isinstance(EDD, date) else EDD
-          dates = dates.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
+          formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
+          EDD = str(EDD)
+          dates = str(dates)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
      
           row_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
                          others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, ad,tim]
