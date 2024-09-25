@@ -679,6 +679,7 @@ if st.session_state.preview_clicke:
                #st.session_state.submit_clicke = True
                if submit: 
                     try:
+                        sheet = spreadsheet.worksheet("PMTCTB")
                         sheet.append_row(row_to_append, value_input_option='RAW')
                         st.write("Row appended successfully to 'PMTCTB'!")
                     except Exception as e:
