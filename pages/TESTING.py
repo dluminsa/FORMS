@@ -125,16 +125,16 @@ ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTE
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
 
 credentials_json = '''{
-     type = "service_account",
-     project_id = "pmtct-436005",
-     private_key_id = "0725bf23560e930e9d35dbba459dd7a717c1dd01",
-     private_key = "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDKrF0kKR6b4ALj\nOrXcF1TeNa73tUYwH+V21Y92+y2WJBMx33N0X/QSdmC/WeyGfMkeBN0Vn9v5it9x\nEfsKY8feqFplHBUUy+dCg6tcV5D7VQwCvu1g5Ourbvl7OBrk7RwFB4Ehe62DJi+1\nl5Xqlhhwx3vYy2cT4SY3yYmeYF8msebAJcVqBZVqSNl0O/GKpBFvsVfdhiCIYcL0\nLJOmBjIPtg+clrznFWLKn8c5NEx5PTmymhXo22FvF+E6Zu7cS7hBf3A8QZgTiQHm\nao9GGCO4Twxt1KtPhJEVinJXPXqbCmaVvPxHepIiV36wPj0kLiG71m2MmXpLkORq\nC9cxqcs1AgMBAAECggEAL2mmOnTiI74Cfuz3qV7N7FPrtCg0nMKBeEzajI+TKQoU\ncXjgNgvSedU2qd0cD5Q2qm6h19K3b8fUoMt/in0wPz7sMrYgmmZfGfjaiDY2BQ3u\nyt+mgaHcHhVOiMxlwkNT6DtKsq4Pt9whkh49pIzrd8q7BssCuKxVt/xOVP4flFnk\nKGwaSX9VMKhWSQiywdHxg/WkLO4lL6IYfKcxtH6kBAYqOaVea/eQQNa9qDuAUG14\n+h3Z92bgayXRaVWorkf4c8OyxSDlJ0I/2nYt4xgRQwS28j23RIa5i98LegnklQiZ\nyX6fzYc9KcnqWtz/xGe1c6MLXeYOShqrrVX3qa53SwKBgQDx61asxpMmyI+UEq01\nXGeaGsOY+AAHHrjnmjSotxRy/1V5ooXSK1EPISPAIlzBipyjD5Dd5CC4vAE7yy5V\neuRp8ZCv01nbRdxINK4BAUd/0XlqjamJKLxzwRJnafVu1qmpFKRxd4kLrJ3IfEzG\nMmTYLYI/Pe2k2bDNRXRzX5AgZwKBgQDWeD/ipz5kC6t6zq9w37hy7NmBgah+lmVw\nJfxR5XIo0Nb3z76L2hCl6G9Jlor91pPxCVQjyPiLIKvScL9sjoBZNj2jmdOakhc8\n4DbCj7Ah4CwrIY3EKivj4U3ABRPn0XuElriGmhfEm6lDHBWwII6J/qmOT7dTs5CH\nnkGhfbEGAwKBgG1VcifF2y11CUbfpf5u07fXDr1sn/6XyPOLQu9ZRtmuQkAlzpss\nzoaq8JBeN1OVRLOBTnSqLIuxFFGkwz0IvICRF1YPjBXIngTYIif8HwdKcbhRa+S8\nT2d1Q88PGUhNpgHvfV52qq5nBixc2QneLqtw7eONJoERjZFIKZgXAXlTAoGBAKoe\n7oYKJYpUW2xpoG6Hd5bp20pIH/Bxufrwlqobt6c6qRofFsV2bzg7HHOhz5S0bduH\ni89q7gPmIYUm3CDvFE4voUsxjNESSw6Fx8ojEhJ88GwyDHLrBK+ZGwRSwsxitXih\n2bMjbfENjIDoOSfhW0+IytRQ1Vm2mNGKrgK8YfwjAoGBAJ7+n7HCg+vT8J5LOBEL\n4nbLwVAZEuvGXodbP7c/Z1qhNjONIUDxRsPLxdX6cMhJNLhTeKAk9DmYdKAykSvY\np7YJEr2/XMLPfUP7fqPbyxn2WAW8exe2Ud3ttfkKs+4HDOrpBWzHSpXZ56DdizNa\nlRlLGwAQZmXz1HKvhSbrINNb\n-----END PRIVATE KEY-----\n",
-     client_email = "pmtct-entry-form@pmtct-436005.iam.gserviceaccount.com",
-     client_id = "103577032586913951733",
-     auth_uri = "https://accounts.google.com/o/oauth2/auth",
-     token_uri = "https://oauth2.googleapis.com/token",
-     auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
-     client_x509_cert_url = "https://www.googleapis.com/robot/v1/metadata/x509/pmtct-entry-form%40pmtct-436005.iam.gserviceaccount.com",
+     "type" : "service_account",
+     "project_id": "pmtct-436005",
+     "private_key_id" : "0725bf23560e930e9d35dbba459dd7a717c1dd01",
+     "private_key" : "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDKrF0kKR6b4ALj\nOrXcF1TeNa73tUYwH+V21Y92+y2WJBMx33N0X/QSdmC/WeyGfMkeBN0Vn9v5it9x\nEfsKY8feqFplHBUUy+dCg6tcV5D7VQwCvu1g5Ourbvl7OBrk7RwFB4Ehe62DJi+1\nl5Xqlhhwx3vYy2cT4SY3yYmeYF8msebAJcVqBZVqSNl0O/GKpBFvsVfdhiCIYcL0\nLJOmBjIPtg+clrznFWLKn8c5NEx5PTmymhXo22FvF+E6Zu7cS7hBf3A8QZgTiQHm\nao9GGCO4Twxt1KtPhJEVinJXPXqbCmaVvPxHepIiV36wPj0kLiG71m2MmXpLkORq\nC9cxqcs1AgMBAAECggEAL2mmOnTiI74Cfuz3qV7N7FPrtCg0nMKBeEzajI+TKQoU\ncXjgNgvSedU2qd0cD5Q2qm6h19K3b8fUoMt/in0wPz7sMrYgmmZfGfjaiDY2BQ3u\nyt+mgaHcHhVOiMxlwkNT6DtKsq4Pt9whkh49pIzrd8q7BssCuKxVt/xOVP4flFnk\nKGwaSX9VMKhWSQiywdHxg/WkLO4lL6IYfKcxtH6kBAYqOaVea/eQQNa9qDuAUG14\n+h3Z92bgayXRaVWorkf4c8OyxSDlJ0I/2nYt4xgRQwS28j23RIa5i98LegnklQiZ\nyX6fzYc9KcnqWtz/xGe1c6MLXeYOShqrrVX3qa53SwKBgQDx61asxpMmyI+UEq01\nXGeaGsOY+AAHHrjnmjSotxRy/1V5ooXSK1EPISPAIlzBipyjD5Dd5CC4vAE7yy5V\neuRp8ZCv01nbRdxINK4BAUd/0XlqjamJKLxzwRJnafVu1qmpFKRxd4kLrJ3IfEzG\nMmTYLYI/Pe2k2bDNRXRzX5AgZwKBgQDWeD/ipz5kC6t6zq9w37hy7NmBgah+lmVw\nJfxR5XIo0Nb3z76L2hCl6G9Jlor91pPxCVQjyPiLIKvScL9sjoBZNj2jmdOakhc8\n4DbCj7Ah4CwrIY3EKivj4U3ABRPn0XuElriGmhfEm6lDHBWwII6J/qmOT7dTs5CH\nnkGhfbEGAwKBgG1VcifF2y11CUbfpf5u07fXDr1sn/6XyPOLQu9ZRtmuQkAlzpss\nzoaq8JBeN1OVRLOBTnSqLIuxFFGkwz0IvICRF1YPjBXIngTYIif8HwdKcbhRa+S8\nT2d1Q88PGUhNpgHvfV52qq5nBixc2QneLqtw7eONJoERjZFIKZgXAXlTAoGBAKoe\n7oYKJYpUW2xpoG6Hd5bp20pIH/Bxufrwlqobt6c6qRofFsV2bzg7HHOhz5S0bduH\ni89q7gPmIYUm3CDvFE4voUsxjNESSw6Fx8ojEhJ88GwyDHLrBK+ZGwRSwsxitXih\n2bMjbfENjIDoOSfhW0+IytRQ1Vm2mNGKrgK8YfwjAoGBAJ7+n7HCg+vT8J5LOBEL\n4nbLwVAZEuvGXodbP7c/Z1qhNjONIUDxRsPLxdX6cMhJNLhTeKAk9DmYdKAykSvY\np7YJEr2/XMLPfUP7fqPbyxn2WAW8exe2Ud3ttfkKs+4HDOrpBWzHSpXZ56DdizNa\nlRlLGwAQZmXz1HKvhSbrINNb\n-----END PRIVATE KEY-----\n",
+     "client_email" : "pmtct-entry-form@pmtct-436005.iam.gserviceaccount.com",
+     "client_id":  "103577032586913951733",
+     "auth_uri" : "https://accounts.google.com/o/oauth2/auth",
+     "token_uri" : "https://oauth2.googleapis.com/token",
+     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs"
+     "client_x509_cert_url" : "https://www.googleapis.com/robot/v1/metadata/x509/pmtct-entry-form%40pmtct-436005.iam.gserviceaccount.com",
    }'''
 # Load the credentials JSON string as a dictionary
 credentials_dict = json.loads(credentials_json)
