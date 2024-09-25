@@ -124,26 +124,17 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
 
-# Load credentials from Streamlit secrets
-secrets = st.secrets["connections"]["gsheets"]
+# Extract credentials from secrets
+secrets = st.secrets["gcp_service_account"]
 
-# Extract each part of the credentials
-credentials_info = {
-    "type": secrets["type"],
-    "project_id": secrets["project_id"],
-    "private_key_id": secrets["private_key_id"],
-    "private_key": secrets["private_key"],
-    "client_email": secrets["client_email"],
-    "client_id": secrets["client_id"],
-    "auth_uri": secrets["auth_uri"],
-    "token_uri": secrets["token_uri"],
-    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
-    "client_x509_cert_url": secrets["client_x509_cert_url"]
-}
+# Print credentials for debugging purposes (be cautious with sensitive info)
+st.write(json.dumps(secrets, indent=2))
 
-
-# Create credentials object
-credentials = Credentials.from_service_account_info(credentials_info)
+try:
+    credentials = Credentials.from_service_account_info(secrets)
+    st.write("Credentials created successfully.")
+except Exception as e:
+    st.error(f"Failed to create credentials: {e}")
 
 # Authorize gspread with the credentials
 client = gspread.authorize(credentials)
