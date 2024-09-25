@@ -124,31 +124,36 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
                 'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO'] 
+# scopes = ["https://www.googleapis.com/auth/spreadsheets",
+#           "https://www.googleapis.com/auth/drive"]
+
+# credentials = Credentials.from_service_account_info(secrets, scopes=scopes)
+
+# Access the credentials from the correct path
+secrets = st.secrets["connections"]["gsheets"]
+
+# Prepare the credentials dictionary
+credentials_info = {
+    "type": secrets["type"],
+    "project_id": secrets["project_id"],
+    "private_key_id": secrets["private_key_id"],
+    "private_key": secrets["private_key"],
+    "client_email": secrets["client_email"],
+    "client_id": secrets["client_id"],
+    "auth_uri": secrets["auth_uri"],
+    "token_uri": secrets["token_uri"],
+    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": secrets["client_x509_cert_url"]
+}
+
+# Define the scopes needed for your application
 scopes = ["https://www.googleapis.com/auth/spreadsheets",
           "https://www.googleapis.com/auth/drive"]
 
-credentials = Credentials.from_service_account_info(secrets, scopes=scopes)
-
-# # Access the credentials from the correct path
-# secrets = st.secrets["connections"]["gsheets"]
-
-# # Prepare the credentials dictionary
-# credentials_info = {
-#     "type": secrets["type"],
-#     "project_id": secrets["project_id"],
-#     "private_key_id": secrets["private_key_id"],
-#     "private_key": secrets["private_key"],
-#     "client_email": secrets["client_email"],
-#     "client_id": secrets["client_id"],
-#     "auth_uri": secrets["auth_uri"],
-#     "token_uri": secrets["token_uri"],
-#     "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
-#     "client_x509_cert_url": secrets["client_x509_cert_url"]
-# }
-
-
 # # Create credentials object
 # credentials = Credentials.from_service_account_info(credentials_info)
+# Create credentials object with the required scopes
+credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
 
 # Authorize and access Google Sheets
 client = gspread.authorize(credentials)
