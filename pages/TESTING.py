@@ -416,7 +416,7 @@ if st.session_state.preview_clicke:
                               }])
           # new_data_rows=[ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
           #                others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, st.session_state['unique_numbe'],tim]
-     
+          dfa =df.copy()
           if visit =='YES':
                cola,colb = st.columns(2)
                cola.write(f'**CLUSTER: {cluster}**')
@@ -667,8 +667,11 @@ if st.session_state.preview_clicke:
                                      #time.sleep(2)
                                      st.success('SUBMITTED SUCCESSFULLY')
                                      exist2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
-                                     updated2 = pd.concat([exist2, df], ignore_index=True)
+                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
                                      conn.update(worksheet='PMTCTB', data=updated2)
+                                     exist2 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
+                                     updated2 = pd.concat([exist2, dfa], ignore_index=True)
+                                     conn.update(worksheet='PMTCTC', data=updated2)
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
