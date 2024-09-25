@@ -653,7 +653,7 @@ if st.session_state.preview_clicke:
                             updated = pd.concat([exist, df], ignore_index=True)
                             
                             # Check if the number of rows is sufficient (100 in this case)
-                            if updated.shape[0] >= 100:
+                            if exist.shape[0] >= 100:
                                 time.sleep(3)
                                 conn.update(worksheet='PMTCT', data=updated)
                                 time.sleep(2)
