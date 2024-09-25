@@ -464,7 +464,7 @@ if st.session_state.preview_clicke:
      
           row_to_append = [ formatted, cluster,district, facility,visit, ART, visitdistrict,ididistrict,visitfacility,fromfacility,
                          others, art, otherdistrict, otherfacility, Name, Ag, dist,sub,par,vil,phone, GA,EDD, dates, PMTCT, ad,tim]
-          dfa =df.copy()
+          
           if visit =='YES':
                cola,colb = st.columns(2)
                cola.write(f'**CLUSTER: {cluster}**')
