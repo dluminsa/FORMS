@@ -114,7 +114,39 @@ ALL =[ "BIGASA HC III","BUTENGA HC IV","KAGOGGO HC II","KIGANGAZZI HC II",
                         "WAKISO BANDA HC II","WAKISO EPI HC III","WAKISO HC IV","WAKISO KASOZI HC III","WATUBBA HC III","ZZINGA HC II"]
                     
 ididistricts = ['BUKOMANSIMBI','BUTAMBALA', 'GOMBA','KALANGALA','KALUNGU','KYOTERA', 'LYANTONDE', 'LWENGO', 'MASAKA CITY', 
-                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']                                                     
+                'MASAKA DISTRICT', 'MPIGI','RAKAI', 'SEMBABULE', 'WAKISO']  
+# Access the credentials from the correct path
+secrets = st.secrets["connections"]["gsheets"]
+
+# Prepare the credentials dictionary
+credentials_info = {
+    "type": secrets["type"],
+    "project_id": secrets["project_id"],
+    "private_key_id": secrets["private_key_id"],
+    "private_key": secrets["private_key"],
+    "client_email": secrets["client_email"],
+    "client_id": secrets["client_id"],
+    "auth_uri": secrets["auth_uri"],
+    "token_uri": secrets["token_uri"],
+    "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
+    "client_x509_cert_url": secrets["client_x509_cert_url"]
+}
+
+# Define the scopes needed for your application
+scopes = ["https://www.googleapis.com/auth/spreadsheets",
+          "https://www.googleapis.com/auth/drive"]
+
+# # Create credentials object
+# credentials = Credentials.from_service_account_info(credentials_info)
+# Create credentials object with the required scopes
+credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+
+# Authorize and access Google Sheets
+client = gspread.authorize(credentials)
+
+# Open the Google Sheet by URL
+spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
+spreadsheet = client.open_by_url(spreadsheetu)
 
 file = r'DISTRICT.csv'
 dis = pd.read_csv(file)
@@ -620,31 +652,75 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
                 #colb.write(f'**PHONE2: {phone2}**')
                 colb.write(f'**OUTCOME: {outcome}**')
                 colb.write(f'**DATE OF DELIVERY: {date}**')
-    
-# if st.session_state.preview_clicked:
+    {  formatted, cluster, district,facility, cohort, arty, unique,  st.session_state['unique_numb'], visit,
+             visitdistrict, ididistrict,visitfacility,fromfacility, otherfacility, outdistrict, outfacility,
+            Name, ART,Ag,dist, par, vil, phone,  phone2,outcome, date
+            }])  
+
+    ad =  st.session_state['unique_numb']
+    formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
+    date = str(date)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
+     
+    row_to_append = [formatted, cluster, district,facility, cohort, arty, unique,  ad, visit,
+             visitdistrict, ididistrict,visitfacility,fromfacility, otherfacility, outdistrict, outfacility,
+            Name, ART,Ag,dist, par, vil, phone,  phone2,outcome, date]
+          
     submit = st.button('Submit')
 
     if submit:
+            MAX_RETRIES = 4  # Maximum number of retries
+            WAIT_SECONDS = 5  # Time to wait between retries
             try:
+                # Connect to the Google Sheet
                 conn = st.connection('gsheets', type=GSheetsConnection)
-                exist = conn.read(worksheet= 'DELIVERY', usecols=list(range(30)),ttl=5)
-                existing= exist.dropna(how='all')
-                    #st.write(existing)
-                updated = pd.concat([existing, data], ignore_index =True)
-                conn.update(worksheet = 'DELIVERY', data = updated)
-                st.success('Your data above has been submitted')
-                st.write('RELOADING PAGE')
-                time.sleep(2)
-                st.write('.............................................................................')
-                time.sleep(2)
-                st.markdown("""
-                    <meta http-equiv="refresh" content="0">
-                         """, unsafe_allow_html=True)
-            except:
+                st.write('SUBMITTING')
+                # Initialize retry loop
+                for attempt in range(MAX_RETRIES):
+                        sheet1 = spreadsheet.worksheet("DELIVERYA")
+                        sheet1.append_row(row_to_append, value_input_option='RAW')
+                        sheet2 = spreadsheet.worksheet("DELIVERB")
+                        sheet2.append_row(row_to_append, value_input_option='RAW')
+                        sheet3 = spreadsheet.worksheet("DELIVERYC")
+                        sheet3.append_row(row_to_append, value_input_option='RAW')
+                        df = conn.read(worksheet='DELIVERYA', usecols=list(range(27)), ttl=0)
+                        df = df.tail(20)
+                        names = df['NAME'].unique()  # Extract unique names
+                        facilities = df['HEALTH FACILITY'].unique()
+                        if Name in names and facility in facilities:
+                             pass
+                        else:
+                             time.sleep(WAIT_SECONDS)
+                             
+                        df2 = conn.read(worksheet='DELIVERB', usecols=list(range(27)), ttl=0)
+                        df2 = df2.tail(20)
+                        names2 = df2['NAME'].unique()  # Extract unique names
+                        facilities2 = df['HEALTH FACILITY'].unique()
+                        if Name in names2 and facility in facilities2:
+                             pass
+                        else:
+                             time.sleep(WAIT_SECONDS)
+                        df3 = conn.read(worksheet='DELIVERYC', usecols=list(range(27)), ttl=0)
+                        df3 = df3.tail(20)
+                        names3 = df3['NAME'].unique()  # Extract unique names
+                        facilities3 = df['HEALTH FACILITY'].unique()
+                        if Name in names3 and facility in facilities3:
+                             st.write('RELOADING PAGE')
+                             time.sleep(1)
+                             st.cache_data.clear()
+                             st.cache_resource.clear()
+                             st.markdown("""
+                              <meta http-equiv="refresh" content="0">
+                                """, unsafe_allow_html=True)
+                             break  # Exit the loop and stop retrying since submission was successful
+                        else:
+                             time.sleep(WAIT_SECONDS)
+                else:
+                    st.write('**Too many people submitting ata the same time**') 
+                    st.info('**PRESS SUBMIT AGAIN TO RETRY**')
+                    st.stop()  # Stop the Streamlit app here to let the user manually retry
+            
+            except ConnectionError:
                 st.write("Couldn't submit, poor network")
-    else:
-        st.stop()
-else:
-    st.stop()
+
                 
 
