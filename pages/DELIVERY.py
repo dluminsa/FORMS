@@ -501,6 +501,13 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
             'DATE OF DELIVERY': date
             }])   
          #st.write(data)
+    ad =  st.session_state['unique_numb']
+    formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
+    date = str(date)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
+     
+    row_to_append = [formatted, cluster, district,facility, cohort, arty, unique,  ad, visit,
+             visitdistrict, ididistrict,visitfacility,fromfacility, otherfacility, outdistrict, outfacility,
+            Name, ART,Ag,dist, par, vil, phone,  phone2,outcome, date]
     if cohort =='YES':
                 cola,colb = st.columns(2)
                 cola.write(f'**CLUSTER: {cluster}**')               
@@ -652,18 +659,6 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
                 #colb.write(f'**PHONE2: {phone2}**')
                 colb.write(f'**OUTCOME: {outcome}**')
                 colb.write(f'**DATE OF DELIVERY: {date}**')
-    {  formatted, cluster, district,facility, cohort, arty, unique,  st.session_state['unique_numb'], visit,
-             visitdistrict, ididistrict,visitfacility,fromfacility, otherfacility, outdistrict, outfacility,
-            Name, ART,Ag,dist, par, vil, phone,  phone2,outcome, date
-            }])  
-
-    ad =  st.session_state['unique_numb']
-    formatted = str(formatted)#.strftime('%Y-%m-%d') if isinstance(formatted, date) else formatted
-    date = str(date)#.strftime('%Y-%m-%d') if isinstance(dates, date) else dates
-     
-    row_to_append = [formatted, cluster, district,facility, cohort, arty, unique,  ad, visit,
-             visitdistrict, ididistrict,visitfacility,fromfacility, otherfacility, outdistrict, outfacility,
-            Name, ART,Ag,dist, par, vil, phone,  phone2,outcome, date]
           
     submit = st.button('Submit')
 
