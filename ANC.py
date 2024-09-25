@@ -689,13 +689,13 @@ if st.session_state.preview_clicke:
                         st.write('SUBMITTING')
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
-                                sheet1 = spreadsheet.worksheet("BACK1")
+                                sheet1 = spreadsheet.worksheet("PMTCT")
                                 sheet1.append_row(row_to_append, value_input_option='RAW')
                                 sheet2 = spreadsheet.worksheet("PMTCTB")
                                 sheet2.append_row(row_to_append, value_input_option='RAW')
                                 sheet3 = spreadsheet.worksheet("PMTCTC")
                                 sheet3.append_row(row_to_append, value_input_option='RAW')
-                                df = conn.read(worksheet='BACK1', usecols=list(range(27)), ttl=0)
+                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
                                 df = df.tail(20)
                                 names = df['NAME'].unique()  # Extract unique names
                                 facilities = df['HEALTH FACILITY'].unique()
