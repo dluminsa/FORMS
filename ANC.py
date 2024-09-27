@@ -4,6 +4,7 @@ from streamlit_gsheets import GSheetsConnection
 import streamlit as st
 import time
 import datetime as dt
+import traceback
 import json
 import gspread
 from google.oauth2.service_account import Credentials
@@ -145,38 +146,26 @@ credentials_info = {
     "auth_provider_x509_cert_url": secrets["auth_provider_x509_cert_url"],
     "client_x509_cert_url": secrets["client_x509_cert_url"]
 }
+try:
+     # Define the scopes needed for your application
+     scopes = ["https://www.googleapis.com/auth/spreadsheets",
+               "https://www.googleapis.com/auth/drive"]
+     
+     
+     credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
+     
+     # Authorize and access Google Sheets
+     client = gspread.authorize(credentials)
+     
+     # Open the Google Sheet by URL
+     spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
+     spreadsheet = client.open_by_url(spreadsheetu)
+except Exception as e:
+    # Log the error message
+     st.write(f"CHECK: {e}")
+     st.write(traceback.format_exc())
+     st.write("COULDN'T CONNECT TO GOOGLE SHEET, TRY AGAIN")
 
-# Define the scopes needed for your application
-scopes = ["https://www.googleapis.com/auth/spreadsheets",
-          "https://www.googleapis.com/auth/drive"]
-
-# # Create credentials object
-# credentials = Credentials.from_service_account_info(credentials_info)
-# Create credentials object with the required scopes
-credentials = Credentials.from_service_account_info(credentials_info, scopes=scopes)
-
-# Authorize and access Google Sheets
-client = gspread.authorize(credentials)
-
-# Open the Google Sheet by URL
-#spreadsheet_url = secrets["spreadsheet"]
-#spreadsheet_url ="https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ/edit?gid=777763999#gid=777763999" 
-spreadsheetu = "https://docs.google.com/spreadsheets/d/1q7oeVZ6UNhDxAj24qk3hLFLX2d0pGfxCsM9XycocqYQ"
-spreadsheet = client.open_by_url(spreadsheetu)
-
-# Access the worksheet named 'PMTCTB'
-sheet = spreadsheet.worksheet("PMTCTB")
-
-
-# Prepare the data you want to append
-# rows_to_append = [
-#     ["Data 1", "Data 2", "Data 3"],
-#     ["Data 4", "Data 5", "Data 6"],
-#     # Add more rows as needed
-# ]
-
-# Append the rows to the end of the sheet
-#sheet.append_rows(rows_to_append, value_input_option='RAW')
 
 file = r'DISTRICT.csv'
 dis = pd.read_csv(file)
@@ -184,11 +173,8 @@ dis1 = dis[dis['ORG'] == 'OTHERS'].copy()
 alldistricts = dis1['DISTRICT'].unique()
 alldistrictsidi = dis['DISTRICT'].unique()
 
-# Title of the Streamlit app
-#st.title("PMTCT DASHBOARD DATA ENTRY FORM")
 st.markdown("<h4><b>PMTCT DASHBOARD ANC DATA ENTRY FORM</b></h4>", unsafe_allow_html=True)
 st.markdown('***means required**')
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
 ART =  ""
 aa = ''
@@ -420,7 +406,6 @@ if st.session_state.preview_clicke:
                st.session_state['unique_numbe'] = ''
           else:
                 st.session_state['unique_number'] = generate_unique_number()
-
 
      #if st.session_state.preview_clicke and not st.session_state.submit_clicke:
           # if not st.session_state.submit_clicke:    
@@ -689,34 +674,25 @@ if st.session_state.preview_clicke:
                         st.write('SUBMITTING')
                         # Initialize retry loop
                         for attempt in range(MAX_RETRIES):
-                                sheet1 = spreadsheet.worksheet("PMTCT")
-                                sheet1.append_row(row_to_append, value_input_option='RAW')
-                                sheet2 = spreadsheet.worksheet("PMTCTB")
-                                sheet2.append_row(row_to_append, value_input_option='RAW')
-                                sheet3 = spreadsheet.worksheet("PMTCTC")
-                                sheet3.append_row(row_to_append, value_input_option='RAW')
-                                df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                                try:
+                                     sheet1 = spreadsheet.worksheet("PMTCT")
+                                     sheet1.append_row(row_to_append, value_input_option='RAW')
+                                     sheet2 = spreadsheet.worksheet("PMTCTB")
+                                     sheet2.append_row(row_to_append, value_input_option='RAW')
+                                     sheet3 = spreadsheet.worksheet("PMTCTC")
+                                     sheet3.append_row(row_to_append, value_input_option='RAW')
+                                     df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
+                                except Exception as e:
+                                     # Print the error message
+                                     st.write(f"CHECK: {e}")
+                                     st.write(traceback.format_exc())
+                                     st.write('**Too many people submitting at the same time**') 
+                                     st.info('**PRESS SUBMIT AGAIN TO RETRY**')
+                                     st.stop()  # Stop the Streamlit app here to let the user manually retry                                     
                                 df = df.tail(20)
                                 names = df['NAME'].unique()  # Extract unique names
                                 facilities = df['HEALTH FACILITY'].unique()
                                 if Name in names and facility in facilities:
-                                     pass
-                                else:
-                                     time.sleep(WAIT_SECONDS)
-                                     
-                                df2 = conn.read(worksheet='PMTCTB', usecols=list(range(27)), ttl=0)
-                                df2 = df2.tail(20)
-                                names2 = df2['NAME'].unique()  # Extract unique names
-                                facilities2 = df['HEALTH FACILITY'].unique()
-                                if Name in names2 and facility in facilities2:
-                                     pass
-                                else:
-                                     time.sleep(WAIT_SECONDS)
-                                df3 = conn.read(worksheet='PMTCTC', usecols=list(range(27)), ttl=0)
-                                df3 = df3.tail(20)
-                                names3 = df3['NAME'].unique()  # Extract unique names
-                                facilities3 = df['HEALTH FACILITY'].unique()
-                                if Name in names3 and facility in facilities3:
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
@@ -728,7 +704,7 @@ if st.session_state.preview_clicke:
                                 else:
                                      time.sleep(WAIT_SECONDS)
                         else:
-                            st.write('**Too many people submitting ata the same time**') 
+                            st.write('**Too many people submitting at the same time**') 
                             st.info('**PRESS SUBMIT AGAIN TO RETRY**')
                             st.stop()  # Stop the Streamlit app here to let the user manually retry
                     
