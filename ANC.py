@@ -693,6 +693,8 @@ if st.session_state.preview_clicke:
                                 names = df['NAME'].unique()  # Extract unique names
                                 facilities = df['HEALTH FACILITY'].unique()
                                 if Name in names and facility in facilities:
+                                     st.success('DATA SUBMITTED, THANK YOU')
+                                     time.sleep(2)
                                      st.write('RELOADING PAGE')
                                      time.sleep(1)
                                      st.cache_data.clear()
