@@ -676,7 +676,8 @@ if st.session_state.preview_clicked:# and not st.session_state.submit_clicked:
                 sheet1 = spreadsheet.worksheet("DELIVERYA")
                 sheet1.append_row(row_to_append, value_input_option='RAW')
                 sheet2 = spreadsheet.worksheet("DELIVERYB")
-                sheet2.append_row(row_to_append, value_input_option='RAW')
+                # st.write(
+                # sheet2.append_row(row_to_append, value_input_option='RAW')
                 sheet3 = spreadsheet.worksheet("DELIVERYC")
                 sheet3.append_row(row_to_append, value_input_option='RAW')
 
