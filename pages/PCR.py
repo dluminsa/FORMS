@@ -331,7 +331,7 @@ if cohort=='YES':
                  try:
                         conn = st.connection('gsheets', type=GSheetsConnection)
                         if 'exist_d' not in st.session_state:
-                            art = conn.read(worksheet= 'DELIVERY', usecols=list(range(25)),ttl=0)
+                            art = conn.read(worksheet= 'DELIVERYA', usecols=list(range(25)),ttl=0)
                             st.session_state['exist_d'] = art
                         else:
                             art = st.session_state['exist_d']
