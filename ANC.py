@@ -6,7 +6,6 @@ import time
 import datetime as dt
 import traceback
 import json
-ffff
 import gspread
 from google.oauth2.service_account import Credentials
 from oauth2client.service_account import ServiceAccountCredentials
