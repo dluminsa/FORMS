@@ -2,7 +2,6 @@ import pandas as pd
 from datetime import datetime
 from streamlit_gsheets import GSheetsConnection
 import streamlit as st
-dddd
 import time
 import datetime as dt
 import traceback
