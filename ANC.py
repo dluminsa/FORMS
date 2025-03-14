@@ -676,7 +676,7 @@ if st.session_state.preview_clicke:
                         for attempt in range(MAX_RETRIES):
                                 try:
                                      sheet1 = spreadsheet.worksheet("PMTCT")
-                                     sheet1.append_row(row_to_append, value_input_option='RAW')
+                                     sheet12.append_row(row_to_append, value_input_option='RAW')
                                      sheet2 = spreadsheet.worksheet("PMTCTB")
                                      sheet2.append_row(row_to_append, value_input_option='RAW')
                                      sheet3 = spreadsheet.worksheet("PMTCTC")
@@ -684,7 +684,9 @@ if st.session_state.preview_clicke:
                                      df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
                                 except Exception as e:
                                      # Print the error message
-                                     st.write(f"CHECK: {e}")
+                                     st.write('** EXPIRED APIs, OWNER SHOULD FIRST RENEW**')
+                                     st.stop()
+                                     #st.write(f"CHECK: {e}")
                                      st.write(traceback.format_exc())
                                      st.write('**Too many people submitting at the same time**') 
                                      st.info('**PRESS SUBMIT AGAIN TO RETRY**')
