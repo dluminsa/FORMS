@@ -676,7 +676,6 @@ if st.session_state.preview_clicke:
                         for attempt in range(MAX_RETRIES):
                                 try:
                                      sheet1 = spreadsheet.worksheet("PMTCT")
-                                     sheet12.append_row(row_to_append, value_input_option='RAW')
                                      sheet2 = spreadsheet.worksheet("PMTCTB")
                                      sheet2.append_row(row_to_append, value_input_option='RAW')
                                      sheet3 = spreadsheet.worksheet("PMTCTC")
