@@ -684,8 +684,8 @@ if st.session_state.preview_clicke:
                                      df = conn.read(worksheet='PMTCT', usecols=list(range(27)), ttl=0)
                                 except Exception as e:
                                      # Print the error message
-                                     st.write('** EXPIRED APIs, OWNER SHOULD FIRST RENEW**')
-                                     st.stop()
+                                     #st.write('** EXPIRED APIs, OWNER SHOULD FIRST RENEW**')
+                                     #st.stop()
                                      #st.write(f"CHECK: {e}")
                                      st.write(traceback.format_exc())
                                      st.write('**Too many people submitting at the same time**') 
