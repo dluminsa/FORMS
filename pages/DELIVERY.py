@@ -468,7 +468,6 @@ if preview:
                st.session_state['unique_numb'] = ''
     if visit == 'YES':
                st.session_state['unique_numb'] = ''
-    `
     st.session_state.preview_clicked = True
     
     
