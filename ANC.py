@@ -679,6 +679,8 @@ if st.session_state.preview_clicke:
                                      sheet2 = spreadsheet.worksheet("PMTCTB")
                                      sheet2.append_row(row_to_append, value_input_option='RAW')
                                      sheet3 = spreadsheet.worksheet("PMTCTC")
+                                     sheet1.append_row(row_to_append, value_input_option='RAW')
+                                     sheet2.append_row(row_to_append, value_input_option='RAW')
                                      sheet3.append_row(row_to_append, value_input_option='RAW')
                                      df = conn.read(worksheet='PMTCT', usecols=list(range(26)), ttl=0)
                                 except Exception as e:
